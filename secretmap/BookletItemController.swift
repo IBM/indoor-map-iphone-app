@@ -24,6 +24,10 @@ class BookletItemController: UIViewController {
     }
     
     @IBOutlet var contentImageView: UIImageView?
+    @IBOutlet var pageTitle: UILabel?
+    @IBOutlet var subtitle: UILabel?
+    @IBOutlet var statement: UILabel?
+    @IBOutlet var subtext: UITextView?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {

@@ -18,6 +18,7 @@
 		A2234E0A1FF4140A002B8244 /* telescope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E001FF4140A002B8244 /* telescope@2x.png */; };
 		A2234E0B1FF4140A002B8244 /* watson@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E011FF4140A002B8244 /* watson@2x.png */; };
 		A2234E0D1FF4220B002B8244 /* BookletItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2234E0C1FF4220B002B8244 /* BookletItemController.swift */; };
+		A2234E191FF5B108002B8244 /* booklet.json in Resources */ = {isa = PBXBuildFile; fileRef = A2234E181FF5B108002B8244 /* booklet.json */; };
 		A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */; };
 		A2908D741FE2BEE200A0E9BE /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D731FE2BEE200A0E9BE /* FirstViewController.swift */; };
 		A2908D761FE2BEE200A0E9BE /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D751FE2BEE200A0E9BE /* SecondViewController.swift */; };
@@ -58,6 +59,7 @@
 		A2234E001FF4140A002B8244 /* telescope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "telescope@2x.png"; path = "../../../../../Creative Cloud Files/2x/telescope@2x.png"; sourceTree = "<group>"; };
 		A2234E011FF4140A002B8244 /* watson@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "watson@2x.png"; path = "../../../../../Creative Cloud Files/2x/watson@2x.png"; sourceTree = "<group>"; };
 		A2234E0C1FF4220B002B8244 /* BookletItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookletItemController.swift; sourceTree = "<group>"; };
+		A2234E181FF5B108002B8244 /* booklet.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = booklet.json; sourceTree = "<group>"; };
 		A2908D6E1FE2BEE200A0E9BE /* secretmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = secretmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2908D731FE2BEE200A0E9BE /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				A2908D7F1FE2BEE200A0E9BE /* Info.plist */,
 				A2E815A21FE876A000EC6F2A /* BookletController.swift */,
 				A2234E0C1FF4220B002B8244 /* BookletItemController.swift */,
+				A2234E181FF5B108002B8244 /* booklet.json */,
 			);
 			path = secretmap;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				A2234E041FF4140A002B8244 /* blockchain@2x.png in Resources */,
 				A2234E051FF4140A002B8244 /* kubernetes@2x.png in Resources */,
 				A2234E031FF4140A002B8244 /* footprint@2x.png in Resources */,
+				A2234E191FF5B108002B8244 /* booklet.json in Resources */,
 				A2234E0B1FF4140A002B8244 /* watson@2x.png in Resources */,
 				A2234E061FF4140A002B8244 /* scales@2x.png in Resources */,
 				A2908D791FE2BEE200A0E9BE /* Main.storyboard in Resources */,
