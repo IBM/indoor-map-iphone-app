@@ -12,49 +12,30 @@ import UIKit
 
 class BookletController: UIViewController, UIPageViewControllerDataSource {
     
-    // MARK: - Variables
     private var pageViewController: UIPageViewController?
-    
-    // Initialize it right away here
-    private let contentImages = ["blockchain",
-                                 "footprint",
-                                 "watson",
-                                 "boy pirate",
-                                 "girl pirate"]
     
     private var pages:[[String: AnyObject]]?
     
-    // MARK: - View Lifecycle
+    private var pageCount = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let path = Bundle.main.url(forResource: "booklet", withExtension: "json") {
             do {
-                let data = try Data(contentsOf: path, options: .mappedIfSafe)
-//                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                _ = try Data(contentsOf: path, options: .mappedIfSafe)
                 let jsonData = try Data(contentsOf: path, options: .mappedIfSafe)
                 if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? [String: AnyObject] {
                     
                     if let pages = jsonDict["pages"] as? [[String: AnyObject]] {
-                        
                         self.pages = pages
-                        
-                        for page in pages {
-                            
-                            print(page["title"]!)
-
-                            print("\n")
-                        }
+                        self.pageCount = pages.count
+                        createPageViewController()
+                        setupPageControl()
                     }
-                    
-                    createPageViewController()
-                    setupPageControl()
-                    
                 }
-                
-                
             } catch {
-                // handle error
+                print("couldn't parse JSON data")
             }
         }
     }
@@ -64,7 +45,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
         let pageController = self.storyboard!.instantiateViewController(withIdentifier: "booklet") as! UIPageViewController
         pageController.dataSource = self
         
-        if contentImages.count > 0 {
+        if self.pageCount > 0 {
             let firstController = getItemController(itemIndex: 0)!
             let startingViewControllers = [firstController]
             pageController.setViewControllers(startingViewControllers, direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
@@ -100,7 +81,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
         
         let itemController = viewController as! BookletItemController
         
-        if itemController.itemIndex+1 < contentImages.count {
+        if itemController.itemIndex+1 < self.pageCount {
             return getItemController(itemIndex: itemController.itemIndex+1)
         }
         
@@ -109,12 +90,11 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     
     private func getItemController(itemIndex: Int) -> BookletItemController? {
         
-        if itemIndex < contentImages.count {
+        if itemIndex < self.pages!.count {
             let pageItemController = self.storyboard!.instantiateViewController(withIdentifier: "ItemController") as! BookletItemController
             pageItemController.itemIndex = itemIndex
-            
-           print(self.pages![2]["image"]!)
-            
+            pageItemController.titleString = self.pages![itemIndex]["title"]! as! String
+            pageItemController.subTitleString = self.pages![itemIndex]["subtitle"]! as! String
             pageItemController.imageName = self.pages![itemIndex]["image"]! as! String
             return pageItemController
         }
@@ -125,7 +105,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     // MARK: - Page Indicator
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return contentImages.count
+        return self.pages!.count
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
