@@ -13,8 +13,8 @@ class BookletItemController: UIViewController {
     @IBOutlet var contentImageView: UIImageView?
     @IBOutlet var pageTitleView: UILabel?
     @IBOutlet var subtitleView: UILabel?
-    @IBOutlet var statement: UILabel?
-    @IBOutlet var subtext: UITextView?
+    @IBOutlet var statement: UITextView?
+    @IBOutlet var subtextView: UILabel?
     
     // MARK: - Variables
     var itemIndex: Int = 0
@@ -43,11 +43,29 @@ class BookletItemController: UIViewController {
         }
     }
     
+    var subtextString: String = "" {
+        didSet {
+            if let subtextView = subtextView {
+                subtextView.text = subtextString
+            }
+        }
+    }
+    
+    var statementString: String = "" {
+        didSet {
+            if let statement = statement {
+                statement.text = statementString
+            }
+        }
+    }
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         contentImageView!.image = UIImage(named: imageName)
         pageTitleView!.text = titleString
         subtitleView!.text = subTitleString
+        subtextView!.text = subtextString
+        statement?.text = statementString
     }
 }

@@ -263,6 +263,8 @@
                     <connections>
                         <outlet property="contentImageView" destination="8rl-aB-WtY" id="rK0-ta-RO4"/>
                         <outlet property="pageTitleView" destination="oJF-RD-5RA" id="bUH-SK-Vyj"/>
+                        <outlet property="statement" destination="i3G-b5-np5" id="TyT-Tk-Ov3"/>
+                        <outlet property="subtextView" destination="0da-IG-raE" id="aUf-qW-MXN"/>
                         <outlet property="subtitleView" destination="w9t-Xm-Xnh" id="mej-Z7-E94"/>
                         <outlet property="view" destination="FtQ-AS-qUF" id="9A9-0a-0nY"/>
                     </connections>

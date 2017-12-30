@@ -96,6 +96,9 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
             pageItemController.titleString = self.pages![itemIndex]["title"]! as! String
             pageItemController.subTitleString = self.pages![itemIndex]["subtitle"]! as! String
             pageItemController.imageName = self.pages![itemIndex]["image"]! as! String
+            pageItemController.subtextString = self.pages![itemIndex]["subtext"]! as! String
+            pageItemController.statementString = self.pages![itemIndex]["description"]! as! String
+
             return pageItemController
         }
         
