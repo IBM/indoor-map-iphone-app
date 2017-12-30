@@ -150,9 +150,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="think" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJF-RD-5RA">
-                                                <rect key="frame" x="112.5" y="10" width="76" height="30"/>
+                                                <rect key="frame" x="112.5" y="0.0" width="76" height="50"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="rZs-Ew-SKW"/>
+                                                    <constraint firstAttribute="height" constant="50" id="rZs-Ew-SKW"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="32"/>
                                                 <color key="textColor" red="0.89205735921859741" green="0.21648386120796204" blue="0.094441704452037811" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -190,10 +190,10 @@
                                         <rect key="frame" x="0.0" y="100" width="300" height="200"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8rl-aB-WtY">
-                                                <rect key="frame" x="75" y="25" width="150" height="150"/>
+                                                <rect key="frame" x="60" y="10" width="180" height="180"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="Olu-nK-oJI"/>
-                                                    <constraint firstAttribute="width" constant="150" id="pLS-HF-rCe"/>
+                                                    <constraint firstAttribute="height" constant="180" id="Olu-nK-oJI"/>
+                                                    <constraint firstAttribute="width" constant="180" id="pLS-HF-rCe"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
@@ -234,7 +234,7 @@
                                                     <constraint firstAttribute="height" constant="100" id="KvB-DK-AMe"/>
                                                     <constraint firstAttribute="width" constant="200" id="Lyx-Wf-Z1f"/>
                                                 </constraints>
-                                                <color key="textColor" red="0.89205735919999996" green="0.21648386119999999" blue="0.094441704449999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.93925684690475464" green="0.29694777727127075" blue="0.19119751453399658" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
