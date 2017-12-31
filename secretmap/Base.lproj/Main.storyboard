@@ -51,7 +51,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="1249" y="-1231"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="wg7-f3-ORb">
@@ -88,7 +88,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="1249" y="-506"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="3nV-TO-QEh">
@@ -96,7 +96,7 @@
                 <pageViewController storyboardIdentifier="booklet" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="No4-8A-jMP" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Sd-LA-Tv3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="855" y="1057"/>
+            <point key="canvasLocation" x="718" y="963"/>
         </scene>
         <!--Booklet Controller-->
         <scene sceneID="o5o-Sr-JAo">
@@ -109,12 +109,12 @@
                         <viewLayoutGuide key="safeArea" id="GqQ-W8-vbw"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="anctor-tab.png" id="NoI-y8-o4c">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                     </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7lp-hV-eGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="230" y="1057"/>
+            <point key="canvasLocation" x="-1" y="963"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -129,11 +129,28 @@
                         <segue destination="fpc-HM-0eY" kind="relationship" relationship="viewControllers" id="NW5-po-DyS"/>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="7ZG-tj-4wL"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="Qsl-1O-oM9"/>
+                        <segue destination="zKh-1a-vyv" kind="relationship" relationship="viewControllers" id="Akn-iN-heC"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="1MJ-6t-cu9">
+            <objects>
+                <viewController id="zKh-1a-vyv" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yy8-Uj-HUQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="8ZS-go-TKr"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="footprint-tab.png" id="GG2-qJ-UW6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m64-NQ-GOC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1249" y="212"/>
         </scene>
         <!--Booklet Item Controller-->
         <scene sceneID="4LL-Y6-DSn">
@@ -275,12 +292,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ae-rb-llf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1490.4000000000001" y="1055.6221889055473"/>
+            <point key="canvasLocation" x="1462" y="963"/>
         </scene>
     </scenes>
     <resources>
         <image name="anctor-tab.png" width="30" height="30"/>
         <image name="compass.png" width="30" height="30"/>
+        <image name="footprint-tab.png" width="30" height="30"/>
         <image name="glasses.png" width="30" height="30"/>
     </resources>
 </document>

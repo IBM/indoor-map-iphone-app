@@ -23,6 +23,7 @@
 		A2234E1F1FF88A0F002B8244 /* anctor-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E1E1FF88A0F002B8244 /* anctor-tab.png */; };
 		A2234E211FF8992E002B8244 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E201FF8992E002B8244 /* compass.png */; };
 		A2234E231FF899AC002B8244 /* glasses.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E221FF899AB002B8244 /* glasses.png */; };
+		A2234E251FF99B84002B8244 /* footprint-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E241FF99B84002B8244 /* footprint-tab.png */; };
 		A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */; };
 		A2908D741FE2BEE200A0E9BE /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D731FE2BEE200A0E9BE /* FirstViewController.swift */; };
 		A2908D761FE2BEE200A0E9BE /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D751FE2BEE200A0E9BE /* SecondViewController.swift */; };
@@ -68,6 +69,7 @@
 		A2234E1E1FF88A0F002B8244 /* anctor-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "anctor-tab.png"; path = "../../../../anctor-tab.png"; sourceTree = "<group>"; };
 		A2234E201FF8992E002B8244 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = compass.png; path = ../../../../compass.png; sourceTree = "<group>"; };
 		A2234E221FF899AB002B8244 /* glasses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glasses.png; sourceTree = "<group>"; };
+		A2234E241FF99B84002B8244 /* footprint-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint-tab.png"; sourceTree = "<group>"; };
 		A2908D6E1FE2BEE200A0E9BE /* secretmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = secretmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2908D731FE2BEE200A0E9BE /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				A2234DFB1FF41409002B8244 /* kubernetes@2x.png */,
 				A2234DFC1FF4140A002B8244 /* scales@2x.png */,
 				A2234E201FF8992E002B8244 /* compass.png */,
+				A2234E241FF99B84002B8244 /* footprint-tab.png */,
 				A2234E221FF899AB002B8244 /* glasses.png */,
 				A2234E001FF4140A002B8244 /* telescope@2x.png */,
 				A2234E1C1FF82CF1002B8244 /* anchor@2x.png */,
@@ -300,6 +303,7 @@
 				A2234E0A1FF4140A002B8244 /* telescope@2x.png in Resources */,
 				A2908D7B1FE2BEE200A0E9BE /* Assets.xcassets in Resources */,
 				A2234E041FF4140A002B8244 /* blockchain@2x.png in Resources */,
+				A2234E251FF99B84002B8244 /* footprint-tab.png in Resources */,
 				A2234E051FF4140A002B8244 /* kubernetes@2x.png in Resources */,
 				A2234E031FF4140A002B8244 /* footprint@2x.png in Resources */,
 				A2234E191FF5B108002B8244 /* booklet.json in Resources */,

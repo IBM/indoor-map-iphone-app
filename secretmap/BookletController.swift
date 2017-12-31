@@ -59,9 +59,11 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     
     private func setupPageControl() {
         let appearance = UIPageControl.appearance()
-        appearance.pageIndicatorTintColor = UIColor.gray
-        appearance.currentPageIndicatorTintColor = UIColor.white
-        appearance.backgroundColor = UIColor.darkGray
+        appearance.pageIndicatorTintColor = UIColor(red:0.92, green:0.59, blue:0.53, alpha:1.0)
+        appearance.currentPageIndicatorTintColor = UIColor(red:0.47, green:0.22, blue:0.22, alpha:1.0)
+        appearance.backgroundColor = UIColor.white
+        
+        
     }
     
     // MARK: - UIPageViewControllerDataSource
