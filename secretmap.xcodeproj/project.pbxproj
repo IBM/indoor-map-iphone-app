@@ -24,8 +24,18 @@
 		A2234E211FF8992E002B8244 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E201FF8992E002B8244 /* compass.png */; };
 		A2234E231FF899AC002B8244 /* glasses.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E221FF899AB002B8244 /* glasses.png */; };
 		A2234E251FF99B84002B8244 /* footprint-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E241FF99B84002B8244 /* footprint-tab.png */; };
+		A23754D32006A35C00409B20 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = A23754D22006A35C00409B20 /* compass.png */; };
+		A23754D52006A36C00409B20 /* anctor-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = A23754D42006A36C00409B20 /* anctor-tab.png */; };
+		A23754D72006D80B00409B20 /* MKMapRectRotated.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754D62006D80B00409B20 /* MKMapRectRotated.swift */; };
+		A23754D92006D83600409B20 /* VisibleMapRegionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754D82006D83600409B20 /* VisibleMapRegionDelegate.swift */; };
+		A23754DB2006D85000409B20 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754DA2006D85000409B20 /* Utilities.swift */; };
+		A23754DD2006DA2B00409B20 /* HideBackgorundOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754DC2006DA2B00409B20 /* HideBackgorundOverlay.swift */; };
+		A23754DF2006DA4D00409B20 /* FloorplanOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754DE2006DA4D00409B20 /* FloorplanOverlayRenderer.swift */; };
+		A23754E12006DA6E00409B20 /* FloorplanOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754E02006DA6E00409B20 /* FloorplanOverlay.swift */; };
+		A23754E32006DA8E00409B20 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754E22006DA8E00409B20 /* CoordinateConverter.swift */; };
+		A23754E82006E3E200409B20 /* Floorplans in Resources */ = {isa = PBXBuildFile; fileRef = A23754E72006E3E200409B20 /* Floorplans */; };
 		A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */; };
-		A2908D741FE2BEE200A0E9BE /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D731FE2BEE200A0E9BE /* FirstViewController.swift */; };
+		A2908D741FE2BEE200A0E9BE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D731FE2BEE200A0E9BE /* MapViewController.swift */; };
 		A2908D761FE2BEE200A0E9BE /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D751FE2BEE200A0E9BE /* SecondViewController.swift */; };
 		A2908D791FE2BEE200A0E9BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2908D771FE2BEE200A0E9BE /* Main.storyboard */; };
 		A2908D7B1FE2BEE200A0E9BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2908D7A1FE2BEE200A0E9BE /* Assets.xcassets */; };
@@ -70,9 +80,19 @@
 		A2234E201FF8992E002B8244 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = compass.png; path = ../../../../compass.png; sourceTree = "<group>"; };
 		A2234E221FF899AB002B8244 /* glasses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glasses.png; sourceTree = "<group>"; };
 		A2234E241FF99B84002B8244 /* footprint-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint-tab.png"; sourceTree = "<group>"; };
+		A23754D22006A35C00409B20 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
+		A23754D42006A36C00409B20 /* anctor-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anctor-tab.png"; sourceTree = "<group>"; };
+		A23754D62006D80B00409B20 /* MKMapRectRotated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapRectRotated.swift; sourceTree = "<group>"; };
+		A23754D82006D83600409B20 /* VisibleMapRegionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibleMapRegionDelegate.swift; sourceTree = "<group>"; };
+		A23754DA2006D85000409B20 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		A23754DC2006DA2B00409B20 /* HideBackgorundOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideBackgorundOverlay.swift; sourceTree = "<group>"; };
+		A23754DE2006DA4D00409B20 /* FloorplanOverlayRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorplanOverlayRenderer.swift; sourceTree = "<group>"; };
+		A23754E02006DA6E00409B20 /* FloorplanOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorplanOverlay.swift; sourceTree = "<group>"; };
+		A23754E22006DA8E00409B20 /* CoordinateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateConverter.swift; sourceTree = "<group>"; };
+		A23754E72006E3E200409B20 /* Floorplans */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Floorplans; sourceTree = "<group>"; };
 		A2908D6E1FE2BEE200A0E9BE /* secretmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = secretmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A2908D731FE2BEE200A0E9BE /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		A2908D731FE2BEE200A0E9BE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		A2908D751FE2BEE200A0E9BE /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		A2908D781FE2BEE200A0E9BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A2908D7A1FE2BEE200A0E9BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -124,7 +144,9 @@
 				A2234DFB1FF41409002B8244 /* kubernetes@2x.png */,
 				A2234DFC1FF4140A002B8244 /* scales@2x.png */,
 				A2234E201FF8992E002B8244 /* compass.png */,
+				A23754D22006A35C00409B20 /* compass.png */,
 				A2234E241FF99B84002B8244 /* footprint-tab.png */,
+				A23754D42006A36C00409B20 /* anctor-tab.png */,
 				A2234E221FF899AB002B8244 /* glasses.png */,
 				A2234E001FF4140A002B8244 /* telescope@2x.png */,
 				A2234E1C1FF82CF1002B8244 /* anchor@2x.png */,
@@ -137,6 +159,7 @@
 		A2908D651FE2BEE200A0E9BE = {
 			isa = PBXGroup;
 			children = (
+				A23754E72006E3E200409B20 /* Floorplans */,
 				A2908D701FE2BEE200A0E9BE /* secretmap */,
 				A2908D871FE2BEE200A0E9BE /* secretmapTests */,
 				A2908D921FE2BEE200A0E9BE /* secretmapUITests */,
@@ -159,7 +182,7 @@
 			children = (
 				A2234DE31FF412EA002B8244 /* images */,
 				A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */,
-				A2908D731FE2BEE200A0E9BE /* FirstViewController.swift */,
+				A2908D731FE2BEE200A0E9BE /* MapViewController.swift */,
 				A2908D751FE2BEE200A0E9BE /* SecondViewController.swift */,
 				A2908D771FE2BEE200A0E9BE /* Main.storyboard */,
 				A2908D7A1FE2BEE200A0E9BE /* Assets.xcassets */,
@@ -168,6 +191,13 @@
 				A2E815A21FE876A000EC6F2A /* BookletController.swift */,
 				A2234E0C1FF4220B002B8244 /* BookletItemController.swift */,
 				A2234E181FF5B108002B8244 /* booklet.json */,
+				A23754D62006D80B00409B20 /* MKMapRectRotated.swift */,
+				A23754D82006D83600409B20 /* VisibleMapRegionDelegate.swift */,
+				A23754DA2006D85000409B20 /* Utilities.swift */,
+				A23754DC2006DA2B00409B20 /* HideBackgorundOverlay.swift */,
+				A23754DE2006DA4D00409B20 /* FloorplanOverlayRenderer.swift */,
+				A23754E02006DA6E00409B20 /* FloorplanOverlay.swift */,
+				A23754E22006DA8E00409B20 /* CoordinateConverter.swift */,
 			);
 			path = secretmap;
 			sourceTree = "<group>";
@@ -297,10 +327,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A23754E82006E3E200409B20 /* Floorplans in Resources */,
 				A2908D7E1FE2BEE200A0E9BE /* LaunchScreen.storyboard in Resources */,
 				A2234E1B1FF6F30B002B8244 /* map@2x.png in Resources */,
 				A2234E231FF899AC002B8244 /* glasses.png in Resources */,
 				A2234E0A1FF4140A002B8244 /* telescope@2x.png in Resources */,
+				A23754D32006A35C00409B20 /* compass.png in Resources */,
+				A23754D52006A36C00409B20 /* anctor-tab.png in Resources */,
 				A2908D7B1FE2BEE200A0E9BE /* Assets.xcassets in Resources */,
 				A2234E041FF4140A002B8244 /* blockchain@2x.png in Resources */,
 				A2234E251FF99B84002B8244 /* footprint-tab.png in Resources */,
@@ -342,9 +375,16 @@
 			files = (
 				A2908D761FE2BEE200A0E9BE /* SecondViewController.swift in Sources */,
 				A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */,
+				A23754D72006D80B00409B20 /* MKMapRectRotated.swift in Sources */,
+				A23754E12006DA6E00409B20 /* FloorplanOverlay.swift in Sources */,
+				A23754E32006DA8E00409B20 /* CoordinateConverter.swift in Sources */,
 				A2234E0D1FF4220B002B8244 /* BookletItemController.swift in Sources */,
 				A2E815A31FE876A000EC6F2A /* BookletController.swift in Sources */,
-				A2908D741FE2BEE200A0E9BE /* FirstViewController.swift in Sources */,
+				A23754DF2006DA4D00409B20 /* FloorplanOverlayRenderer.swift in Sources */,
+				A23754DD2006DA2B00409B20 /* HideBackgorundOverlay.swift in Sources */,
+				A2908D741FE2BEE200A0E9BE /* MapViewController.swift in Sources */,
+				A23754DB2006D85000409B20 /* Utilities.swift in Sources */,
+				A23754D92006D83600409B20 /* VisibleMapRegionDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
