@@ -19,10 +19,10 @@ class BookletItemController: UIViewController {
     // MARK: - Variables
     var itemIndex: Int = 0
     
-    var imageName: String = "" {
+    var image: UIImage = UIImage() {
         didSet {
             if let imageView = contentImageView {
-                imageView.image = UIImage(named: imageName)
+                imageView.image = image
             }
         }
     }
@@ -62,7 +62,7 @@ class BookletItemController: UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentImageView!.image = UIImage(named: imageName)
+        contentImageView!.image = image
         pageTitleView!.text = titleString
         subtitleView!.text = subTitleString
         subtextView!.text = subtextString
