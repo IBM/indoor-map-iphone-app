@@ -42,24 +42,18 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
             
             do {
                 //Decode retrived data with JSONDecoder and assing type of Article object
-//                let articlesData = try JSONDecoder().decode([Article].self, from: data)
-                
                 let pages = try JSONDecoder().decode([Article].self, from: data)
                 
                 //Get back to the main queue
                 DispatchQueue.main.async {
-                    print(pages)
                     self.pages = pages
                     self.pageCount = pages.count
                     self.createPageViewController()
                     self.setupPageControl()
                 }
-                
             } catch let jsonError {
                 print(jsonError)
             }
-            
-            
         }.resume()
         
 //        if let path = Bundle.main.url(forResource: "booklet", withExtension: "json") {

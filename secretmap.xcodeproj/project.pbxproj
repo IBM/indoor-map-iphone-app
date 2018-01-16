@@ -20,8 +20,6 @@
 		A2234E191FF5B108002B8244 /* booklet.json in Resources */ = {isa = PBXBuildFile; fileRef = A2234E181FF5B108002B8244 /* booklet.json */; };
 		A2234E1B1FF6F30B002B8244 /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E1A1FF6F30B002B8244 /* map@2x.png */; };
 		A2234E1D1FF82CF1002B8244 /* anchor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E1C1FF82CF1002B8244 /* anchor@2x.png */; };
-		A2234E1F1FF88A0F002B8244 /* anctor-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E1E1FF88A0F002B8244 /* anctor-tab.png */; };
-		A2234E211FF8992E002B8244 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E201FF8992E002B8244 /* compass.png */; };
 		A2234E231FF899AC002B8244 /* glasses.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E221FF899AB002B8244 /* glasses.png */; };
 		A2234E251FF99B84002B8244 /* footprint-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E241FF99B84002B8244 /* footprint-tab.png */; };
 		A23754D32006A35C00409B20 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = A23754D22006A35C00409B20 /* compass.png */; };
@@ -36,7 +34,7 @@
 		A23754E82006E3E200409B20 /* Floorplans in Resources */ = {isa = PBXBuildFile; fileRef = A23754E72006E3E200409B20 /* Floorplans */; };
 		A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */; };
 		A2908D741FE2BEE200A0E9BE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D731FE2BEE200A0E9BE /* MapViewController.swift */; };
-		A2908D761FE2BEE200A0E9BE /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D751FE2BEE200A0E9BE /* SecondViewController.swift */; };
+		A2908D761FE2BEE200A0E9BE /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D751FE2BEE200A0E9BE /* DataViewController.swift */; };
 		A2908D791FE2BEE200A0E9BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2908D771FE2BEE200A0E9BE /* Main.storyboard */; };
 		A2908D7B1FE2BEE200A0E9BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2908D7A1FE2BEE200A0E9BE /* Assets.xcassets */; };
 		A2908D7E1FE2BEE200A0E9BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2908D7C1FE2BEE200A0E9BE /* LaunchScreen.storyboard */; };
@@ -76,8 +74,6 @@
 		A2234E181FF5B108002B8244 /* booklet.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = booklet.json; sourceTree = "<group>"; };
 		A2234E1A1FF6F30B002B8244 /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map@2x.png"; path = "../../../../../Creative Cloud Files/2x/map@2x.png"; sourceTree = "<group>"; };
 		A2234E1C1FF82CF1002B8244 /* anchor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "anchor@2x.png"; path = "../../../../../Creative Cloud Files/2x/anchor@2x.png"; sourceTree = "<group>"; };
-		A2234E1E1FF88A0F002B8244 /* anctor-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "anctor-tab.png"; path = "../../../../anctor-tab.png"; sourceTree = "<group>"; };
-		A2234E201FF8992E002B8244 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = compass.png; path = ../../../../compass.png; sourceTree = "<group>"; };
 		A2234E221FF899AB002B8244 /* glasses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glasses.png; sourceTree = "<group>"; };
 		A2234E241FF99B84002B8244 /* footprint-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint-tab.png"; sourceTree = "<group>"; };
 		A23754D22006A35C00409B20 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
@@ -93,7 +89,7 @@
 		A2908D6E1FE2BEE200A0E9BE /* secretmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = secretmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2908D731FE2BEE200A0E9BE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		A2908D751FE2BEE200A0E9BE /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		A2908D751FE2BEE200A0E9BE /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		A2908D781FE2BEE200A0E9BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A2908D7A1FE2BEE200A0E9BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A2908D7D1FE2BEE200A0E9BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -143,7 +139,6 @@
 				A2234DFD1FF4140A002B8244 /* girl pirate@2x.png */,
 				A2234DFB1FF41409002B8244 /* kubernetes@2x.png */,
 				A2234DFC1FF4140A002B8244 /* scales@2x.png */,
-				A2234E201FF8992E002B8244 /* compass.png */,
 				A23754D22006A35C00409B20 /* compass.png */,
 				A2234E241FF99B84002B8244 /* footprint-tab.png */,
 				A23754D42006A36C00409B20 /* anctor-tab.png */,
@@ -151,7 +146,6 @@
 				A2234E001FF4140A002B8244 /* telescope@2x.png */,
 				A2234E1C1FF82CF1002B8244 /* anchor@2x.png */,
 				A2234E011FF4140A002B8244 /* watson@2x.png */,
-				A2234E1E1FF88A0F002B8244 /* anctor-tab.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -183,7 +177,7 @@
 				A2234DE31FF412EA002B8244 /* images */,
 				A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */,
 				A2908D731FE2BEE200A0E9BE /* MapViewController.swift */,
-				A2908D751FE2BEE200A0E9BE /* SecondViewController.swift */,
+				A2908D751FE2BEE200A0E9BE /* DataViewController.swift */,
 				A2908D771FE2BEE200A0E9BE /* Main.storyboard */,
 				A2908D7A1FE2BEE200A0E9BE /* Assets.xcassets */,
 				A2908D7C1FE2BEE200A0E9BE /* LaunchScreen.storyboard */,
@@ -341,11 +335,9 @@
 				A2234E031FF4140A002B8244 /* footprint@2x.png in Resources */,
 				A2234E191FF5B108002B8244 /* booklet.json in Resources */,
 				A2234E0B1FF4140A002B8244 /* watson@2x.png in Resources */,
-				A2234E211FF8992E002B8244 /* compass.png in Resources */,
 				A2234E1D1FF82CF1002B8244 /* anchor@2x.png in Resources */,
 				A2234E061FF4140A002B8244 /* scales@2x.png in Resources */,
 				A2908D791FE2BEE200A0E9BE /* Main.storyboard in Resources */,
-				A2234E1F1FF88A0F002B8244 /* anctor-tab.png in Resources */,
 				A2234E021FF4140A002B8244 /* fitcoin@2x.png in Resources */,
 				A2234E071FF4140A002B8244 /* girl pirate@2x.png in Resources */,
 				A2234E081FF4140A002B8244 /* boy pirate@2x.png in Resources */,
@@ -373,7 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2908D761FE2BEE200A0E9BE /* SecondViewController.swift in Sources */,
+				A2908D761FE2BEE200A0E9BE /* DataViewController.swift in Sources */,
 				A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */,
 				A23754D72006D80B00409B20 /* MKMapRectRotated.swift in Sources */,
 				A23754E12006DA6E00409B20 /* FloorplanOverlay.swift in Sources */,
@@ -549,7 +541,8 @@
 		A2908D991FE2BEE200A0E9BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CT3Y8HLWZY;
 				INFOPLIST_FILE = secretmap/Info.plist;
@@ -564,7 +557,8 @@
 		A2908D9A1FE2BEE200A0E9BE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CT3Y8HLWZY;
 				INFOPLIST_FILE = secretmap/Info.plist;

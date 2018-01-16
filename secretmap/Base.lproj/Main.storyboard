@@ -24,15 +24,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Map View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD">
-                                <rect key="frame" x="111.5" y="312" width="152" height="43"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5M-7J-77L">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5M-7J-77L">
                                 <rect key="frame" x="187" y="363" width="0.0" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -46,14 +40,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="6BV-lF-sBN"/>
                             <constraint firstItem="02Q-aU-qP0" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="D4g-VL-o3g"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="top" secondItem="KQZ-1w-vlD" secondAttribute="bottom" constant="8" symbolic="YES" id="cfb-er-3JN"/>
                             <constraint firstItem="02Q-aU-qP0" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="chA-92-QMU"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="e1l-AV-tCB"/>
                             <constraint firstItem="02Q-aU-qP0" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="e97-q0-NVw"/>
-                            <constraint firstAttribute="centerY" secondItem="KQZ-1w-vlD" secondAttribute="centerY" id="exm-UA-ej4"/>
-                            <constraint firstItem="02Q-aU-qP0" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="uHW-eE-bZc"/>
                             <constraint firstItem="02Q-aU-qP0" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="w7R-Ky-AIs"/>
                             <constraint firstItem="02Q-aU-qP0" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="zcu-59-UOh"/>
                         </constraints>
@@ -290,7 +279,7 @@
                                                     </view>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="200" id="T9t-Kr-WW9"/>
+                                                    <constraint firstAttribute="width" constant="100" id="T9t-Kr-WW9"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
@@ -358,7 +347,7 @@
                                                     </view>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="200" id="2nT-hq-Y5K"/>
+                                                    <constraint firstAttribute="width" constant="100" id="2nT-hq-Y5K"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
