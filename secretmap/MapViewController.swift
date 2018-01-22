@@ -25,13 +25,13 @@ import MapKit
  We will also show how to highlight a region that you have defined in PDF
  coordinates but not Latitude & Longitude.
  */
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     /// Outlet for the map view in the storyboard.
     @IBOutlet weak var mapView: MKMapView!
     
     /// Outlet for the visuals switch at the lower-right of the storyboard.
-    @IBOutlet weak var debugVisualsSwitch: UISwitch!
+    // @IBOutlet weak var debugVisualsSwitch: UISwitch!
     
     /**
      To enable user location to be shown in the map, go to Main.storyboard,
@@ -115,7 +115,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.showsBuildings = true
         mapKitTilesetRevealed = true
         // Set switch to off.
-        debugVisualsSwitch.setOn(false, animated: true)
+        // debugVisualsSwitch.setOn(false, animated: true)
         showDebugVisuals()
     }
     
@@ -124,15 +124,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         locationManager = CLLocationManager()
         
+        // Ask for permission to use location
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        
+        view.backgroundColor = UIColor.gray
+        
         // === Configure our floorplan.
         
         /*
          We setup a pair of anchors that will define how the floorplan image
          maps to geographic co-ordinates.
          */
-        let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(37.770419,-122.465726), pdfPoint: CGPoint(x: 26.2, y: 86.4))
+      
+        // anchors for URL(string: "http://169.60.16.83:31874/svg/think.pdf")!
+        let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.092616, -115.179895), pdfPoint: CGPoint(x: 0, y: 1000))
+        let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.092616, -115.177967), pdfPoint: CGPoint(x: 1000, y: 1000))
         
-        let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(37.769288,-122.466376), pdfPoint: CGPoint(x: 570.1, y: 317.7))
+        // anchors for 505 Howard Building
+        // let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(37.787956, -122.396584), pdfPoint: CGPoint(x: 2472, y: 3288))
+        // let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(37.788306, -122.396138), pdfPoint: CGPoint(x: 2472, y: 944))
         
         let anchorPair = GeoAnchorPair(fromAnchor: anchor1, toAnchor: anchor2)
         
@@ -142,7 +153,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
          Note that these coordinates are given in PDF coordinates, but they
          will show up on just fine on MapKit in MapKit coordinates.
          */
-        _ = [CGPoint(x: 205.0, y: 335.3), CGPoint(x: 205.0, y: 367.3), CGPoint(x: 138.5, y: 367.3)]
+//        _ = [CGPoint(x: 205.0, y: 335.3), CGPoint(x: 205.0, y: 367.3), CGPoint(x: 138.5, y: 367.3)]
         
         // === Initialize our assets
         
@@ -151,7 +162,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
          reference during "Copy Bundle Resources" section under target
          settings build phases.
          */
-        let pdfUrl = Bundle.main.url(forResource: "floorplan_overlay_floor0", withExtension: "pdf", subdirectory:"Floorplans")!
+        
+        // pdf for sample backend pdf
+        let pdfUrl = URL(string: "http://169.60.16.83:31874/svg/think.pdf")!
+        
+        // pdf for 505 Howard Building
+        // let pdfUrl = Bundle.main.url(forResource: "Building_1959_Floor_08", withExtension: "pdf", subdirectory:"Floorplans")!
+        
         
         floorplan0 = FloorplanOverlay(floorplanUrl: pdfUrl, withPDFBox: CGPDFBox.trimBox, andAnchors: anchorPair, forFloorLevel: 0)
         
@@ -169,12 +186,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 //         The following are provided for debugging.
 //         In production, you'll want to comment this out.
 //         */
-//        debuggingOverlays = MapViewController.createDebuggingOverlaysForMapView(mapView!, aboutFloorplan: floorplan0)
-//        debuggingAnnotations = MapViewController.createDebuggingAnnotationsForMapView(mapView!, aboutFloorplan: floorplan0)
+        debuggingOverlays = MapViewController.createDebuggingOverlaysForMapView(mapView!, aboutFloorplan: floorplan0)
+        debuggingAnnotations = MapViewController.createDebuggingAnnotationsForMapView(mapView!, aboutFloorplan: floorplan0)
 //
 //        // Draw the floorplan!
         mapView.add(floorplan0)
-        
+        mapView.addAnnotations(debuggingAnnotations)
         /*
          Highlight our region (originally specified in PDF coordinates) in
          yellow!
