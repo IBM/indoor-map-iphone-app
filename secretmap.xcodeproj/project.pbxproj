@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A21B5EF7202374890087ADB6 /* secretmap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A21B5EF5202374890087ADB6 /* secretmap.xcdatamodeld */; };
 		A2234E0D1FF4220B002B8244 /* BookletItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2234E0C1FF4220B002B8244 /* BookletItemController.swift */; };
 		A2234E191FF5B108002B8244 /* booklet.json in Resources */ = {isa = PBXBuildFile; fileRef = A2234E181FF5B108002B8244 /* booklet.json */; };
 		A2234E231FF899AC002B8244 /* glasses.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E221FF899AB002B8244 /* glasses.png */; };
@@ -21,6 +22,9 @@
 		A23754E12006DA6E00409B20 /* FloorplanOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754E02006DA6E00409B20 /* FloorplanOverlay.swift */; };
 		A23754E32006DA8E00409B20 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754E22006DA8E00409B20 /* CoordinateConverter.swift */; };
 		A23754E82006E3E200409B20 /* Floorplans in Resources */ = {isa = PBXBuildFile; fileRef = A23754E72006E3E200409B20 /* Floorplans */; };
+		A26F962520275B5F004247D5 /* AugmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26F962420275B5F004247D5 /* AugmentedViewController.swift */; };
+		A28E57CA2011558100CE4C58 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A28E57C92011558100CE4C58 /* HealthKit.framework */; };
+		A28E57CC201659A200CE4C58 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28E57CB201659A200CE4C58 /* HealthKitManager.swift */; };
 		A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */; };
 		A2908D741FE2BEE200A0E9BE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D731FE2BEE200A0E9BE /* MapViewController.swift */; };
 		A2908D761FE2BEE200A0E9BE /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D751FE2BEE200A0E9BE /* DataViewController.swift */; };
@@ -50,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A21B5EF6202374890087ADB6 /* secretmap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = secretmap.xcdatamodel; sourceTree = "<group>"; };
 		A2234DF81FF41409002B8244 /* fitcoin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fitcoin@2x.png"; path = "../../../../../Creative Cloud Files/2x/fitcoin@2x.png"; sourceTree = "<group>"; };
 		A2234DF91FF41409002B8244 /* footprint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "footprint@2x.png"; path = "../../../../../Creative Cloud Files/2x/footprint@2x.png"; sourceTree = "<group>"; };
 		A2234DFA1FF41409002B8244 /* blockchain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blockchain@2x.png"; path = "../../../../../Creative Cloud Files/2x/blockchain@2x.png"; sourceTree = "<group>"; };
@@ -75,6 +80,10 @@
 		A23754E02006DA6E00409B20 /* FloorplanOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorplanOverlay.swift; sourceTree = "<group>"; };
 		A23754E22006DA8E00409B20 /* CoordinateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateConverter.swift; sourceTree = "<group>"; };
 		A23754E72006E3E200409B20 /* Floorplans */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Floorplans; sourceTree = "<group>"; };
+		A26F962420275B5F004247D5 /* AugmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedViewController.swift; sourceTree = "<group>"; };
+		A28E57C72011558100CE4C58 /* secretmap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = secretmap.entitlements; sourceTree = "<group>"; };
+		A28E57C92011558100CE4C58 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		A28E57CB201659A200CE4C58 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		A2908D6E1FE2BEE200A0E9BE /* secretmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = secretmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2908D731FE2BEE200A0E9BE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A28E57CA2011558100CE4C58 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +149,14 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		A28E57C82011558100CE4C58 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A28E57C92011558100CE4C58 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A2908D651FE2BEE200A0E9BE = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +165,7 @@
 				A2908D871FE2BEE200A0E9BE /* secretmapTests */,
 				A2908D921FE2BEE200A0E9BE /* secretmapUITests */,
 				A2908D6F1FE2BEE200A0E9BE /* Products */,
+				A28E57C82011558100CE4C58 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -163,8 +182,10 @@
 		A2908D701FE2BEE200A0E9BE /* secretmap */ = {
 			isa = PBXGroup;
 			children = (
+				A28E57C72011558100CE4C58 /* secretmap.entitlements */,
 				A2234DE31FF412EA002B8244 /* images */,
 				A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */,
+				A21B5EF5202374890087ADB6 /* secretmap.xcdatamodeld */,
 				A2908D731FE2BEE200A0E9BE /* MapViewController.swift */,
 				A2908D751FE2BEE200A0E9BE /* DataViewController.swift */,
 				A2908D771FE2BEE200A0E9BE /* Main.storyboard */,
@@ -181,6 +202,8 @@
 				A23754DE2006DA4D00409B20 /* FloorplanOverlayRenderer.swift */,
 				A23754E02006DA6E00409B20 /* FloorplanOverlay.swift */,
 				A23754E22006DA8E00409B20 /* CoordinateConverter.swift */,
+				A28E57CB201659A200CE4C58 /* HealthKitManager.swift */,
+				A26F962420275B5F004247D5 /* AugmentedViewController.swift */,
 			);
 			path = secretmap;
 			sourceTree = "<group>";
@@ -272,6 +295,11 @@
 					A2908D6D1FE2BEE200A0E9BE = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 					A2908D831FE2BEE200A0E9BE = {
 						CreatedOnToolsVersion = 9.2;
@@ -344,8 +372,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2908D761FE2BEE200A0E9BE /* DataViewController.swift in Sources */,
+				A21B5EF7202374890087ADB6 /* secretmap.xcdatamodeld in Sources */,
 				A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */,
 				A23754D72006D80B00409B20 /* MKMapRectRotated.swift in Sources */,
+				A26F962520275B5F004247D5 /* AugmentedViewController.swift in Sources */,
 				A23754E12006DA6E00409B20 /* FloorplanOverlay.swift in Sources */,
 				A23754E32006DA8E00409B20 /* CoordinateConverter.swift in Sources */,
 				A2234E0D1FF4220B002B8244 /* BookletItemController.swift in Sources */,
@@ -354,6 +384,7 @@
 				A23754DD2006DA2B00409B20 /* HideBackgorundOverlay.swift in Sources */,
 				A2908D741FE2BEE200A0E9BE /* MapViewController.swift in Sources */,
 				A23754DB2006D85000409B20 /* Utilities.swift in Sources */,
+				A28E57CC201659A200CE4C58 /* HealthKitManager.swift in Sources */,
 				A23754D92006D83600409B20 /* VisibleMapRegionDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,13 +550,14 @@
 		A2908D991FE2BEE200A0E9BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = secretmap/secretmap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 24VUPDRF9D;
+				DEVELOPMENT_TEAM = CT3Y8HLWZY;
 				INFOPLIST_FILE = secretmap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.secretmap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anton.secretmap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -535,13 +567,14 @@
 		A2908D9A1FE2BEE200A0E9BE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = secretmap/secretmap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 24VUPDRF9D;
+				DEVELOPMENT_TEAM = CT3Y8HLWZY;
 				INFOPLIST_FILE = secretmap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.secretmap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anton.secretmap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -654,6 +687,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A21B5EF5202374890087ADB6 /* secretmap.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A21B5EF6202374890087ADB6 /* secretmap.xcdatamodel */,
+			);
+			currentVersion = A21B5EF6202374890087ADB6 /* secretmap.xcdatamodel */;
+			path = secretmap.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A2908D661FE2BEE200A0E9BE /* Project object */;
 }
