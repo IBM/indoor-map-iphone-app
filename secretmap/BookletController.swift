@@ -24,7 +24,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     private var pageViewController: UIPageViewController?
     
     private var pages:[Article]?
-    
+    // testedit
     private var pageCount = 0
     
     override func viewDidLoad() {
