@@ -16,14 +16,15 @@ class DataViewController: UIViewController {
     
     var pedometer = CMPedometer()
     
+    public var startDate: Date = Date()
+    
     @IBOutlet weak var stepsCountLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.getStepData()
+        self.liveUpdateStepData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,24 +47,35 @@ class DataViewController: UIViewController {
             if( people.count > 0 ){
                 currentPerson = people[0]
                 
-                pedometer.queryPedometerData(from: currentPerson.startdate!, to: Date()) {
+                self.startDate = currentPerson.startdate!
+                
+                pedometer.queryPedometerData(from: self.startDate, to: Date()) {
                     [weak self] pedometerData, error in
                     if let error = error {
                         //                        self?.on(error: error)
                     } else if let pedometerData = pedometerData {
                         DispatchQueue.main.async {
-                            
-                            print( pedometerData.numberOfSteps )
-                            
                             self?.stepsCountLabel.text = String(describing: pedometerData.numberOfSteps)
-                            
-                            //                            self?.stepsCountLabel.text = String(describing: pedometerData.numberOfSteps)
+                            self?.distanceLabel.text = String(describing: pedometerData.distance)
                         }
                     }
                 }
-                
             }
         }catch{}
+    }
+    
+    func liveUpdateStepData(){
+        pedometer.startUpdates(from: self.startDate, withHandler: { (pedometerData, error) in
+            if let pedData = pedometerData{
+                self.stepsCountLabel.text = String(describing: pedometerData?.numberOfSteps)
+                self.distanceLabel.text = String(describing: pedometerData?.distance)
+                
+                /* Need to send steps to fitchain here */
+                
+            } else {
+                print("steps are not available")
+            }
+        })
     }
 }
 

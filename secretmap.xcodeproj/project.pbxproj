@@ -23,6 +23,9 @@
 		A23754E32006DA8E00409B20 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754E22006DA8E00409B20 /* CoordinateConverter.swift */; };
 		A23754E82006E3E200409B20 /* Floorplans in Resources */ = {isa = PBXBuildFile; fileRef = A23754E72006E3E200409B20 /* Floorplans */; };
 		A26F962520275B5F004247D5 /* AugmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26F962420275B5F004247D5 /* AugmentedViewController.swift */; };
+		A26F96272028B6EE004247D5 /* footprint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26F96262028B6EE004247D5 /* footprint@2x.png */; };
+		A26F96292028B6F5004247D5 /* distance@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26F96282028B6F5004247D5 /* distance@2x.png */; };
+		A26F962B2028B705004247D5 /* fitcoin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26F962A2028B705004247D5 /* fitcoin@2x.png */; };
 		A28E57CA2011558100CE4C58 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A28E57C92011558100CE4C58 /* HealthKit.framework */; };
 		A28E57CC201659A200CE4C58 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28E57CB201659A200CE4C58 /* HealthKitManager.swift */; };
 		A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */; };
@@ -55,8 +58,6 @@
 
 /* Begin PBXFileReference section */
 		A21B5EF6202374890087ADB6 /* secretmap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = secretmap.xcdatamodel; sourceTree = "<group>"; };
-		A2234DF81FF41409002B8244 /* fitcoin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fitcoin@2x.png"; path = "../../../../../Creative Cloud Files/2x/fitcoin@2x.png"; sourceTree = "<group>"; };
-		A2234DF91FF41409002B8244 /* footprint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "footprint@2x.png"; path = "../../../../../Creative Cloud Files/2x/footprint@2x.png"; sourceTree = "<group>"; };
 		A2234DFA1FF41409002B8244 /* blockchain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blockchain@2x.png"; path = "../../../../../Creative Cloud Files/2x/blockchain@2x.png"; sourceTree = "<group>"; };
 		A2234DFB1FF41409002B8244 /* kubernetes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kubernetes@2x.png"; path = "../../../../../Creative Cloud Files/2x/kubernetes@2x.png"; sourceTree = "<group>"; };
 		A2234DFC1FF4140A002B8244 /* scales@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scales@2x.png"; path = "../../../../../Creative Cloud Files/2x/scales@2x.png"; sourceTree = "<group>"; };
@@ -81,6 +82,9 @@
 		A23754E22006DA8E00409B20 /* CoordinateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateConverter.swift; sourceTree = "<group>"; };
 		A23754E72006E3E200409B20 /* Floorplans */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Floorplans; sourceTree = "<group>"; };
 		A26F962420275B5F004247D5 /* AugmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedViewController.swift; sourceTree = "<group>"; };
+		A26F96262028B6EE004247D5 /* footprint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint@2x.png"; sourceTree = "<group>"; };
+		A26F96282028B6F5004247D5 /* distance@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "distance@2x.png"; sourceTree = "<group>"; };
+		A26F962A2028B705004247D5 /* fitcoin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fitcoin@2x.png"; sourceTree = "<group>"; };
 		A28E57C72011558100CE4C58 /* secretmap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = secretmap.entitlements; sourceTree = "<group>"; };
 		A28E57C92011558100CE4C58 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		A28E57CB201659A200CE4C58 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
@@ -132,11 +136,12 @@
 			children = (
 				A2234DFA1FF41409002B8244 /* blockchain@2x.png */,
 				A2234DFE1FF4140A002B8244 /* boy pirate@2x.png */,
-				A2234DF81FF41409002B8244 /* fitcoin@2x.png */,
 				A2234E1A1FF6F30B002B8244 /* map@2x.png */,
-				A2234DF91FF41409002B8244 /* footprint@2x.png */,
 				A2234DFD1FF4140A002B8244 /* girl pirate@2x.png */,
+				A26F96262028B6EE004247D5 /* footprint@2x.png */,
 				A2234DFB1FF41409002B8244 /* kubernetes@2x.png */,
+				A26F96282028B6F5004247D5 /* distance@2x.png */,
+				A26F962A2028B705004247D5 /* fitcoin@2x.png */,
 				A2234DFC1FF4140A002B8244 /* scales@2x.png */,
 				A23754D22006A35C00409B20 /* compass.png */,
 				A2234E241FF99B84002B8244 /* footprint-tab.png */,
@@ -340,13 +345,16 @@
 			files = (
 				A23754E82006E3E200409B20 /* Floorplans in Resources */,
 				A2908D7E1FE2BEE200A0E9BE /* LaunchScreen.storyboard in Resources */,
+				A26F96272028B6EE004247D5 /* footprint@2x.png in Resources */,
 				A2234E231FF899AC002B8244 /* glasses.png in Resources */,
+				A26F96292028B6F5004247D5 /* distance@2x.png in Resources */,
 				A23754D32006A35C00409B20 /* compass.png in Resources */,
 				A23754D52006A36C00409B20 /* anctor-tab.png in Resources */,
 				A2908D7B1FE2BEE200A0E9BE /* Assets.xcassets in Resources */,
 				A2234E251FF99B84002B8244 /* footprint-tab.png in Resources */,
 				A2234E191FF5B108002B8244 /* booklet.json in Resources */,
 				A2908D791FE2BEE200A0E9BE /* Main.storyboard in Resources */,
+				A26F962B2028B705004247D5 /* fitcoin@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

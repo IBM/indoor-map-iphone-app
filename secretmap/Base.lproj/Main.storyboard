@@ -48,7 +48,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="compass.png" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="" image="compass.png" id="acW-dT-cKf">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="mapView" destination="02Q-aU-qP0" id="rlc-zv-D0M"/>
                     </connections>
@@ -76,7 +78,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="glasses.png" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="" image="glasses.png" id="cPa-gy-q4n">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -101,6 +105,7 @@
                         <viewLayoutGuide key="safeArea" id="GqQ-W8-vbw"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="anctor-tab.png" id="NoI-y8-o4c">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                     </tabBarItem>
                 </viewController>
@@ -178,7 +183,7 @@
                                                             <constraint firstAttribute="width" constant="100" id="Sk4-lc-xqF"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
-                                                        <color key="textColor" red="0.35156920552253723" green="0.19251134991645813" blue="0.18038448691368103" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="textColor" red="0.85098039219999999" green="0.17254901959999999" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esy-lN-u2d">
@@ -187,7 +192,7 @@
                                                             <constraint firstAttribute="height" constant="20" id="jOe-ld-5Fe"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                        <color key="textColor" red="0.35156920552253723" green="0.19251134991645813" blue="0.18038448691368103" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="textColor" red="0.85098039219999999" green="0.17254901959999999" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBD-V6-YeK">
@@ -213,7 +218,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VK7-zC-Szy">
                                                 <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scales" translatesAutoresizingMaskIntoConstraints="NO" id="xon-A8-hah">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="distance" translatesAutoresizingMaskIntoConstraints="NO" id="xon-A8-hah">
                                                         <rect key="frame" x="20" y="20" width="100" height="100"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="100" id="11Q-RO-KDo"/>
@@ -246,7 +251,7 @@
                                                             <constraint firstAttribute="width" constant="100" id="gt1-M8-ACF"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
-                                                        <color key="textColor" red="0.35156920552253723" green="0.19251134991645813" blue="0.18038448691368103" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="textColor" red="0.85098039219999999" green="0.17254901959999999" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuD-CV-zkN">
@@ -255,7 +260,7 @@
                                                             <constraint firstAttribute="height" constant="20" id="i7b-rU-G0s"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                        <color key="textColor" red="0.35156920552253723" green="0.19251134991645813" blue="0.18038448691368103" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="textColor" red="0.85098039219999999" green="0.17254901959999999" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uMd-v7-dPb">
@@ -314,7 +319,7 @@
                                                             <constraint firstAttribute="height" constant="40" id="wWL-zC-y87"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
-                                                        <color key="textColor" red="0.35156920552253723" green="0.19251134991645813" blue="0.18038448691368103" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="textColor" red="0.85098039219999999" green="0.17254901959999999" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fitcoins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkP-SK-EZH">
@@ -323,7 +328,7 @@
                                                             <constraint firstAttribute="height" constant="20" id="Rh7-Dw-yMC"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                        <color key="textColor" red="0.35156920552253723" green="0.19251134991645813" blue="0.18038448691368103" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="textColor" red="0.85098039219999999" green="0.17254901959999999" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jva-Et-DiH">
@@ -353,7 +358,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8ZS-go-TKr"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="footprint-tab.png" id="GG2-qJ-UW6"/>
+                    <tabBarItem key="tabBarItem" title="" image="footprint-tab.png" id="GG2-qJ-UW6">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="distanceLabel" destination="l6e-iX-ZWS" id="b1K-CU-2kt"/>
                         <outlet property="stepsCountLabel" destination="h0t-6W-32d" id="NPb-ny-9Ks"/>
@@ -387,7 +394,7 @@
                                                     <constraint firstAttribute="height" constant="50" id="rZs-Ew-SKW"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="32"/>
-                                                <color key="textColor" red="0.89205735921859741" green="0.21648386120796204" blue="0.094441704452037811" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.85098039215686272" green="0.17254901960784313" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -407,7 +414,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="Raa-90-ww3"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
-                                                <color key="textColor" red="0.92838740348815918" green="0.58743959665298462" blue="0.52042752504348755" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.90980392156862744" green="0.50196078431372548" blue="0.63529411764705879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -445,7 +452,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="p3z-dR-7PK"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                                <color key="textColor" red="0.91582715511322021" green="0.22421443462371826" blue="0.09639982134103775" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.85098039219999999" green="0.17254901959999999" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -466,7 +473,7 @@
                                                     <constraint firstAttribute="height" constant="100" id="KvB-DK-AMe"/>
                                                     <constraint firstAttribute="width" constant="200" id="Lyx-Wf-Z1f"/>
                                                 </constraints>
-                                                <color key="textColor" red="0.93925684690475464" green="0.29694777727127075" blue="0.19119751453399658" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.90980392160000001" green="0.50196078430000002" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
@@ -509,10 +516,10 @@
     <resources>
         <image name="anctor-tab.png" width="30" height="30"/>
         <image name="compass.png" width="30" height="30"/>
+        <image name="distance" width="300" height="300"/>
         <image name="fitcoin" width="300" height="300"/>
         <image name="footprint" width="300" height="300"/>
         <image name="footprint-tab.png" width="30" height="30"/>
         <image name="glasses.png" width="30" height="30"/>
-        <image name="scales" width="300" height="300"/>
     </resources>
 </document>

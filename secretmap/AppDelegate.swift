@@ -27,18 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var pedometer = CMPedometer()
     
-//    var healthStore:HKHealthStore
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         UITabBar.appearance().isTranslucent = false
-        UITabBar.appearance().barTintColor = UIColor(red:0.94, green:0.93, blue:0.90, alpha:1.0)
-        UITabBar.appearance().tintColor = UIColor(red:0.47, green:0.22, blue:0.22, alpha:1.0)
-        
-        var healthManager = HealthKitManager()
-        
-        healthKitEnabled = healthManager.authorizeHealthKit()
+        UITabBar.appearance().barTintColor = UIColor(red:0.90, green:0.96, blue:0.98, alpha:1.0)
+        UITabBar.appearance().tintColor = UIColor(red:0.12, green:0.38, blue:0.67, alpha:1.0)
         
         initializeData()
         
@@ -70,15 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      print("Initializing local person data")
                 }
             }
-            
-            pedometer.startUpdates(from: self.startDate, withHandler: { (pedometerData, error) in
-                if let pedData = pedometerData{
-                    self.numberOfSteps = pedData.numberOfSteps as! Int
-                    self.distance = pedData.distance as! Double
-                } else {
-                    print("steps are not available")
-                }
-            })
             
         } catch {
 
