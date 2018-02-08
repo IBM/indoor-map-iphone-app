@@ -138,12 +138,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
          */
       
         // anchors for URL(string: "http://169.60.16.83:31874/svg/think.pdf")!
-        let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.092616, -115.179895), pdfPoint: CGPoint(x: 0, y: 1000))
-        let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.092616, -115.177967), pdfPoint: CGPoint(x: 1000, y: 1000))
+//        let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.092616, -115.179895), pdfPoint: CGPoint(x: 0, y: 1000))
+//        let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.092616, -115.177967), pdfPoint: CGPoint(x: 1000, y: 1000))
         
         // anchors for 505 Howard Building
         // let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(37.787956, -122.396584), pdfPoint: CGPoint(x: 2472, y: 3288))
         // let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(37.788306, -122.396138), pdfPoint: CGPoint(x: 2472, y: 944))
+        
+        // anchors for thin-dev-area.pdf
+        let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.086811, -115.177325), pdfPoint: CGPoint(x: 0, y: 1454))
+        let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.086811, -115.178535), pdfPoint: CGPoint(x: 2213, y: 1454))
         
         let anchorPair = GeoAnchorPair(fromAnchor: anchor1, toAnchor: anchor2)
         
@@ -164,10 +168,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
          */
         
         // pdf for sample backend pdf
-        let pdfUrl = URL(string: "http://169.60.16.83:31874/svg/think.pdf")!
+//        let pdfUrl = URL(string: "http://169.60.16.83:31874/svg/think.pdf")!
         
         // pdf for 505 Howard Building
         // let pdfUrl = Bundle.main.url(forResource: "Building_1959_Floor_08", withExtension: "pdf", subdirectory:"Floorplans")!
+        
+        // pdf for think-dev-area-crop.pdf
+         let pdfUrl = Bundle.main.url(forResource: "think-dev-area-crop", withExtension: "pdf", subdirectory:"Floorplans")!
         
         
         floorplan0 = FloorplanOverlay(floorplanUrl: pdfUrl, withPDFBox: CGPDFBox.trimBox, andAnchors: anchorPair, forFloorLevel: 0)
@@ -191,7 +198,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 //
 //        // Draw the floorplan!
         mapView.add(floorplan0)
-        mapView.addAnnotations(debuggingAnnotations)
+        
+        // add the annotations - DEBUGGING
+//        mapView.addAnnotations(debuggingAnnotations)
         /*
          Highlight our region (originally specified in PDF coordinates) in
          yellow!
