@@ -20,7 +20,30 @@ class DataViewController: UIViewController {
     
     @IBOutlet weak var stepsCountLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var userIdLabel: UILabel!
+    
+    var currentUser: BlockchainUser?
 
+    override func viewDidAppear(_ animated: Bool) {
+        currentUser = BookletController().loadUser()
+        if currentUser != nil {
+            
+            // Debugging alert
+//            let alert = UIAlertController(title: "DEBUG: (already enrolled)", message: currentUser?.userId, preferredStyle: UIAlertControllerStyle.alert)
+//            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//
+            userIdLabel?.text = currentUser?.userId
+        }
+        else {
+            
+            // Debugging alert
+//            let alert = UIAlertController(title: "DEBUG: (not yet enrolled)", message: "refresh the page later", preferredStyle: UIAlertControllerStyle.alert)
+//            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+            userIdLabel?.text = "Enrolling in progress. Refresh the page at a later time"
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getStepData()
@@ -56,7 +79,8 @@ class DataViewController: UIViewController {
                     } else if let pedometerData = pedometerData {
                         DispatchQueue.main.async {
                             self?.stepsCountLabel.text = String(describing: pedometerData.numberOfSteps)
-                            self?.distanceLabel.text = String(describing: pedometerData.distance)
+                            let distanceInKilometers: Double = (pedometerData.distance?.doubleValue)! / 1000.00
+                            self?.distanceLabel.text = String(describing: distanceInKilometers)
                         }
                     }
                 }
@@ -66,9 +90,12 @@ class DataViewController: UIViewController {
     
     func liveUpdateStepData(){
         pedometer.startUpdates(from: self.startDate, withHandler: { (pedometerData, error) in
-            if let pedData = pedometerData{
-                self.stepsCountLabel.text = String(describing: pedometerData?.numberOfSteps)
-                self.distanceLabel.text = String(describing: pedometerData?.distance)
+            if let pedometerData = pedometerData{
+                DispatchQueue.main.async {
+                    self.stepsCountLabel.text = String(describing: pedometerData.numberOfSteps)
+                    let distanceInKilometers: Double = (pedometerData.distance?.doubleValue)! / 1000.00
+                    self.distanceLabel.text = String(describing: distanceInKilometers)
+                }
                 
                 /* Need to send steps to fitchain here */
                 

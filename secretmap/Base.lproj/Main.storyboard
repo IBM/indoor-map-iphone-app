@@ -127,6 +127,7 @@
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="7ZG-tj-4wL"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="Qsl-1O-oM9"/>
                         <segue destination="zKh-1a-vyv" kind="relationship" relationship="viewControllers" id="Akn-iN-heC"/>
+                        <segue destination="CXi-Ln-hXI" kind="relationship" relationship="viewControllers" id="gbj-KQ-oKW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -312,7 +313,7 @@
                                                             <constraint firstAttribute="height" constant="40" id="o9a-lU-reo"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3vd-A1-hX3">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3vd-A1-hX3">
                                                         <rect key="frame" x="0.0" y="40" width="100" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="100" id="7mh-sQ-dlD"/>
@@ -350,10 +351,18 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="User Id" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDZ-I1-Efj">
+                                <rect key="frame" x="16" y="574" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="iDZ-I1-Efj" firstAttribute="centerX" secondItem="8ZS-go-TKr" secondAttribute="centerX" id="0nG-In-1RZ"/>
                             <constraint firstItem="8pp-yo-Rxi" firstAttribute="centerY" secondItem="yy8-Uj-HUQ" secondAttribute="centerY" id="6YN-p7-WCJ"/>
+                            <constraint firstItem="8ZS-go-TKr" firstAttribute="bottom" secondItem="iDZ-I1-Efj" secondAttribute="bottom" constant="23" id="dOZ-uH-yFG"/>
                             <constraint firstItem="8pp-yo-Rxi" firstAttribute="centerX" secondItem="yy8-Uj-HUQ" secondAttribute="centerX" id="twB-Yy-pLJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8ZS-go-TKr"/>
@@ -364,11 +373,31 @@
                     <connections>
                         <outlet property="distanceLabel" destination="l6e-iX-ZWS" id="b1K-CU-2kt"/>
                         <outlet property="stepsCountLabel" destination="h0t-6W-32d" id="NPb-ny-9Ks"/>
+                        <outlet property="userIdLabel" destination="iDZ-I1-Efj" id="F9J-g1-JQe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m64-NQ-GOC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1249" y="212"/>
+            <point key="canvasLocation" x="1248.8" y="211.84407796101951"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="fe0-PW-5j1">
+            <objects>
+                <viewController id="CXi-Ln-hXI" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YBR-bN-EAc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="WjJ-q4-YSd"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="cart" id="S4p-hb-0Hq">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                        <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tmk-mU-3J0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2197" y="-21"/>
         </scene>
         <!--Booklet Item Controller-->
         <scene sceneID="4LL-Y6-DSn">
@@ -515,6 +544,7 @@
     </scenes>
     <resources>
         <image name="anctor-tab.png" width="30" height="30"/>
+        <image name="cart" width="30" height="30"/>
         <image name="compass.png" width="30" height="30"/>
         <image name="distance" width="300" height="300"/>
         <image name="fitcoin" width="300" height="300"/>

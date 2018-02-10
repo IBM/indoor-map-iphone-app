@@ -2,14 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSMotionUsageDescription</key>
-	<string></string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>Convert your footsteps to Fitcoins - health data never leaves your phone</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>Convert your footsteps to Fitcoins - health data never leaves your phone</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -26,10 +18,18 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Convert your footsteps to Fitcoins - health data never leaves your phone</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Convert your footsteps to Fitcoins - health data never leaves your phone</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location request</string>
+	<key>NSMotionUsageDescription</key>
+	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -27,6 +27,63 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     // testedit
     private var pageCount = 0
     
+    var blockchainUser: BlockchainUser?
+    
+    // Put this in viewDidLoad
+    override func viewDidAppear(_ animated: Bool) {
+        if let existingUserId = loadUser() {
+            
+            // Debugging alert
+//            print("Found an existing User")
+//            let alert = UIAlertController(title: "DEBUG: (already enrolled)", message: existingUserId.userId, preferredStyle: UIAlertControllerStyle.alert)
+//            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+            
+            blockchainUser = existingUserId
+        }
+        else {
+            
+            // Debugging alert
+//            print("NO EXISTING USER")
+//            let alert = UIAlertController(title: "DEBUG", message: "NO EXISTING USER", preferredStyle: UIAlertControllerStyle.alert)
+//            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+            
+            guard let url = URL(string: "http://148.100.108.176:3001/api/execute") else { return }
+            let parameters: [String:Any]
+            let request = NSMutableURLRequest(url: url)
+            
+            let session = URLSession.shared
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            parameters = ["type":"enroll", "params":[]]
+            request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
+            
+            let enrollUser = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                
+                if let data = data {
+                    do {
+                        // Convert the data to JSON
+                        let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
+                        
+                        if let json = jsonSerialized, let status = json["status"], let resultId = json["resultId"] {
+                            NSLog(status as! String)
+                            NSLog(resultId as! String) // Use this one to get blockchain payload - should contain userId
+                            
+                            // Start pinging backend with resultId
+                            self.requestResults(resultId: resultId as! String, attemptNumber: 0)
+                        }
+                    }  catch let error as NSError {
+                        print(error.localizedDescription)
+                    }
+                } else if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+            enrollUser.resume()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -171,6 +228,83 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
         }
         
         return -1
+    }
+    
+    // request results of enrollment to blockchain
+    
+    private func requestResults(resultId: String, attemptNumber: Int) {
+        if attemptNumber < 60 {
+            guard let url = URL(string: "http://148.100.108.176:3001/api/results/" + resultId) else { return }
+            
+            let session = URLSession.shared
+            let enrollUser = session.dataTask(with: url) { (data, response, error) in
+                if let data = data {
+                    do {
+                        // data is
+                        // {"status":"done","result":"{\"message\":\"success\",\"result\":\"{\\\"user\\\":\\\"4226e3af-5ae3-49bc-870c-886af9ec53a3\\\"}\"}"}
+                        // Convert the data to JSON
+                        
+                        let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
+                        
+                        if let json = jsonSerialized, let status = json["status"] {
+                            NSLog(status as! String)
+                            if status as! String == "done" {
+                                let resultData = jsonSerialized!["result"]
+                                NSLog(resultData as! String) // {"message":"success","result":"{\"user\":\"4226e3af-5ae3-49bc-870c-886af9ec53a3\"}"}
+                                
+                                let resultSerialized = try JSONSerialization.jsonObject(with: (resultData as! String).data(using: .utf8)!, options: []) as? [String : Any]
+                                
+                                let userData = resultSerialized!["result"]
+                                NSLog(userData as! String) // {"user":"4226e3af-5ae3-49bc-870c-886af9ec53a3"}
+                                
+                                let userId = try JSONSerialization.jsonObject(with: (userData as! String).data(using: .utf8)!, options: []) as? [String : Any]
+                                
+                                self.blockchainUser = BlockchainUser(userId: userId!["user"] as! String)
+                                NSLog(userId!["user"] as! String) // 4226e3af-5ae3-49bc-870c-886af9ec53a3
+                                self.saveUser()
+                                
+                                // Debugging alert
+                                let alert = UIAlertController(title: "You have been enrolled to the blockchain network", message: userId!["user"] as? String, preferredStyle: UIAlertControllerStyle.alert)
+                                alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                            else {
+                                let when = DispatchTime.now() + 3 // 3 seconds from now
+                                DispatchQueue.main.asyncAfter(deadline: when) {
+                                    self.requestResults(resultId: resultId, attemptNumber: attemptNumber+1)
+                                }
+                            }
+                        }
+                    }  catch let error as NSError {
+                        print(error.localizedDescription)
+                    }
+                } else if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+            enrollUser.resume()
+        }
+        else {
+            NSLog("Attempted 60 times to enroll... No results")
+        }
+    }
+    
+    
+    // Save User generated from Blockchain Network
+    
+    private func saveUser() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(blockchainUser!, toFile: BlockchainUser.ArchiveURL.path)
+        if isSuccessfulSave {
+            print("User has been enrolled and persisted.")
+        } else {
+            print("Failed to save user...")
+        }
+    }
+    
+    // Load User
+    
+    func loadUser() -> BlockchainUser?  {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: BlockchainUser.ArchiveURL.path) as? BlockchainUser
     }
     
     func currentController() -> UIViewController? {
