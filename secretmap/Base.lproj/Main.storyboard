@@ -372,6 +372,7 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="distanceLabel" destination="l6e-iX-ZWS" id="b1K-CU-2kt"/>
+                        <outlet property="fitcoinsLabel" destination="3vd-A1-hX3" id="FqM-6I-YPD"/>
                         <outlet property="stepsCountLabel" destination="h0t-6W-32d" id="NPb-ny-9Ks"/>
                         <outlet property="userIdLabel" destination="iDZ-I1-Efj" id="F9J-g1-JQe"/>
                     </connections>
