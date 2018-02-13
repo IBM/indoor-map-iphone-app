@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9238EC5D202D09AA00AD1535 /* BlockchainUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */; };
 		A21B5EF7202374890087ADB6 /* secretmap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A21B5EF5202374890087ADB6 /* secretmap.xcdatamodeld */; };
 		A2234E0D1FF4220B002B8244 /* BookletItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2234E0C1FF4220B002B8244 /* BookletItemController.swift */; };
 		A2234E191FF5B108002B8244 /* booklet.json in Resources */ = {isa = PBXBuildFile; fileRef = A2234E181FF5B108002B8244 /* booklet.json */; };
@@ -57,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainUser.swift; sourceTree = "<group>"; };
 		A21B5EF6202374890087ADB6 /* secretmap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = secretmap.xcdatamodel; sourceTree = "<group>"; };
 		A2234DFA1FF41409002B8244 /* blockchain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blockchain@2x.png"; path = "../../../../../Creative Cloud Files/2x/blockchain@2x.png"; sourceTree = "<group>"; };
 		A2234DFB1FF41409002B8244 /* kubernetes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kubernetes@2x.png"; path = "../../../../../Creative Cloud Files/2x/kubernetes@2x.png"; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				A2908D731FE2BEE200A0E9BE /* MapViewController.swift */,
 				A2908D751FE2BEE200A0E9BE /* DataViewController.swift */,
 				A2908D771FE2BEE200A0E9BE /* Main.storyboard */,
+				9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */,
 				A2908D7A1FE2BEE200A0E9BE /* Assets.xcassets */,
 				A2908D7C1FE2BEE200A0E9BE /* LaunchScreen.storyboard */,
 				A2908D7F1FE2BEE200A0E9BE /* Info.plist */,
@@ -391,6 +394,7 @@
 				A23754DF2006DA4D00409B20 /* FloorplanOverlayRenderer.swift in Sources */,
 				A23754DD2006DA2B00409B20 /* HideBackgorundOverlay.swift in Sources */,
 				A2908D741FE2BEE200A0E9BE /* MapViewController.swift in Sources */,
+				9238EC5D202D09AA00AD1535 /* BlockchainUser.swift in Sources */,
 				A23754DB2006D85000409B20 /* Utilities.swift in Sources */,
 				A28E57CC201659A200CE4C58 /* HealthKitManager.swift in Sources */,
 				A23754D92006D83600409B20 /* VisibleMapRegionDelegate.swift in Sources */,
@@ -562,10 +566,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = secretmap/secretmap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CT3Y8HLWZY;
+				DEVELOPMENT_TEAM = 24VUPDRF9D;
 				INFOPLIST_FILE = secretmap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anton.secretmap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anthonyamanse.secretmap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -579,10 +583,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = secretmap/secretmap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CT3Y8HLWZY;
+				DEVELOPMENT_TEAM = 24VUPDRF9D;
 				INFOPLIST_FILE = secretmap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anton.secretmap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anthonyamanse.secretmap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
