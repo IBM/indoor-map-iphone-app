@@ -59,28 +59,39 @@
             </objects>
             <point key="canvasLocation" x="1248.8" y="-1231.0344827586207"/>
         </scene>
-        <!--Second View Controller-->
+        <!--Augmented View Controller-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="secretmap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="AugmentedViewController" customModule="secretmap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="80" y="363" width="215" height="17"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XjP-fS-vce">
+                                <rect key="frame" x="57" y="77" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </stackView>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SLM-Zs-xPD">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                            </arscnView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="SLM-Zs-xPD" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="8JI-Jn-kVB"/>
+                            <constraint firstItem="SLM-Zs-xPD" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="BUG-u8-FXX"/>
+                            <constraint firstItem="SLM-Zs-xPD" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="EPh-aC-PlE"/>
+                            <constraint firstItem="SLM-Zs-xPD" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="XgS-8a-djT"/>
+                            <constraint firstItem="SLM-Zs-xPD" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="bge-rp-xIg"/>
+                            <constraint firstItem="SLM-Zs-xPD" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="l5z-ig-REY"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="glasses.png" id="cPa-gy-q4n">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="sceneView" destination="SLM-Zs-xPD" id="HWz-6n-y5p"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>

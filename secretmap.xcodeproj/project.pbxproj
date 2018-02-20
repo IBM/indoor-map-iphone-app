@@ -13,6 +13,14 @@
 		A2234E191FF5B108002B8244 /* booklet.json in Resources */ = {isa = PBXBuildFile; fileRef = A2234E181FF5B108002B8244 /* booklet.json */; };
 		A2234E231FF899AC002B8244 /* glasses.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E221FF899AB002B8244 /* glasses.png */; };
 		A2234E251FF99B84002B8244 /* footprint-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = A2234E241FF99B84002B8244 /* footprint-tab.png */; };
+		A2321A7820377DD900E34DA7 /* Ship.mtl in Resources */ = {isa = PBXBuildFile; fileRef = A2321A7620377DD900E34DA7 /* Ship.mtl */; };
+		A2321A7920377DD900E34DA7 /* Ship.obj in Resources */ = {isa = PBXBuildFile; fileRef = A2321A7720377DD900E34DA7 /* Ship.obj */; };
+		A2321A7B20377E0C00E34DA7 /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2321A7A20377E0C00E34DA7 /* Ship.swift */; };
+		A2321A7D20377E3800E34DA7 /* Ship.scn in Resources */ = {isa = PBXBuildFile; fileRef = A2321A7C20377E3800E34DA7 /* Ship.scn */; };
+		A2337ACD203616C200C0ECFF /* Pirate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2337ACC203616C200C0ECFF /* Pirate.swift */; };
+		A2337ACF203616CD00C0ECFF /* Pirate.scn in Resources */ = {isa = PBXBuildFile; fileRef = A2337ACE203616CD00C0ECFF /* Pirate.scn */; };
+		A2337AD1203616D200C0ECFF /* Pirate.obj in Resources */ = {isa = PBXBuildFile; fileRef = A2337AD0203616D200C0ECFF /* Pirate.obj */; };
+		A2337AD3203616D900C0ECFF /* Pirate.mtl in Resources */ = {isa = PBXBuildFile; fileRef = A2337AD2203616D900C0ECFF /* Pirate.mtl */; };
 		A23754D32006A35C00409B20 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = A23754D22006A35C00409B20 /* compass.png */; };
 		A23754D52006A36C00409B20 /* anctor-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = A23754D42006A36C00409B20 /* anctor-tab.png */; };
 		A23754D72006D80B00409B20 /* MKMapRectRotated.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23754D62006D80B00409B20 /* MKMapRectRotated.swift */; };
@@ -73,6 +81,14 @@
 		A2234E1C1FF82CF1002B8244 /* anchor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "anchor@2x.png"; path = "../../../../../Creative Cloud Files/2x/anchor@2x.png"; sourceTree = "<group>"; };
 		A2234E221FF899AB002B8244 /* glasses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glasses.png; sourceTree = "<group>"; };
 		A2234E241FF99B84002B8244 /* footprint-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footprint-tab.png"; sourceTree = "<group>"; };
+		A2321A7620377DD900E34DA7 /* Ship.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Ship.mtl; sourceTree = "<group>"; };
+		A2321A7720377DD900E34DA7 /* Ship.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Ship.obj; sourceTree = "<group>"; };
+		A2321A7A20377E0C00E34DA7 /* Ship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ship.swift; sourceTree = "<group>"; };
+		A2321A7C20377E3800E34DA7 /* Ship.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Ship.scn; sourceTree = "<group>"; };
+		A2337ACC203616C200C0ECFF /* Pirate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pirate.swift; sourceTree = "<group>"; };
+		A2337ACE203616CD00C0ECFF /* Pirate.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Pirate.scn; sourceTree = "<group>"; };
+		A2337AD0203616D200C0ECFF /* Pirate.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pirate.obj; sourceTree = "<group>"; };
+		A2337AD2203616D900C0ECFF /* Pirate.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pirate.mtl; sourceTree = "<group>"; };
 		A23754D22006A35C00409B20 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
 		A23754D42006A36C00409B20 /* anctor-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anctor-tab.png"; sourceTree = "<group>"; };
 		A23754D62006D80B00409B20 /* MKMapRectRotated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapRectRotated.swift; sourceTree = "<group>"; };
@@ -156,6 +172,21 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		A2337ACB203616A300C0ECFF /* objects */ = {
+			isa = PBXGroup;
+			children = (
+				A2337AD2203616D900C0ECFF /* Pirate.mtl */,
+				A2337AD0203616D200C0ECFF /* Pirate.obj */,
+				A2337ACE203616CD00C0ECFF /* Pirate.scn */,
+				A2337ACC203616C200C0ECFF /* Pirate.swift */,
+				A2321A7A20377E0C00E34DA7 /* Ship.swift */,
+				A2321A7620377DD900E34DA7 /* Ship.mtl */,
+				A2321A7720377DD900E34DA7 /* Ship.obj */,
+				A2321A7C20377E3800E34DA7 /* Ship.scn */,
+			);
+			path = objects;
+			sourceTree = "<group>";
+		};
 		A28E57C82011558100CE4C58 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +220,7 @@
 		A2908D701FE2BEE200A0E9BE /* secretmap */ = {
 			isa = PBXGroup;
 			children = (
+				A2337ACB203616A300C0ECFF /* objects */,
 				A28E57C72011558100CE4C58 /* secretmap.entitlements */,
 				A2234DE31FF412EA002B8244 /* images */,
 				A2908D711FE2BEE200A0E9BE /* AppDelegate.swift */,
@@ -346,12 +378,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2321A7D20377E3800E34DA7 /* Ship.scn in Resources */,
+				A2337AD1203616D200C0ECFF /* Pirate.obj in Resources */,
 				A23754E82006E3E200409B20 /* Floorplans in Resources */,
 				A2908D7E1FE2BEE200A0E9BE /* LaunchScreen.storyboard in Resources */,
 				A26F96272028B6EE004247D5 /* footprint@2x.png in Resources */,
+				A2337ACF203616CD00C0ECFF /* Pirate.scn in Resources */,
 				A2234E231FF899AC002B8244 /* glasses.png in Resources */,
 				A26F96292028B6F5004247D5 /* distance@2x.png in Resources */,
+				A2321A7820377DD900E34DA7 /* Ship.mtl in Resources */,
+				A2337AD3203616D900C0ECFF /* Pirate.mtl in Resources */,
 				A23754D32006A35C00409B20 /* compass.png in Resources */,
+				A2321A7920377DD900E34DA7 /* Ship.obj in Resources */,
 				A23754D52006A36C00409B20 /* anctor-tab.png in Resources */,
 				A2908D7B1FE2BEE200A0E9BE /* Assets.xcassets in Resources */,
 				A2234E251FF99B84002B8244 /* footprint-tab.png in Resources */,
@@ -395,9 +433,11 @@
 				A23754DD2006DA2B00409B20 /* HideBackgorundOverlay.swift in Sources */,
 				A2908D741FE2BEE200A0E9BE /* MapViewController.swift in Sources */,
 				9238EC5D202D09AA00AD1535 /* BlockchainUser.swift in Sources */,
+				A2321A7B20377E0C00E34DA7 /* Ship.swift in Sources */,
 				A23754DB2006D85000409B20 /* Utilities.swift in Sources */,
 				A28E57CC201659A200CE4C58 /* HealthKitManager.swift in Sources */,
 				A23754D92006D83600409B20 /* VisibleMapRegionDelegate.swift in Sources */,
+				A2337ACD203616C200C0ECFF /* Pirate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,10 +606,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = secretmap/secretmap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 24VUPDRF9D;
+				DEVELOPMENT_TEAM = CT3Y8HLWZY;
 				INFOPLIST_FILE = secretmap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anthonyamanse.secretmap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anton.secretmap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -583,10 +623,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = secretmap/secretmap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 24VUPDRF9D;
+				DEVELOPMENT_TEAM = CT3Y8HLWZY;
 				INFOPLIST_FILE = secretmap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anthonyamanse.secretmap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anton.secretmap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
