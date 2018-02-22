@@ -10,6 +10,15 @@ import UIKit
 import HealthKit
 import CoreMotion
 
+struct GetStateFinalResult: Codable {
+    let contractIds: [String]?
+    let fitcoinsBalance: Int
+    let id: String
+    let memberType: String
+    let stepsUsedForConversion: Int
+    let totalSteps: Int
+}
+
 class DataViewController: UIViewController {
     
     let appDelegate = UIApplication.shared.delegate
@@ -35,23 +44,12 @@ class DataViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         currentUser = BookletController().loadUser()
         if currentUser != nil {
-            
-            // Debugging alert
-//            let alert = UIAlertController(title: "DEBUG: (already enrolled)", message: currentUser?.userId, preferredStyle: UIAlertControllerStyle.alert)
-//            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//
             let userId: String = currentUser!.userId
             userIdLabel?.text = userId
             
             self.getStateOfUser(userId)
         }
         else {
-            
-            // Debugging alert
-//            let alert = UIAlertController(title: "DEBUG: (not yet enrolled)", message: "refresh the page later", preferredStyle: UIAlertControllerStyle.alert)
-//            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
             userIdLabel?.text = "Enrolling in progress. Refresh the page at a later time"
         }
     }
@@ -134,7 +132,7 @@ class DataViewController: UIViewController {
     }
     
     private func sendStepsToFitchain(userId: String?, pedometerData: CMPedometerData) {
-        guard let url = URL(string: "http://148.100.108.176:3001/api/execute") else { return }
+        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -142,7 +140,7 @@ class DataViewController: UIViewController {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let args: [String] = [userId!, pedometerData.numberOfSteps.stringValue]
-        parameters = ["type":"invoke", "params":["userId": userId!,"fcn": "generateFitcoins", "args":args]]
+        parameters = ["type":"invoke", "queue":"user_queue","params":["userId": userId!,"fcn": "generateFitcoins", "args":args]]
         request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
         
         let sendStepsToBlockchain = session.dataTask(with: request as URLRequest) { (data, response, error) in
@@ -181,7 +179,7 @@ class DataViewController: UIViewController {
     // This should get user profile from userId
     // The request is queued
     private func getStateOfUser(_ userId: String) {
-        guard let url = URL(string: "http://148.100.108.176:3001/api/execute") else { return }
+        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -189,7 +187,7 @@ class DataViewController: UIViewController {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let args: [String] = [userId]
-        parameters = ["type":"query", "params":["userId": userId,"fcn": "getState", "args":args]]
+        parameters = ["type":"query", "queue":"user_queue", "params":["userId": userId,"fcn": "getState", "args":args]]
         request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
         
         let getStateOfUser = session.dataTask(with: request as URLRequest) { (data, response, error) in
@@ -219,7 +217,7 @@ class DataViewController: UIViewController {
     private func requestResults(resultId: String, attemptNumber: Int) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.108.176:3001/api/results/" + resultId) else { return }
+            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in
@@ -228,46 +226,23 @@ class DataViewController: UIViewController {
                         // data is
                         // {"status":"done","result":"{\"message\":\"success\",\"result\":\"{\\\"user\\\":\\\"4226e3af-5ae3-49bc-870c-886af9ec53a3\\\"}\"}"}
                         // Convert the data to JSON
-                        
-                        let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-                        
-                        if let json = jsonSerialized, let status = json["status"] {
-                            NSLog(status as! String)
-                            
-                            // If status of our queued request is done
-                            if status as! String == "done" {
-                                let resultData = jsonSerialized!["result"]
-                                NSLog(resultData as! String)
-                                // {\"message\":\"success\",\"result\":\"{\\\"response\\\":\\\"{\\\\\\\"contractIds\\\\\\\":null,\\\\\\\"fitcoinsBalance\\\\\\\":0,\\\\\\\"id\\\\\\\":\\\\\\\"882adba4-37f5-4165-a373-c148428468f4\\\\\\\",\\\\\\\"memberType\\\\\\\":\\\\\\\"user\\\\\\\",\\\\\\\"stepsUsedForConversion\\\\\\\":0,\\\\\\\"totalSteps\\\\\\\":0}\\\"}\"}"}
-                                
-                                let resultSerialized = try JSONSerialization.jsonObject(with: (resultData as! String).data(using: .utf8)!, options: []) as? [String : Any]
-                                
-                                let anotherResultData = resultSerialized!["result"]
-                                NSLog(anotherResultData as! String)
-                                // {"response":"{\"contractIds\":null,\"fitcoinsBalance\":0,\"id\":\"882adba4-37f5-4165-a373-c148428468f4\",\"memberType\":\"user\",\"stepsUsedForConversion\":0,\"totalSteps\":0}"}
-                                
-                                let anotherResultSerialized = try JSONSerialization.jsonObject(with: (anotherResultData as! String).data(using: .utf8)!, options: []) as? [String : Any]
-                                let userData = anotherResultSerialized!["response"]
-                                // {"contractIds":null,"fitcoinsBalance":0,"id":"882adba4-37f5-4165-a373-c148428468f4","memberType":"user","stepsUsedForConversion":0,"totalSteps":0}
-                                
-                                let userDataSerialized = try JSONSerialization.jsonObject(with: (userData as! String).data(using: .utf8)!, options: []) as? [String : Any]
-                                
-                                // update variables
-                                self.totalStepsConvertedToFitcoin = userDataSerialized!["stepsUsedForConversion"] as? Int
-                                print(self.totalStepsConvertedToFitcoin!)
-                                self.fitcoinsBalanceFromBlockchain = userDataSerialized!["fitcoinsBalance"] as? Int
-                                print(self.fitcoinsBalanceFromBlockchain!)
-                                
-                                // Update fitcoins of user
-                                DispatchQueue.main.async {
-                                    self.fitcoinsLabel.text = String(describing: self.fitcoinsBalanceFromBlockchain!)
-                                }
+                        let backendResult = try JSONDecoder().decode(BackendResult.self, from: data)
+                        if backendResult.status == "done" {
+                            print(backendResult.result!)
+                            let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
+                            print(resultOfBlockchain)
+                            let finalResultOfGetState = try JSONDecoder().decode(GetStateFinalResult.self, from: resultOfBlockchain.result.data(using: .utf8)!)
+                            print(finalResultOfGetState)
+                            self.fitcoinsBalanceFromBlockchain = finalResultOfGetState.fitcoinsBalance
+                            self.totalStepsConvertedToFitcoin = finalResultOfGetState.stepsUsedForConversion
+                            DispatchQueue.main.async {
+                                self.fitcoinsLabel.text = String(describing: self.fitcoinsBalanceFromBlockchain!)
                             }
-                            else {
-                                let when = DispatchTime.now() + 3 // 3 seconds from now
-                                DispatchQueue.main.asyncAfter(deadline: when) {
-                                    self.requestResults(resultId: resultId, attemptNumber: attemptNumber+1)
-                                }
+                        }
+                        else {
+                            let when = DispatchTime.now() + 3 // 3 seconds from now
+                            DispatchQueue.main.asyncAfter(deadline: when) {
+                                self.requestResults(resultId: resultId, attemptNumber: attemptNumber+1)
                             }
                         }
                     }  catch let error as NSError {

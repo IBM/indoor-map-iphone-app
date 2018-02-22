@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		922D72902036990500A345A1 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D728F2036990500A345A1 /* ShopViewController.swift */; };
+		922D72B2203BA8E200A345A1 /* QuantityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D72B1203BA8E200A345A1 /* QuantityViewController.swift */; };
 		9238EC5D202D09AA00AD1535 /* BlockchainUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */; };
+		92BF0680203D2E0500B388F9 /* ContractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BF067F203D2E0500B388F9 /* ContractViewController.swift */; };
+		92BF0682203E761900B388F9 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BF0681203E761900B388F9 /* OrdersViewController.swift */; };
 		A21B5EF7202374890087ADB6 /* secretmap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A21B5EF5202374890087ADB6 /* secretmap.xcdatamodeld */; };
 		A2234E0D1FF4220B002B8244 /* BookletItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2234E0C1FF4220B002B8244 /* BookletItemController.swift */; };
 		A2234E191FF5B108002B8244 /* booklet.json in Resources */ = {isa = PBXBuildFile; fileRef = A2234E181FF5B108002B8244 /* booklet.json */; };
@@ -66,7 +70,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		922D728F2036990500A345A1 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		922D72B1203BA8E200A345A1 /* QuantityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityViewController.swift; sourceTree = "<group>"; };
 		9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainUser.swift; sourceTree = "<group>"; };
+		92BF067F203D2E0500B388F9 /* ContractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractViewController.swift; sourceTree = "<group>"; };
+		92BF0681203E761900B388F9 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		A21B5EF6202374890087ADB6 /* secretmap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = secretmap.xcdatamodel; sourceTree = "<group>"; };
 		A2234DFA1FF41409002B8244 /* blockchain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blockchain@2x.png"; path = "../../../../../Creative Cloud Files/2x/blockchain@2x.png"; sourceTree = "<group>"; };
 		A2234DFB1FF41409002B8244 /* kubernetes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "kubernetes@2x.png"; path = "../../../../../Creative Cloud Files/2x/kubernetes@2x.png"; sourceTree = "<group>"; };
@@ -228,6 +236,10 @@
 				A2908D731FE2BEE200A0E9BE /* MapViewController.swift */,
 				A2908D751FE2BEE200A0E9BE /* DataViewController.swift */,
 				A2908D771FE2BEE200A0E9BE /* Main.storyboard */,
+				92BF0681203E761900B388F9 /* OrdersViewController.swift */,
+				92BF067F203D2E0500B388F9 /* ContractViewController.swift */,
+				922D72B1203BA8E200A345A1 /* QuantityViewController.swift */,
+				922D728F2036990500A345A1 /* ShopViewController.swift */,
 				9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */,
 				A2908D7A1FE2BEE200A0E9BE /* Assets.xcassets */,
 				A2908D7C1FE2BEE200A0E9BE /* LaunchScreen.storyboard */,
@@ -424,6 +436,7 @@
 				A21B5EF7202374890087ADB6 /* secretmap.xcdatamodeld in Sources */,
 				A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */,
 				A23754D72006D80B00409B20 /* MKMapRectRotated.swift in Sources */,
+				922D72902036990500A345A1 /* ShopViewController.swift in Sources */,
 				A26F962520275B5F004247D5 /* AugmentedViewController.swift in Sources */,
 				A23754E12006DA6E00409B20 /* FloorplanOverlay.swift in Sources */,
 				A23754E32006DA8E00409B20 /* CoordinateConverter.swift in Sources */,
@@ -432,8 +445,11 @@
 				A23754DF2006DA4D00409B20 /* FloorplanOverlayRenderer.swift in Sources */,
 				A23754DD2006DA2B00409B20 /* HideBackgorundOverlay.swift in Sources */,
 				A2908D741FE2BEE200A0E9BE /* MapViewController.swift in Sources */,
+				922D72B2203BA8E200A345A1 /* QuantityViewController.swift in Sources */,
 				9238EC5D202D09AA00AD1535 /* BlockchainUser.swift in Sources */,
 				A2321A7B20377E0C00E34DA7 /* Ship.swift in Sources */,
+				92BF0682203E761900B388F9 /* OrdersViewController.swift in Sources */,
+				92BF0680203D2E0500B388F9 /* ContractViewController.swift in Sources */,
 				A23754DB2006D85000409B20 /* Utilities.swift in Sources */,
 				A28E57CC201659A200CE4C58 /* HealthKitManager.swift in Sources */,
 				A23754D92006D83600409B20 /* VisibleMapRegionDelegate.swift in Sources */,
