@@ -15,11 +15,9 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.dismiss(animated: true, completion: nil)
     }
     
-    // test data
-    let animals: [String] = ["Horse", "Cow", "Camel", "Sheep", "Goat"]
     let cellReuseIdentifier = "cell"
     
-    var userState: GetStateFinalResult?
+    var userContracts: [Contract]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +42,7 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.userState!.contractIds!.count
+        return self.userContracts!.count
     }
     
     // create a cell for each table view row
@@ -54,17 +52,25 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
         
         // set the text from the data model
-        cell.textLabel?.text = self.userState!.contractIds!.reversed()[indexPath.row]
+        cell.textLabel?.text = self.userContracts!.reversed()[indexPath.row].id + " - " + self.userContracts!.reversed()[indexPath.row].state
         cell.textLabel?.textColor = UIColor.init(red: 215.00/255.00, green: 44.00/255.00, blue: 101.00/255.00, alpha: 1)
-        cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 22)
+        cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 17)
+        cell.textLabel?.textAlignment = NSTextAlignment.center
         
         return cell
     }
     
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You tapped cell number \(self.userState!.contractIds!.count - 1 - indexPath.row).")
-        print(self.userState!.contractIds![self.userState!.contractIds!.count - 1 - indexPath.row])
+        self.transitionToContractView(payload: self.userContracts![self.userContracts!.count - 1 - indexPath.row])
+    }
+    
+    private func transitionToContractView(payload: Contract) {
+        let contractViewController = self.storyboard?.instantiateViewController(withIdentifier: "contractReceived") as? ContractViewController
+        contractViewController?.payload = payload
+        print(payload)
+        contractViewController?.receivedFromQuantityView = false
+        self.present(contractViewController!, animated: true, completion: nil)
     }
 
     /*

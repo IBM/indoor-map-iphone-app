@@ -24,21 +24,11 @@ struct ResultOfTransactionResult: Codable {
     let payload: String
 }
 
-// The Contract
-struct MakePurchaseFinalResult: Codable {
-    let id: String // Contract Id
-    let sellerId: String
-    let userId: String
-    let productId: String
-    let productName: String
-    let quantity: Int
-    let cost: Int // Total Price
-    let state: String
-}
-
 class QuantityViewController: UIViewController {
     
     var payload: Product?
+    var fitcoins: Int?
+    var pendingCharges: Int?
     
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var imageView: UIImageView!
@@ -50,8 +40,6 @@ class QuantityViewController: UIViewController {
     @IBOutlet var navigationBar: UINavigationBar!
     
     var currentUser: BlockchainUser?
-    
-    var contractViewController: ContractViewController?
     
     // Cancel button on top left
     @IBAction func cancel(_ sender: Any) {
@@ -83,7 +71,16 @@ class QuantityViewController: UIViewController {
         stepper.isEnabled = false
         claimButton.alpha = 0.5
         stepper.alpha = 0.5
-        self.purchaseItem()
+        if fitcoins! - pendingCharges! > Int(totalPrice.text!)! {
+            self.purchaseItem()
+        }
+        else {
+            let alert = UIAlertController(title: "Purchase failed", message: "You don't have enough available fitcoins. You can cancel your pending orders if you want to change them.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: {
+                (action: UIAlertAction) in self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
@@ -93,8 +90,6 @@ class QuantityViewController: UIViewController {
         statusBar.backgroundColor = themeColor
         statusBar.tintColor = themeColor
         view.addSubview(statusBar)
-        
-        contractViewController = self.storyboard?.instantiateViewController(withIdentifier: "contractReceived") as? ContractViewController
         
         if payload?.productid == "shirt-1234" {
             stepper.maximumValue = 2
@@ -114,11 +109,16 @@ class QuantityViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    private func transitionToContractView(payload: MakePurchaseFinalResult) {
+    // This moves the user to the details of the contract
+    private func transitionToContractView(payload: Contract) {
+        let contractViewController = self.storyboard?.instantiateViewController(withIdentifier: "contractReceived") as? ContractViewController
         contractViewController?.payload = payload
+        contractViewController?.receivedFromQuantityView = true
         self.present(contractViewController!, animated: true, completion: nil)
     }
     
+    // This starts to make a contract of the purchase
+    // This is queued
     private func purchaseItem() {
         guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
         let parameters: [String:Any]
@@ -141,10 +141,9 @@ class QuantityViewController: UIViewController {
                     
                     if let json = jsonSerialized, let status = json["status"], let resultId = json["resultId"] {
                         NSLog(status as! String)
-                        NSLog(resultId as! String) // Use this one to get blockchain payload - should contain userId
+                        NSLog(resultId as! String) // Use this one to get blockchain payload
                         
                         // Start pinging backend with resultId
-//                        self.requestResults(resultId: resultId as! String, attemptNumber: 0)
                         self.requestTransactionResult(resultId: resultId as! String, attemptNumber: 0)
                     }
                 }  catch let error as NSError {
@@ -157,6 +156,8 @@ class QuantityViewController: UIViewController {
         makePurchase.resume()
     }
     
+    // This pings the backend for the actual result of the blockchain network
+    // After getting the user,
     private func requestTransactionResult(resultId: String, attemptNumber: Int) {
         if attemptNumber < 60 {
             guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
@@ -171,7 +172,7 @@ class QuantityViewController: UIViewController {
                         
                         if backendResult.status == "done" {
                             let resultOfMakePurchase = try JSONDecoder().decode(ResultOfMakePurchase.self, from: backendResult.result!.data(using: .utf8)!)
-                            let makePurchaseFinalResult = try JSONDecoder().decode(MakePurchaseFinalResult.self, from: resultOfMakePurchase.result.results.payload.data(using: .utf8)!)
+                            let makePurchaseFinalResult = try JSONDecoder().decode(Contract.self, from: resultOfMakePurchase.result.results.payload.data(using: .utf8)!)
                             DispatchQueue.main.async {
                                 self.transitionToContractView(payload: makePurchaseFinalResult)
                             }

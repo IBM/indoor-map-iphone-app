@@ -167,9 +167,11 @@ class DataViewController: UIViewController {
                         }
                     }
                 }  catch let error as NSError {
+                    self.sendingInProgress = false
                     print(error.localizedDescription)
                 }
             } else if let error = error {
+                self.sendingInProgress = false
                 print(error.localizedDescription)
             }
         }
@@ -202,7 +204,7 @@ class DataViewController: UIViewController {
                         NSLog(resultId as! String) // Use this one to get blockchain payload
                         
                         // Start checking if our queued request is finished.
-                        self.requestResults(resultId: resultId as! String, attemptNumber: 0)
+                        self.requestUserResults(resultId: resultId as! String, attemptNumber: 0)
                     }
                 }  catch let error as NSError {
                     print(error.localizedDescription)
@@ -214,7 +216,7 @@ class DataViewController: UIViewController {
         getStateOfUser.resume()
     }
     
-    private func requestResults(resultId: String, attemptNumber: Int) {
+    private func requestUserResults(resultId: String, attemptNumber: Int) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
             guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
@@ -242,7 +244,7 @@ class DataViewController: UIViewController {
                         else {
                             let when = DispatchTime.now() + 3 // 3 seconds from now
                             DispatchQueue.main.asyncAfter(deadline: when) {
-                                self.requestResults(resultId: resultId, attemptNumber: attemptNumber+1)
+                                self.requestUserResults(resultId: resultId, attemptNumber: attemptNumber+1)
                             }
                         }
                     }  catch let error as NSError {

@@ -14,11 +14,23 @@ class ContractViewController: UIViewController {
     @IBOutlet var totalPrice: UILabel!
     @IBOutlet var productName: UILabel!
     @IBOutlet var contractId: UILabel!
-    var payload: MakePurchaseFinalResult?
+    @IBOutlet var contractState: UILabel!
+    @IBOutlet var messageForState: UILabel!
+    var payload: Contract?
+    var receivedFromQuantityView: Bool?
 
     @IBAction func back(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: "unwindToMenu", sender: self)
+        if receivedFromQuantityView! {
+            self.performSegue(withIdentifier: "unwindToShop", sender: self)
+        }
+        else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let themeColor = UIColor.init(red: 232.00/255.00, green: 139.00/255.00, blue: 123.00/255.00, alpha: 1)
@@ -26,14 +38,21 @@ class ContractViewController: UIViewController {
         statusBar.backgroundColor = themeColor
         statusBar.tintColor = themeColor
         view.addSubview(statusBar)
+        
+        
         print(payload!)
         
         quantity.text = String(describing: payload!.quantity)
         totalPrice.text = String(describing: payload!.cost)
         productName.text = payload!.productName
         contractId.text = payload!.id
-        
-
+        contractState.text = payload!.state
+        if payload!.state == "pending" {
+            messageForState.text = "your swags are waiting in our booth!"
+        }
+        else {
+            messageForState.text = "enjoy the swag!"
+        }
         // Do any additional setup after loading the view.
     }
 
