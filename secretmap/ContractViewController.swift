@@ -15,6 +15,7 @@ class ContractViewController: UIViewController {
     @IBOutlet var productName: UILabel!
     @IBOutlet var contractId: UILabel!
     @IBOutlet var contractState: UILabel!
+    @IBOutlet var imageView: UIImageView!
     @IBOutlet var messageForState: UILabel!
     var payload: Contract?
     var receivedFromQuantityView: Bool?
@@ -42,6 +43,7 @@ class ContractViewController: UIViewController {
         
         print(payload!)
         
+        imageView.image = UIImage(named: payload!.productId)
         quantity.text = String(describing: payload!.quantity)
         totalPrice.text = String(describing: payload!.cost)
         productName.text = payload!.productName

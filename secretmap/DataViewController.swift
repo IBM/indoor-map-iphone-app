@@ -242,7 +242,7 @@ class DataViewController: UIViewController {
                             }
                         }
                         else {
-                            let when = DispatchTime.now() + 3 // 3 seconds from now
+                            let when = DispatchTime.now() + 0.5 // 3 seconds from now
                             DispatchQueue.main.asyncAfter(deadline: when) {
                                 self.requestUserResults(resultId: resultId, attemptNumber: attemptNumber+1)
                             }

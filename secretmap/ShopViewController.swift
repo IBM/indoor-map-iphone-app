@@ -32,20 +32,33 @@ struct Contract: Codable {
     let state: String
 }
 
-class ShopViewController: UIViewController {
+class ShopViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var scrollView: UIScrollView!
+//    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet var tableView: UITableView!
     @IBOutlet var ordersButton: UIBarButtonItem!
     @IBOutlet weak var fitcoinsBalance: UILabel!
     @IBOutlet weak var pendingChargesBalance: UILabel!
     
     var currentUser: BlockchainUser?
     var receivedProductList: [Product]?
+    var productsInStock: [Product]?
     var userState: GetStateFinalResult?
     var receivedContracts: [Contract]?
     
     var pendingCharges: Int?
     var fitcoins: Int?
+    
+    // These strings will be the data for the table view cells
+    let animals: [String] = ["Horse", "Cow", "Camel", "Sheep", "Goat"]
+    
+    // These are the colors of the square views in our table view cells.
+    // In a real project you might use UIImages.
+    let colors = [UIColor.blue, UIColor.yellow, UIColor.magenta, UIColor.red, UIColor.brown]
+    
+    // Don't forget to enter this in IB also
+    let cellReuseIdentifier = "cell"
+    
     
     @IBAction func unwindToShop(segue: UIStoryboardSegue) {
         
@@ -55,20 +68,6 @@ class ShopViewController: UIViewController {
         let data = receivedContracts
         if let destinationViewController = segue.destination as? OrdersViewController {
             destinationViewController.userContracts = data
-        }
-    }
-    
-    // Go to Quantity View
-    @objc func tapDetected(gesture: UITapGestureRecognizer) {
-        let quantityViewController = self.storyboard?.instantiateViewController(withIdentifier: "quantity") as! QuantityViewController
-        quantityViewController.payload = receivedProductList![gesture.view!.tag]
-        if fitcoins != nil && pendingCharges != nil {
-            quantityViewController.pendingCharges = pendingCharges
-            quantityViewController.fitcoins = fitcoins
-            self.present(quantityViewController, animated: true, completion: nil)
-        }
-        else {
-            print("please wait")
         }
     }
     
@@ -83,12 +82,19 @@ class ShopViewController: UIViewController {
         self.fitcoinsBalance.text = "-"
         self.pendingChargesBalance.text = "-"
         ordersButton.isEnabled = false
+        self.receivedProductList = []
+        self.productsInStock = []
+        
+        self.tableView.reloadData()
+        
+        self.tableView.tableFooterView = UIView()
         
         // Get the state of user, user contracts, and products for sale
         self.getStateOfUser(currentUser!.userId)
         self.getAllUserContracts(currentUser!.userId)
         self.getProductsForSale(currentUser!.userId)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let themeColor = UIColor.init(red: 232.00/255.00, green: 139.00/255.00, blue: 123.00/255.00, alpha: 1)
@@ -98,17 +104,52 @@ class ShopViewController: UIViewController {
         view.addSubview(statusBar)
         
         currentUser = BookletController().loadUser()
+        
+        
         // Do any additional setup after loading the view.
     }
     
-    func newProductView(productId: String, index: Int) -> UIImageView {
-        let imageView = UIImageView(image: UIImage(named: "fitcoin@2x.png"))
-        imageView.frame = CGRect(x: 0, y: index*100, width: 100, height: 100)
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    // number of rows in table view
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.productsInStock!.count
+    }
+    
+    // create a cell for each table view row
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell:ProductTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! ProductTableViewCell
+        
+        let productId = self.productsInStock![indexPath.row].productid
+        
+        let imageView = UIImageView(image: UIImage(named: productId))
+        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         imageView.contentMode = .scaleToFill
-        imageView.tag = index
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapDetected)))
-        return imageView
+        
+        cell.myView.addSubview(imageView)
+        cell.myCellLabel.text = self.productsInStock![indexPath.row].name
+        cell.priceLabel.text = "\(self.productsInStock![indexPath.row].price) fitcoins each"
+        cell.quantityLeftLabel.text = "\(self.productsInStock![indexPath.row].count) left"
+        
+        return cell
+    }
+    
+    // method to run when table view cell is tapped
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let quantityViewController = self.storyboard?.instantiateViewController(withIdentifier: "quantity") as! QuantityViewController
+        quantityViewController.payload = self.productsInStock![indexPath.row]
+        if fitcoins != nil && pendingCharges != nil {
+            quantityViewController.pendingCharges = pendingCharges
+            quantityViewController.fitcoins = fitcoins
+            self.present(quantityViewController, animated: true, completion: nil)
+        }
+        else {
+            print("please wait")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -175,21 +216,22 @@ class ShopViewController: UIViewController {
                         if backendResult.status == "done" {
                             
                             let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
-                            print(resultOfBlockchain)
                             
                             let productList = try JSONDecoder().decode([Product].self, from: resultOfBlockchain.result.data(using: .utf8)!)
                             self.receivedProductList = productList
                             DispatchQueue.main.async {
-                                var index = 0;
                                 for product in productList {
-                                    print(product)
-                                    print(index)
-                                    let productImageView = self.newProductView(productId: product.productid, index: index)
-                                    productImageView.alpha = 0
-                                    self.scrollView.addSubview(productImageView)
-                                    UIView.animate(withDuration: 0.5, animations: {productImageView.alpha = 1.0})
-                                    index = index + 1;
+                                    // check if in stock
+                                    if product.count != 0 {
+                                        self.productsInStock?.append(product)
+                                    }
                                 }
+                                self.tableView.delegate = self
+                                self.tableView.dataSource = self
+                                self.tableView.alpha = 0
+                                self.tableView.reloadData()
+                                UIView.animate(withDuration: 0.5, animations: {self.tableView.alpha = 1.0})
+                                print(self.productsInStock!)
                             }
                         }
                         else {

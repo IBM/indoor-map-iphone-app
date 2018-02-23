@@ -64,7 +64,6 @@ class QuantityViewController: UIViewController {
     
     // Create the contract and disable button
     @IBAction func createContract(_ sender: UIButton) {
-        print("Please create a contract for me")
         
         stepper.tintColor = UIColor.lightGray
         claimButton.isEnabled = false
@@ -94,10 +93,11 @@ class QuantityViewController: UIViewController {
         if payload?.productid == "shirt-1234" {
             stepper.maximumValue = 2
         }
-        else if payload?.productid == "stickers-1234" {
+        else if payload?.productid == "eye-sticker" || payload?.productid == "em-sticker" || payload?.productid == "bee-sticker" {
             stepper.maximumValue = 3
         }
         
+        imageView.image = UIImage(named: payload!.productid)
         productName.text = payload!.name
         totalPrice.text = String(describing: payload!.price)
         claimButton.layer.cornerRadius = 15
