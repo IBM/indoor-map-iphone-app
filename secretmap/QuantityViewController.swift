@@ -120,7 +120,7 @@ class QuantityViewController: UIViewController {
     // This starts to make a contract of the purchase
     // This is queued
     private func purchaseItem() {
-        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+        guard let url = URL(string: "https://www.ibm-fitchain.com/api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -160,7 +160,7 @@ class QuantityViewController: UIViewController {
     // After getting the user,
     private func requestTransactionResult(resultId: String, attemptNumber: Int) {
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
+            guard let url = URL(string: "https://www.ibm-fitchain.com/api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in

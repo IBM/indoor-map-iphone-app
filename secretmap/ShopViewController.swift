@@ -86,13 +86,15 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.productsInStock = []
         
         self.tableView.reloadData()
-        
         self.tableView.tableFooterView = UIView()
         
+        currentUser = BookletController().loadUser()
         // Get the state of user, user contracts, and products for sale
-        self.getStateOfUser(currentUser!.userId)
-        self.getAllUserContracts(currentUser!.userId)
-        self.getProductsForSale(currentUser!.userId)
+        if currentUser != nil {
+            self.getStateOfUser(currentUser!.userId)
+            self.getAllUserContracts(currentUser!.userId)
+            self.getProductsForSale(currentUser!.userId)
+        }
     }
     
     override func viewDidLoad() {
@@ -102,8 +104,6 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
         statusBar.backgroundColor = themeColor
         statusBar.tintColor = themeColor
         view.addSubview(statusBar)
-        
-        currentUser = BookletController().loadUser()
         
         
         // Do any additional setup after loading the view.
@@ -161,7 +161,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This will queue the result
     // requestProductsForSaleResults will then be called
     private func getProductsForSale(_ userId: String) {
-        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+        guard let url = URL(string: "https://www.ibm-fitchain.com/api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         let session = URLSession.shared
@@ -202,7 +202,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     private func requestProductsForSaleResults(resultId: String, attemptNumber: Int) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
+            guard let url = URL(string: "https://www.ibm-fitchain.com/api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in
@@ -258,7 +258,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // The request is queued
     // requestUserState will be called
     private func getStateOfUser(_ userId: String) {
-        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+        guard let url = URL(string: "https://www.ibm-fitchain.com/api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -298,7 +298,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     private func requestUserState(resultId: String, attemptNumber: Int) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
+            guard let url = URL(string: "https://www.ibm-fitchain.com/api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in
@@ -343,7 +343,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This is queued
     // requestUserContracts is then called
     private func getAllUserContracts(_ userId: String) {
-        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+        guard let url = URL(string: "https://www.ibm-fitchain.com/api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -384,7 +384,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     private func requestUserContracts(resultId: String, attemptNumber: Int) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
+            guard let url = URL(string: "https://www.ibm-fitchain.com/api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in
@@ -395,7 +395,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                         // Convert the data to JSON
                         let backendResult = try JSONDecoder().decode(BackendResult.self, from: data)
                         if backendResult.status == "done" {
-                            
+                            print(backendResult.result!)
                             var pendingCharges: Int
                             pendingCharges = 0
                             

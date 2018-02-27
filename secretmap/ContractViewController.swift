@@ -51,9 +51,10 @@ class ContractViewController: UIViewController {
         contractState.text = payload!.state
         if payload!.state == "pending" {
             messageForState.text = "your swags are waiting in our booth!"
-        }
-        else {
+        } else if payload!.state == "complete" {
             messageForState.text = "enjoy the swag!"
+        } else {
+            messageForState.text = ""
         }
         // Do any additional setup after loading the view.
     }

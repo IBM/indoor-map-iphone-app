@@ -13,6 +13,7 @@ class ProductTableViewCell: UITableViewCell {
     @IBOutlet weak var myCellLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var quantityLeftLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

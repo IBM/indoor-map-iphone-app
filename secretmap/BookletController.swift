@@ -50,7 +50,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
             blockchainUser = existingUserId
         }
         else {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+            guard let url = URL(string: "https://www.ibm-fitchain.com/api/execute") else { return }
             let parameters: [String:Any]
             let request = NSMutableURLRequest(url: url)
             
@@ -238,7 +238,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     
     private func requestResults(resultId: String, attemptNumber: Int) {
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
+            guard let url = URL(string: "https://www.ibm-fitchain.com/api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let enrollUser = session.dataTask(with: url) { (data, response, error) in
@@ -249,7 +249,6 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
                         
                         // Convert the data to JSON
                         let backendResult = try JSONDecoder().decode(BackendResult.self, from: data)
-                        
                         // if the status from queue is done
                         if backendResult.status == "done" {
                             
@@ -259,7 +258,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
                             self.blockchainUser = BlockchainUser(userId: resultOfEnroll.result.user)
                             self.saveUser()
                             
-                            let alert = UIAlertController(title: "You have been enrolled to the blockchain network", message: resultOfEnroll.result.user, preferredStyle: UIAlertControllerStyle.alert)
+                            let alert = UIAlertController(title: "Enrollment successful!", message: "You have been enrolled to the blockchain network. Your User ID is:\n\n\(resultOfEnroll.result.user)", preferredStyle: UIAlertControllerStyle.alert)
                             alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: nil))
                             self.present(alert, animated: true, completion: nil)
                         }
