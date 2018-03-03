@@ -19,6 +19,21 @@ struct Article: Codable {
     let description: String
 }
 
+struct BackendResult: Codable {
+    let status: String
+    let result: String?
+}
+
+struct ResultOfEnroll: Codable {
+    let message: String
+    let result: EnrollFinalResult
+}
+
+struct EnrollFinalResult: Codable {
+    let user: String
+    let txId: String
+}
+
 class BookletController: UIViewController, UIPageViewControllerDataSource {
     
     private var pageViewController: UIPageViewController?
@@ -32,31 +47,17 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     // Put this in viewDidLoad
     override func viewDidAppear(_ animated: Bool) {
         if let existingUserId = loadUser() {
-            
-            // Debugging alert
-//            print("Found an existing User")
-//            let alert = UIAlertController(title: "DEBUG: (already enrolled)", message: existingUserId.userId, preferredStyle: UIAlertControllerStyle.alert)
-//            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-            
             blockchainUser = existingUserId
         }
         else {
-            
-            // Debugging alert
-//            print("NO EXISTING USER")
-//            let alert = UIAlertController(title: "DEBUG", message: "NO EXISTING USER", preferredStyle: UIAlertControllerStyle.alert)
-//            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-            
-            guard let url = URL(string: "http://148.100.108.176:3001/api/execute") else { return }
+            guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
             let parameters: [String:Any]
             let request = NSMutableURLRequest(url: url)
             
             let session = URLSession.shared
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            parameters = ["type":"enroll", "params":[]]
+            parameters = ["type":"enroll", "queue":"user_queue", "params":[]]
             request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
             
             let enrollUser = session.dataTask(with: request as URLRequest) { (data, response, error) in
@@ -87,12 +88,8 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let urlString = "http://kube.ibm-fitchain.com/pages"
-        guard let url = URL(string: urlString) else {
-            print("url error")
-            return
-            
-        }
+        let urlString = "https://anthony-dev.us-south.containers.mybluemix.net/pages"
+        guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error != nil {
@@ -238,47 +235,38 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     
     private func requestResults(resultId: String, attemptNumber: Int) {
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.108.176:3001/api/results/" + resultId) else { return }
+            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let enrollUser = session.dataTask(with: url) { (data, response, error) in
                 if let data = data {
                     do {
                         // data is
-                        // {"status":"done","result":"{\"message\":\"success\",\"result\":\"{\\\"user\\\":\\\"4226e3af-5ae3-49bc-870c-886af9ec53a3\\\"}\"}"}
+                        // {"status":"done","result":"{\"message\":\"success\",\"result\":{\"user\":\"ffc22a44-a34a-453b-997a-117f00ec651e\",\"txId\":\"67a76bf0063ed13a41448d9428f21ee3cf345e4ed90ba2edf0e2ddea569c3a16\"}}"}
+                        
                         // Convert the data to JSON
+                        let backendResult = try JSONDecoder().decode(BackendResult.self, from: data)
                         
-                        let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-                        
-                        if let json = jsonSerialized, let status = json["status"] {
-                            NSLog(status as! String)
-                            if status as! String == "done" {
-                                let resultData = jsonSerialized!["result"]
-                                NSLog(resultData as! String) // {"message":"success","result":"{\"user\":\"4226e3af-5ae3-49bc-870c-886af9ec53a3\"}"}
-                                
-                                let resultSerialized = try JSONSerialization.jsonObject(with: (resultData as! String).data(using: .utf8)!, options: []) as? [String : Any]
-                                
-                                let userData = resultSerialized!["result"]
-                                NSLog(userData as! String) // {"user":"4226e3af-5ae3-49bc-870c-886af9ec53a3"}
-                                
-                                let userId = try JSONSerialization.jsonObject(with: (userData as! String).data(using: .utf8)!, options: []) as? [String : Any]
-                                
-                                self.blockchainUser = BlockchainUser(userId: userId!["user"] as! String)
-                                NSLog(userId!["user"] as! String) // 4226e3af-5ae3-49bc-870c-886af9ec53a3
-                                self.saveUser()
-                                
-                                // Debugging alert
-                                let alert = UIAlertController(title: "You have been enrolled to the blockchain network", message: userId!["user"] as? String, preferredStyle: UIAlertControllerStyle.alert)
-                                alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: nil))
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                            else {
-                                let when = DispatchTime.now() + 3 // 3 seconds from now
-                                DispatchQueue.main.asyncAfter(deadline: when) {
-                                    self.requestResults(resultId: resultId, attemptNumber: attemptNumber+1)
-                                }
+                        // if the status from queue is done
+                        if backendResult.status == "done" {
+                            
+                            let resultOfEnroll = try JSONDecoder().decode(ResultOfEnroll.self, from: backendResult.result!.data(using: .utf8)!)
+                            print(resultOfEnroll.result.user)
+                            
+                            self.blockchainUser = BlockchainUser(userId: resultOfEnroll.result.user)
+                            self.saveUser()
+                            
+                            let alert = UIAlertController(title: "You have been enrolled to the blockchain network", message: resultOfEnroll.result.user, preferredStyle: UIAlertControllerStyle.alert)
+                            alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        else {
+                            let when = DispatchTime.now() + 3 // 3 seconds from now
+                            DispatchQueue.main.asyncAfter(deadline: when) {
+                                self.requestResults(resultId: resultId, attemptNumber: attemptNumber+1)
                             }
                         }
+                        
                     }  catch let error as NSError {
                         print(error.localizedDescription)
                     }
