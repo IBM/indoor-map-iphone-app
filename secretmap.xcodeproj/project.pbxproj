@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21CB3EC3BA1FF41D93DDBD81 /* libPods-secretmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D562BA56A1049EA5A071B09 /* libPods-secretmap.a */; };
 		922D72902036990500A345A1 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D728F2036990500A345A1 /* ShopViewController.swift */; };
 		922D72B2203BA8E200A345A1 /* QuantityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D72B1203BA8E200A345A1 /* QuantityViewController.swift */; };
 		9238EC5D202D09AA00AD1535 /* BlockchainUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */; };
@@ -50,6 +51,7 @@
 		A2908D7E1FE2BEE200A0E9BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2908D7C1FE2BEE200A0E9BE /* LaunchScreen.storyboard */; };
 		A2908D891FE2BEE200A0E9BE /* secretmapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D881FE2BEE200A0E9BE /* secretmapTests.swift */; };
 		A2908D941FE2BEE200A0E9BE /* secretmapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D931FE2BEE200A0E9BE /* secretmapUITests.swift */; };
+		A29553EB204C3963000AD5D5 /* beacons.json in Resources */ = {isa = PBXBuildFile; fileRef = A29553EA204C3963000AD5D5 /* beacons.json */; };
 		A2E815A31FE876A000EC6F2A /* BookletController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E815A21FE876A000EC6F2A /* BookletController.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E24F88E541C5BE69815201B /* Pods-secretmap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secretmap.release.xcconfig"; path = "Pods/Target Support Files/Pods-secretmap/Pods-secretmap.release.xcconfig"; sourceTree = "<group>"; };
+		8D562BA56A1049EA5A071B09 /* libPods-secretmap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-secretmap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8ECA0E2D8443B121CFC99608 /* Pods-secretmap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-secretmap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-secretmap/Pods-secretmap.debug.xcconfig"; sourceTree = "<group>"; };
 		922D728F2036990500A345A1 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		922D72B1203BA8E200A345A1 /* QuantityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityViewController.swift; sourceTree = "<group>"; };
 		9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainUser.swift; sourceTree = "<group>"; };
@@ -130,6 +135,7 @@
 		A2908D8F1FE2BEE200A0E9BE /* secretmapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = secretmapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2908D931FE2BEE200A0E9BE /* secretmapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secretmapUITests.swift; sourceTree = "<group>"; };
 		A2908D951FE2BEE200A0E9BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A29553EA204C3963000AD5D5 /* beacons.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = beacons.json; sourceTree = "<group>"; };
 		A2E815A21FE876A000EC6F2A /* BookletController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookletController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A28E57CA2011558100CE4C58 /* HealthKit.framework in Frameworks */,
+				21CB3EC3BA1FF41D93DDBD81 /* libPods-secretmap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +166,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52B0D303E17697CD95250EA5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8ECA0E2D8443B121CFC99608 /* Pods-secretmap.debug.xcconfig */,
+				7E24F88E541C5BE69815201B /* Pods-secretmap.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A2234DE31FF412EA002B8244 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				A28E57C92011558100CE4C58 /* HealthKit.framework */,
+				8D562BA56A1049EA5A071B09 /* libPods-secretmap.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -214,6 +231,7 @@
 				A2908D921FE2BEE200A0E9BE /* secretmapUITests */,
 				A2908D6F1FE2BEE200A0E9BE /* Products */,
 				A28E57C82011558100CE4C58 /* Frameworks */,
+				52B0D303E17697CD95250EA5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -259,6 +277,7 @@
 				A23754E22006DA8E00409B20 /* CoordinateConverter.swift */,
 				A28E57CB201659A200CE4C58 /* HealthKitManager.swift */,
 				A26F962420275B5F004247D5 /* AugmentedViewController.swift */,
+				A29553EA204C3963000AD5D5 /* beacons.json */,
 			);
 			path = secretmap;
 			sourceTree = "<group>";
@@ -288,9 +307,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A2908D981FE2BEE200A0E9BE /* Build configuration list for PBXNativeTarget "secretmap" */;
 			buildPhases = (
+				011AD1F29CFD56B38310E74B /* [CP] Check Pods Manifest.lock */,
 				A2908D6A1FE2BEE200A0E9BE /* Sources */,
 				A2908D6B1FE2BEE200A0E9BE /* Frameworks */,
 				A2908D6C1FE2BEE200A0E9BE /* Resources */,
+				7E9DC9791819BA79014EBC6C /* [CP] Embed Pods Frameworks */,
+				C8FE6DF1E71C251C690789C4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -403,6 +425,7 @@
 				A26F96292028B6F5004247D5 /* distance@2x.png in Resources */,
 				A2321A7820377DD900E34DA7 /* Ship.mtl in Resources */,
 				A2337AD3203616D900C0ECFF /* Pirate.mtl in Resources */,
+				A29553EB204C3963000AD5D5 /* beacons.json in Resources */,
 				A23754D32006A35C00409B20 /* compass.png in Resources */,
 				A2321A7920377DD900E34DA7 /* Ship.obj in Resources */,
 				A23754D52006A36C00409B20 /* anctor-tab.png in Resources */,
@@ -429,6 +452,62 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		011AD1F29CFD56B38310E74B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-secretmap-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E9DC9791819BA79014EBC6C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-secretmap/Pods-secretmap-frameworks.sh",
+				"${PODS_ROOT}/EstimoteBluetoothScanning/EstimoteBluetoothScanning/EstimoteBluetoothScanning.framework",
+				"${PODS_ROOT}/EstimoteProximitySDK/EstimoteProximitySDK/EstimoteProximitySDK.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EstimoteBluetoothScanning.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EstimoteProximitySDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-secretmap/Pods-secretmap-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8FE6DF1E71C251C690789C4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-secretmap/Pods-secretmap-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A2908D6A1FE2BEE200A0E9BE /* Sources */ = {
@@ -621,15 +700,16 @@
 		};
 		A2908D991FE2BEE200A0E9BE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8ECA0E2D8443B121CFC99608 /* Pods-secretmap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = secretmap/secretmap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 24VUPDRF9D;
+				DEVELOPMENT_TEAM = CT3Y8HLWZY;
 				INFOPLIST_FILE = secretmap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anthonyamanse.secretmap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anton.secretmap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -638,15 +718,16 @@
 		};
 		A2908D9A1FE2BEE200A0E9BE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E24F88E541C5BE69815201B /* Pods-secretmap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = secretmap/secretmap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 24VUPDRF9D;
+				DEVELOPMENT_TEAM = CT3Y8HLWZY;
 				INFOPLIST_FILE = secretmap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anthonyamanse.secretmap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anton.secretmap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

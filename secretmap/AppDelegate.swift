@@ -11,6 +11,13 @@ import CoreData
 import HealthKit
 import CoreMotion
 
+import EstimoteProximitySDK
+
+extension Notification.Name {
+    static let zoneEntered = Notification.Name(
+        rawValue: "zoneEntered")
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -27,6 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var pedometer = CMPedometer()
     
+    var proximityObserver: EPXProximityObserver!
+    
+    var zones = [EPXProximityZone]()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -34,9 +45,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().barTintColor = UIColor(red:0.90, green:0.96, blue:0.98, alpha:1.0)
         UITabBar.appearance().tintColor = UIColor(red:0.12, green:0.38, blue:0.67, alpha:1.0)
         
-        initializeData()
+        self.initializeData()
+        self.intializeBeaconCloud()
+        
+        self.initializeBeacons()
         
         return true
+    }
+    
+    func intializeBeaconCloud(){
+        let cloudCredentials = EPXCloudCredentials(appID: "secretmap-bia", appToken: "4f3dc3aea74ca3b25cf48409ad575155")
+        
+        self.proximityObserver = EPXProximityObserver(
+            credentials: cloudCredentials,
+            errorBlock: { error in
+                print("proximity observer error: \(error)")
+        })
     }
     
     func initializeData(){
@@ -68,6 +92,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
 
         }
+    }
+    
+    func initializeBeacons(){
+        
+        if let path = Bundle.main.url(forResource: "beacons", withExtension: "json") {
+            
+            do {
+                _ = try Data(contentsOf: path, options: .mappedIfSafe)
+                let jsonData = try Data(contentsOf: path, options: .mappedIfSafe)
+                if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? [String: AnyObject] {
+                    
+                    var count = 0
+                    
+                    if let beacons = jsonDict["beacons"] as? [[String: AnyObject]] {
+                        
+                        for beacon in beacons{
+                            
+                            print(beacon["key"] as! String)
+                            
+                            let key = beacon["key"] as! String
+                            let value = beacon["value"] as! String
+                            
+                            let zone = EPXProximityZone(range: .far, attachmentKey: key, attachmentValue: value)
+                            
+                            zone.onEnterAction = { attachment in
+                                print("entering " + key + " " + value)
+                                
+                                
+//                                let url = URL(string: "http://169.48.110.218/triggers/add")!
+//                                var request = URLRequest(url: url)
+//                                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//                                request.httpMethod = "POST"
+//                                let postString = "id=13&name=Jack"
+//                                request.httpBody = postString.data(using: .utf8)
+//                                let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//                                    guard let data = data, error == nil else {                                                 // check for fundamental networking error
+//                                        print("error=\(error)")
+//                                        return
+//                                    }
+//                                    
+//                                    if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+//                                        print("statusCode should be 200, but is \(httpStatus.statusCode)")
+//                                        print("response = \(response)")
+//                                    }
+//                                    
+//                                    let responseString = String(data: data, encoding: .utf8)
+//                                    print("responseString = \(responseString)")
+//                                }
+//                                task.resume()
+                                
+                                NotificationCenter.default.post( name: Notification.Name.zoneEntered, object: beacon)
+                            }
+                            
+                            zone.onExitAction = { attachment in
+                                print("exiting " + key + " " + value)
+                            }
+                            
+                            self.zones.append(zone)
+                            
+                            count = count + 1
+                        }
+                    }
+                }
+            } catch {
+                print("couldn't parse JSON data")
+            }
+        }
+        
+        self.proximityObserver.startObserving(self.zones)
     }
     
     func getStartDate() -> Date{

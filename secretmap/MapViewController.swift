@@ -15,6 +15,8 @@ import CoreLocation
 import Foundation
 import MapKit
 
+import EstimoteProximitySDK
+
 /**
  Primary view controller for what is displayed by the application.
  
@@ -217,6 +219,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
          behavior, comment out the following line.
          */
         snapMapViewToFloorplan = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showZone(notification:)), name: Notification.Name.zoneEntered, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -241,6 +245,34 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             lastFloor = location.floor
             NSLog("We are on floor %ld", lastFloor.level)
         }
+    }
+    
+    @objc func showZone(notification: NSNotification){
+        
+        //        let pdfRegionToHighlight = [ CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 1455), CGPoint(x: 1455, y: 1455), CGPoint(x: 1455, y: 0),  ]
+        
+        
+        let pdfRegionToHighlight = [ CGPoint(x: 0, y: 1055), CGPoint(x: 0, y: 1455), CGPoint(x: 400, y: 1455), CGPoint(x: 400, y: 1055) ]
+        
+        let zone = notification.object
+        
+        if let dict = notification.object as! NSDictionary? {
+            if let z = dict["zone"] as? Int{
+                // do something with your image
+
+                print(z)
+
+            }
+        }
+        
+        print( zone )
+        
+        
+        
+        let customHighlightRegion = floorplan0.polygonFromCustomPDFPath(pdfRegionToHighlight)
+        customHighlightRegion.title = "Hello World"
+        customHighlightRegion.subtitle = "This custom region will be highlighted in Yellow!"
+        mapView!.add(customHighlightRegion)
     }
     
     /// Request authorization if needed.

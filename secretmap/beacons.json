@@ -1,0 +1,10 @@
+{"beacons":[{"key":"zone_one", "value":"Small labs 1", "zone":1, "beaconid":"ef60e28ce1589d37be7ce20b74426705", "color":"lemon", "x":0, "y":1455, "height":400, "width":400},
+            {"key":"zone_two", "value":"Small labs 2", "zone":2, "beaconid":"5b5e1e2adbdec0d49f87637ddbf4dc21", "color":"beetroot", "x":400, "y":1455, "height":400, "width":400},
+            {"key":"zone_three", "value":"Small labs 3", "zone":3, "beaconid":"d7f6c128a30cae9ee58f42ca5177d525", "color":"candyfloss", "x":800, "y":1455, "height":400, "width":400 },
+            {"key":"zone_four", "value":"Group labs", "zone":4, "beaconid":"1e6e643ca73c29c3aeaddac0b4c47e0a", "color":"lemon", "x":0, "y":1055, "height":400, "width":400},
+            {"key":"zone_five", "value":"Hall of fame", "zone":5, "beaconid":"39582382b7144c65f3fdaa4161163a07", "color":"candyfloss", "x":400, "y":1055, "height":400, "width":400},
+            {"key":"zone_six", "value":"Think Academy Media", "zone":6, "beaconid":"0d4fba2b6d28a63365fe91108907a51b", "color":"beetroot", "x":800, "y":1055, "height":400, "width":400},
+            {"key":"zone_seven", "value":"Open labs", "zone":7, "beaconid":"b2b8bc8f5587b4c94d5bab151815a505", "color":"candyfloss", "x":0, "y":655, "height":400, "width":400},
+            {"key":"zone_eight", "value":"Watson area", "zone":8, "beaconid":"33f4af993cb3b4cde8f7d6b5b6d9e034", "color":"lemon", "x":400, "y":655, "height":400, "width":400},
+            {"key":"zone_nine", "value":"Hangout", "zone":9, "beaconid":"a815cf0e8806d120f0335580b9b8ac35", "color":"beetroot", "x":800, "y":1055, "height":400, "width":400}]}
+

@@ -36,8 +36,8 @@ class AugmentedViewController: UIViewController {
     
     func addPirate() {
         
-        let pirateStartingPosition = SCNVector3(0, -1, -3)
-        let pirateScale = SCNVector3(0.1,0.1,0.1)
+        let pirateStartingPosition = SCNVector3(0, -5, -6)
+        let pirateScale = SCNVector3(0.35,0.35,0.35)
         
         pirate.loadModel()
         pirate.position = pirateStartingPosition
@@ -49,8 +49,8 @@ class AugmentedViewController: UIViewController {
         //  let boxNode = SCNNode(geometry: box)
         //  boxNode.position = SCNVector3(0,0,-0.5)
         //  scene.rootNode.addChildNode(boxNode)
-    
-//        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
+        
+        //        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
         sceneView.scene.rootNode.addChildNode(pirate)
     }
     
@@ -66,15 +66,14 @@ class AugmentedViewController: UIViewController {
         sceneView.scene.rootNode.addChildNode(ship)
     }
     
-
+    
     func setupScene() {
         let scene = SCNScene()
         sceneView.scene = scene
     }
-
+    
     func setupConfiguration() {
         let configuration = ARWorldTrackingConfiguration()
         sceneView.session.run(configuration)
     }
 }
-

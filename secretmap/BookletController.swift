@@ -88,8 +88,11 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let urlString = "https://anthony-dev.us-south.containers.mybluemix.net/pages"
-        guard let url = URL(string: urlString) else { return }
+        let urlString = "https://www.ibm-fitchain.com/pages"
+        guard let url = URL(string: urlString) else {
+            print("url error")
+            return
+        }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error != nil {
