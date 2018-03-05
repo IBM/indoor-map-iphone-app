@@ -59,10 +59,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     /// This property remembers which floor we're on.
     var lastFloor: CLFloor!
-        
+    
     var highlightZone = [ CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0) ]
     
     var highlightedArea = MKPolygon()
+    
+    var zoned: Bool = false
     
     /**
      Set to false if you want to turn off auto-scroll & auto-zoom that snaps
@@ -223,6 +225,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @objc func showZone(notification: NSNotification){
         
+        if self.zoned == true{
+            mapView!.remove(self.highlightedArea)
+        }
+        
         var yaxis:Int = 1455
         var width:Int = 0
         var y1:Int = 0
@@ -249,10 +255,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
             let highlightZone = [CGPoint(x: x1, y: y1), CGPoint(x: x1, y: y2), CGPoint(x: x2, y: y2), CGPoint(x: x2, y: y1)]
             
-            let customHighlightRegion = floorplan.polygonFromCustomPDFPath(highlightZone)
-            customHighlightRegion.title = "Hello World"
-            customHighlightRegion.subtitle = "This custom region will be highlighted in Yellow!"
-            mapView!.add(customHighlightRegion)
+            self.highlightedArea = floorplan.polygonFromCustomPDFPath(highlightZone)
+            self.highlightedArea.title = "Hello World"
+            self.highlightedArea.subtitle = "This custom region will be highlighted in Yellow!"
+            mapView!.add(self.highlightedArea)
+            self.zoned = true
+
         }
     }
     
@@ -350,8 +358,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
              */
             if (polygon.title == "Hello World") {
                 let renderer = MKPolygonRenderer(polygon: polygon)
-                renderer.fillColor = UIColor.yellow.withAlphaComponent(0.5)
-                renderer.strokeColor = UIColor.yellow.withAlphaComponent(0.0)
+                renderer.fillColor = UIColor.orange.withAlphaComponent(0.5)
+                renderer.strokeColor = UIColor.orange.withAlphaComponent(0.0)
                 renderer.lineWidth = 0.0
                 return renderer
             }
