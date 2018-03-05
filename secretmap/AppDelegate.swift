@@ -115,35 +115,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
                             let key = beacon["key"] as! String
                             let value = beacon["value"] as! String
-                            
                             let zone = EPXProximityZone(range: .far, attachmentKey: key, attachmentValue: value)
                             
                             zone.onEnterAction = { attachment in
                                 print("entering " + key + " " + value)
                                 
+                                let id = beacon["zone"] as! Int
                                 
-//                                let url = URL(string: "http://169.48.110.218/triggers/add")!
-//                                var request = URLRequest(url: url)
-//                                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//                                request.httpMethod = "POST"
-//                                let postString = "id=13&name=Jack"
-//                                request.httpBody = postString.data(using: .utf8)
-//                                let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//                                    guard let data = data, error == nil else {                                                 // check for fundamental networking error
-//                                        print("error=\(error)")
-//                                        return
-//                                    }
-//                                    
-//                                    if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-//                                        print("statusCode should be 200, but is \(httpStatus.statusCode)")
-//                                        print("response = \(response)")
-//                                    }
-//                                    
-//                                    let responseString = String(data: data, encoding: .utf8)
-//                                    print("responseString = \(responseString)")
-//                                }
-//                                task.resume()
-                                
+                                self.sendZoneData(id: id)
+
                                 NotificationCenter.default.post( name: Notification.Name.zoneEntered, object: beacon)
                             }
                             
@@ -163,6 +143,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         self.proximityObserver.startObserving(self.zones)
+    }
+
+    private func sendZoneData(id:Int) {
+        guard let url = URL(string: "http://169.48.110.218/triggers/add") else { return }
+        let parameters: [String:Any]
+        let request = NSMutableURLRequest(url: url)
+        
+        let session = URLSession.shared
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let dateformatter = DateFormatter()
+        dateformatter.dateStyle = DateFormatter.Style.short
+        dateformatter.timeStyle = DateFormatter.Style.short
+        let date = dateformatter.string(from: Date())
+        
+        print(date)
+        
+        parameters = ["zone":id, "event":"enter", "timestamp":date]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
+        
+        let sendEvent = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            if let data = data {
+                do {
+                    
+                }  catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        sendEvent.resume()
     }
     
     func getStartDate() -> Date{

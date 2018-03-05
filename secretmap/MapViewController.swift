@@ -60,8 +60,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     /// This property remembers which floor we're on.
     var lastFloor: CLFloor!
     
-    var highlightZone = [ CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0) ]
-    
     var highlightedArea = MKPolygon()
     
     var zoned: Bool = false
@@ -236,6 +234,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         var x1:Int = 0
         var x2:Int = 0
         
+        var zoneName: String = ""
+        
         let pdfRegionToHighlight = [ CGPoint(x: 0, y: 1055), CGPoint(x: 0, y: 1455), CGPoint(x: 400, y: 1455), CGPoint(x: 400, y: 1055) ]
         
         if let dict = notification.object as! NSDictionary? {
@@ -252,15 +252,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 y2 = yaxis - y1 - width
                 x2 = x1 + width
             }
+            
+            if let name = dict["name"] as? String{
+                zoneName = name
+            }
 
             let highlightZone = [CGPoint(x: x1, y: y1), CGPoint(x: x1, y: y2), CGPoint(x: x2, y: y2), CGPoint(x: x2, y: y1)]
             
             self.highlightedArea = floorplan.polygonFromCustomPDFPath(highlightZone)
-            self.highlightedArea.title = "Hello World"
-            self.highlightedArea.subtitle = "This custom region will be highlighted in Yellow!"
+            self.highlightedArea.title = zoneName
+//            self.highlightedArea.subtitle = "This custom region will be highlighted in Yellow!"
             mapView!.add(self.highlightedArea)
             self.zoned = true
-
         }
     }
     
