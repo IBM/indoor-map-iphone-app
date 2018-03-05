@@ -144,7 +144,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // Get producs for sale
     // This will queue the result
     // requestProductsForSaleResults will then be called
-    private func getProductsForSale(_ userId: String) {
+    private func getProductsForSale(_ userId: String, failedAttempts: Int? = 0) {
         guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
@@ -168,7 +168,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                         NSLog(resultId as! String) // Use this one to get blockchain payload - should contain userId
                         
                         // Start pinging backend with resultId
-                        self.requestProductsForSaleResults(resultId: resultId as! String, attemptNumber: 0)
+                        self.requestProductsForSaleResults(resultId: resultId as! String, attemptNumber: 0, failedAttempts: failedAttempts!)
                     }
                 }  catch let error as NSError {
                     print(error.localizedDescription)
@@ -183,7 +183,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This pings the backend for the actual result from the blockchain network
     // It should update the view with the products
     // NOTE: will update to use a table view instead
-    private func requestProductsForSaleResults(resultId: String, attemptNumber: Int) {
+    private func requestProductsForSaleResults(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
             guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
@@ -202,8 +202,12 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                             let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
                             
                             if resultOfBlockchain.message == "failed" || resultOfBlockchain.error != nil {
-                                print("getting products failed, trying agian")
-                                self.getProductsForSale(self.currentUser!.userId)
+                                if failedAttempts! < 10 {
+                                    print("getting products failed, trying agian")
+                                    self.getProductsForSale(self.currentUser!.userId)
+                                } else {
+                                     print("10 failed attempts reached -- getProductsForSale")
+                                }
                             } else {
                                 let productList = try JSONDecoder().decode([Product].self, from: resultOfBlockchain.result!.data(using: .utf8)!)
                                 self.receivedProductList = productList
@@ -245,7 +249,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This should get user profile from userId
     // The request is queued
     // requestUserState will be called
-    private func getStateOfUser(_ userId: String) {
+    private func getStateOfUser(_ userId: String, failedAttempts: Int? = 0) {
         guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
@@ -269,7 +273,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                         NSLog(resultId as! String) // Use this one to get blockchain payload
                         
                         // Start checking if our queued request is finished.
-                        self.requestUserState(resultId: resultId as! String, attemptNumber: 0)
+                        self.requestUserState(resultId: resultId as! String, attemptNumber: 0, failedAttempts: failedAttempts!)
                     }
                 }  catch let error as NSError {
                     print(error.localizedDescription)
@@ -283,7 +287,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // This should start pinging the backend for the actual result from the blockchain
     // It should update the current number of fitcoins of the user
-    private func requestUserState(resultId: String, attemptNumber: Int) {
+    private func requestUserState(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
             guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
@@ -301,8 +305,12 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                             let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
                             
                             if resultOfBlockchain.message == "failed" || resultOfBlockchain.error != nil {
-                                print("getting user state failed, trying agian")
-                                self.getStateOfUser(self.currentUser!.userId)
+                                if failedAttempts! < 10 {
+                                    print("getting user state failed, trying again")
+                                    self.getStateOfUser(self.currentUser!.userId, failedAttempts: failedAttempts!+1)
+                                } else {
+                                    print("10 failed attempts reached -- getStateOfUser")
+                                }
                             } else {
                                 let finalResultOfGetState = try JSONDecoder().decode(GetStateFinalResult.self, from: resultOfBlockchain.result!.data(using: .utf8)!)
                                 self.userState = finalResultOfGetState
@@ -336,7 +344,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This should start getting the user contracts
     // This is queued
     // requestUserContracts is then called
-    private func getAllUserContracts(_ userId: String) {
+    private func getAllUserContracts(_ userId: String, failedAttempts: Int? = 0) {
         guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
@@ -360,7 +368,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                         NSLog(resultId as! String) // Use this one to get blockchain payload
                         
                         // Start checking if our queued request is finished.
-                        self.requestUserContracts(resultId: resultId as! String, attemptNumber: 0)
+                        self.requestUserContracts(resultId: resultId as! String, attemptNumber: 0, failedAttempts: failedAttempts!)
                     }
                 }  catch let error as NSError {
                     print(error.localizedDescription)
@@ -375,7 +383,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This pings the backend for the actual result of the blockchain network
     // It should get the contracts list and compute for the pending charges
     // pending charges is just a sum of the total price of each pending contract
-    private func requestUserContracts(resultId: String, attemptNumber: Int) {
+    private func requestUserContracts(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
             guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
@@ -399,8 +407,13 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                             let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
                             
                             if resultOfBlockchain.message == "failed" || resultOfBlockchain.error != nil {
-                                print("getting user contracts failed, trying agian")
-                                self.getAllUserContracts(self.currentUser!.userId)
+                                if failedAttempts! < 10 {
+                                    print("getting user contracts failed, trying agian")
+                                    self.getAllUserContracts(self.currentUser!.userId)
+                                }
+                                else {
+                                    print("10 failed attempts reached -- getAllUserContracts")
+                                }
                             } else {
                                 if resultOfBlockchain.result == "null" {
                                     DispatchQueue.main.async {

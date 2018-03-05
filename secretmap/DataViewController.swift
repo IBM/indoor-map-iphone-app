@@ -205,7 +205,7 @@ class DataViewController: UIViewController {
     
     // This should get user profile from userId
     // The request is queued
-    private func getStateOfUser(_ userId: String) {
+    private func getStateOfUser(_ userId: String, failedAttempts: Int? = 0) {
         guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
@@ -229,7 +229,7 @@ class DataViewController: UIViewController {
                         NSLog(resultId as! String) // Use this one to get blockchain payload
                         
                         // Start checking if our queued request is finished.
-                        self.requestUserResults(resultId: resultId as! String, attemptNumber: 0)
+                        self.requestUserResults(resultId: resultId as! String, attemptNumber: 0, failedAttempts: failedAttempts!)
                     }
                 }  catch let error as NSError {
                     print(error.localizedDescription)
@@ -241,7 +241,7 @@ class DataViewController: UIViewController {
         getStateOfUser.resume()
     }
     
-    private func requestUserResults(resultId: String, attemptNumber: Int) {
+    private func requestUserResults(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
             guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
@@ -260,9 +260,12 @@ class DataViewController: UIViewController {
                             let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
                             
                             if resultOfBlockchain.message == "failed" || resultOfBlockchain.error != nil {
-                                print("getting user state failed, trying again")
-                                self.getStateOfUser(self.currentUser!.userId)
-//                                if resultOfBlockchain.
+                                if failedAttempts! < 10 {
+                                    print("getting user state failed, trying again")
+                                    self.getStateOfUser(self.currentUser!.userId, failedAttempts: failedAttempts!+1)
+                                } else {
+                                    print("10 failed attempts reached -- getStateOfUser")
+                                }
                             } else {
                                 let finalResultOfGetState = try JSONDecoder().decode(GetStateFinalResult.self, from: resultOfBlockchain.result!.data(using: .utf8)!)
                                 print(finalResultOfGetState)
