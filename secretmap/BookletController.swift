@@ -113,27 +113,27 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
                     self.setupPageControl()
                 }
             } catch let jsonError {
+                
+                if let path = Bundle.main.url(forResource: "booklet", withExtension: "json") {
+                                do {
+                                    _ = try Data(contentsOf: path, options: .mappedIfSafe)
+                                    let jsonData = try Data(contentsOf: path, options: .mappedIfSafe)
+                                    if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? [String: AnyObject] {
+                    
+                                        if let p = jsonDict["pages"] as? [Article] {
+                                            self.pages = p
+                                            self.pageCount = p.count
+                                            self.createPageViewController()
+                                            self.setupPageControl()
+                                        }
+                                    }
+                                } catch {
+                                    print("couldn't parse JSON data")
+                                }
+                            }
                 print(jsonError)
             }
         }.resume()
-        
-//        if let path = Bundle.main.url(forResource: "booklet", withExtension: "json") {
-//            do {
-//                _ = try Data(contentsOf: path, options: .mappedIfSafe)
-//                let jsonData = try Data(contentsOf: path, options: .mappedIfSafe)
-//                if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? [String: AnyObject] {
-//
-//                    if let pages = jsonDict["pages"] as? [[String: AnyObject]] {
-//                        self.pages = pages
-//                        self.pageCount = pages.count
-//                        createPageViewController()
-//                        setupPageControl()
-//                    }
-//                }
-//            } catch {
-//                print("couldn't parse JSON data")
-//            }
-//        }
     }
     
     private func createPageViewController() {

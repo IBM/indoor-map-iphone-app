@@ -96,6 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func initializeBeacons(){
         
+        // https://raw.githubusercontent.com/IBM/indoor-map-iphone-app/master/secretmap/beacons.json
+        
         if let path = Bundle.main.url(forResource: "beacons", withExtension: "json") {
             
             do {

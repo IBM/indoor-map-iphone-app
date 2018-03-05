@@ -52,13 +52,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var visibleMapRegionDelegate: VisibleMapRegionDelegate!
     
     /// Store the data about our floorplan here.
-    var floorplan0: FloorplanOverlay!
+    var floorplan: FloorplanOverlay!
     
     var debuggingOverlays: [MKOverlay]!
     var debuggingAnnotations: [MKAnnotation]!
     
     /// This property remembers which floor we're on.
     var lastFloor: CLFloor!
+        
+    var highlightZone = [ CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0) ]
+    
+    var highlightedArea = MKPolygon()
     
     /**
      Set to false if you want to turn off auto-scroll & auto-zoom that snaps
@@ -139,36 +143,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
          maps to geographic co-ordinates.
          */
       
-        // anchors for URL(string: "http://169.60.16.83:31874/svg/think.pdf")!
-//        let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.092616, -115.179895), pdfPoint: CGPoint(x: 0, y: 1000))
-//        let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.092616, -115.177967), pdfPoint: CGPoint(x: 1000, y: 1000))
-        
-        // anchors for 505 Howard Building
-        // let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(37.787956, -122.396584), pdfPoint: CGPoint(x: 2472, y: 3288))
-        // let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(37.788306, -122.396138), pdfPoint: CGPoint(x: 2472, y: 944))
-        
         // anchors for thin-dev-area.pdf
         let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.086811, -115.177325), pdfPoint: CGPoint(x: 0, y: 1454))
         let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.086811, -115.178535), pdfPoint: CGPoint(x: 2213, y: 1454))
         
         let anchorPair = GeoAnchorPair(fromAnchor: anchor1, toAnchor: anchor2)
         
-        /*
-         Pick a triangle on your PDF that you would like to highlight in
-         yellow. Feel free to try regions with more than three edges.
-         Note that these coordinates are given in PDF coordinates, but they
-         will show up on just fine on MapKit in MapKit coordinates.
-         */
-//        _ = [CGPoint(x: 205.0, y: 335.3), CGPoint(x: 205.0, y: 367.3), CGPoint(x: 138.5, y: 367.3)]
-        
-        // === Initialize our assets
-        
-        /*
-         We have to specify subdirectory here since we copy our folder
-         reference during "Copy Bundle Resources" section under target
-         settings build phases.
-         */
-        
+    
         // pdf for sample backend pdf
 //        let pdfUrl = URL(string: "http://169.60.16.83:31874/svg/think.pdf")!
         
@@ -179,11 +160,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
          let pdfUrl = Bundle.main.url(forResource: "think-dev-area-crop", withExtension: "pdf", subdirectory:"Floorplans")!
         
         
-        floorplan0 = FloorplanOverlay(floorplanUrl: pdfUrl, withPDFBox: CGPDFBox.trimBox, andAnchors: anchorPair, forFloorLevel: 0)
+        floorplan = FloorplanOverlay(floorplanUrl: pdfUrl, withPDFBox: CGPDFBox.trimBox, andAnchors: anchorPair, forFloorLevel: 0)
         
-        visibleMapRegionDelegate = VisibleMapRegionDelegate(floorplanBounds: floorplan0.boundingMapRectIncludingRotations, boundingPDFBox: floorplan0.floorplanPDFBox,
-                                                            floorplanCenter: floorplan0.coordinate,
-                                                            floorplanUprightMKMapCameraHeading: floorplan0.getFloorplanUprightMKMapCameraHeading())
+        visibleMapRegionDelegate = VisibleMapRegionDelegate(floorplanBounds: floorplan.boundingMapRectIncludingRotations, boundingPDFBox: floorplan.floorplanPDFBox,
+                                                            floorplanCenter: floorplan.coordinate,
+                                                            floorplanUprightMKMapCameraHeading: floorplan.getFloorplanUprightMKMapCameraHeading())
         
         // === Initialize our view
         hideBackgroundOverlayAlpha = 1.0
@@ -195,22 +176,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 //         The following are provided for debugging.
 //         In production, you'll want to comment this out.
 //         */
-        debuggingOverlays = MapViewController.createDebuggingOverlaysForMapView(mapView!, aboutFloorplan: floorplan0)
-        debuggingAnnotations = MapViewController.createDebuggingAnnotationsForMapView(mapView!, aboutFloorplan: floorplan0)
+        debuggingOverlays = MapViewController.createDebuggingOverlaysForMapView(mapView!, aboutFloorplan: floorplan)
+        debuggingAnnotations = MapViewController.createDebuggingAnnotationsForMapView(mapView!, aboutFloorplan: floorplan)
 //
 //        // Draw the floorplan!
-        mapView.add(floorplan0)
+        mapView.add(floorplan)
         
         // add the annotations - DEBUGGING
 //        mapView.addAnnotations(debuggingAnnotations)
-        /*
-         Highlight our region (originally specified in PDF coordinates) in
-         yellow!
-         */
-//        let customHighlightRegion = floorplan0.polygonFromCustomPDFPath(pdfTriangleRegionToHighlight)
-//        customHighlightRegion.title = "Hello World"
-//        customHighlightRegion.subtitle = "This custom region will be highlighted in Yellow!"
-//        mapView!.add(customHighlightRegion)
+
         
         /*
          By default, we listen to the scroll & zoom events to make sure that
@@ -249,30 +223,37 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @objc func showZone(notification: NSNotification){
         
-        //        let pdfRegionToHighlight = [ CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 1455), CGPoint(x: 1455, y: 1455), CGPoint(x: 1455, y: 0),  ]
-        
+        var yaxis:Int = 1455
+        var width:Int = 0
+        var y1:Int = 0
+        var y2:Int = 0
+        var x1:Int = 0
+        var x2:Int = 0
         
         let pdfRegionToHighlight = [ CGPoint(x: 0, y: 1055), CGPoint(x: 0, y: 1455), CGPoint(x: 400, y: 1455), CGPoint(x: 400, y: 1055) ]
         
-        let zone = notification.object
-        
         if let dict = notification.object as! NSDictionary? {
-            if let z = dict["zone"] as? Int{
-                // do something with your image
-
-                print(z)
-
+            if let x_anchor = dict["x"] as? Int{
+                x1 = x_anchor
             }
+
+            if let y_anchor = dict["y"] as? Int{
+                y1 = y_anchor
+            }
+
+            if let w = dict["width"] as? Int{
+                width = w
+                y2 = yaxis - y1 - width
+                x2 = x1 + width
+            }
+
+            let highlightZone = [CGPoint(x: x1, y: y1), CGPoint(x: x1, y: y2), CGPoint(x: x2, y: y2), CGPoint(x: x2, y: y1)]
+            
+            let customHighlightRegion = floorplan.polygonFromCustomPDFPath(highlightZone)
+            customHighlightRegion.title = "Hello World"
+            customHighlightRegion.subtitle = "This custom region will be highlighted in Yellow!"
+            mapView!.add(customHighlightRegion)
         }
-        
-        print( zone )
-        
-        
-        
-        let customHighlightRegion = floorplan0.polygonFromCustomPDFPath(pdfRegionToHighlight)
-        customHighlightRegion.title = "Hello World"
-        customHighlightRegion.subtitle = "This custom region will be highlighted in Yellow!"
-        mapView!.add(customHighlightRegion)
     }
     
     /// Request authorization if needed.
@@ -290,12 +271,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     /// Helper method that shows the floorplan.
     func showFloorplan() {
-        mapView.add(floorplan0)
+        mapView.add(floorplan)
+        visibleMapRegionDelegate.mapViewResetCameraToFloorplan(mapView)
     }
     
     /// Helper method that hides the floorplan.
     func hideFloorplan() {
-        mapView.remove(floorplan0)
+        mapView.remove(floorplan)
     }
     
     /// Helper function that shows the debug visuals.
