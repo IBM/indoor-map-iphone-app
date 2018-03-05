@@ -10,15 +10,6 @@ import UIKit
 import HealthKit
 import CoreMotion
 
-struct GetStateFinalResult: Codable {
-    let contractIds: [String]?
-    let fitcoinsBalance: Int
-    let id: String
-    let memberType: String
-    let stepsUsedForConversion: Int
-    let totalSteps: Int
-}
-
 class DataViewController: UIViewController {
     
     let appDelegate = UIApplication.shared.delegate
@@ -160,7 +151,7 @@ class DataViewController: UIViewController {
     }
     
     private func sendStepsToFitchain(userId: String?, numberOfStepsToSend: Int) {
-        guard let url = URL(string: "https://www.ibm-fitchain.com/api/execute") else { return }
+        guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -215,7 +206,7 @@ class DataViewController: UIViewController {
     // This should get user profile from userId
     // The request is queued
     private func getStateOfUser(_ userId: String) {
-        guard let url = URL(string: "https://www.ibm-fitchain.com/api/execute") else { return }
+        guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -253,7 +244,7 @@ class DataViewController: UIViewController {
     private func requestUserResults(resultId: String, attemptNumber: Int) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
-            guard let url = URL(string: "https://www.ibm-fitchain.com/api/results/" + resultId) else { return }
+            guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in
@@ -265,14 +256,21 @@ class DataViewController: UIViewController {
                         let backendResult = try JSONDecoder().decode(BackendResult.self, from: data)
                         if backendResult.status == "done" {
                             print(backendResult.result!)
+                            
                             let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
-                            print(resultOfBlockchain)
-                            let finalResultOfGetState = try JSONDecoder().decode(GetStateFinalResult.self, from: resultOfBlockchain.result.data(using: .utf8)!)
-                            print(finalResultOfGetState)
-                            self.fitcoinsBalanceFromBlockchain = finalResultOfGetState.fitcoinsBalance
-                            self.totalStepsConvertedToFitcoin = finalResultOfGetState.stepsUsedForConversion
-                            DispatchQueue.main.async {
-                                self.fitcoinsLabel.text = String(describing: self.fitcoinsBalanceFromBlockchain!)
+                            
+                            if resultOfBlockchain.message == "failed" || resultOfBlockchain.error != nil {
+                                print("getting user state failed, trying again")
+                                self.getStateOfUser(self.currentUser!.userId)
+//                                if resultOfBlockchain.
+                            } else {
+                                let finalResultOfGetState = try JSONDecoder().decode(GetStateFinalResult.self, from: resultOfBlockchain.result!.data(using: .utf8)!)
+                                print(finalResultOfGetState)
+                                self.fitcoinsBalanceFromBlockchain = finalResultOfGetState.fitcoinsBalance
+                                self.totalStepsConvertedToFitcoin = finalResultOfGetState.stepsUsedForConversion
+                                DispatchQueue.main.async {
+                                    self.fitcoinsLabel.text = String(describing: self.fitcoinsBalanceFromBlockchain!)
+                                }
                             }
                         }
                         else {

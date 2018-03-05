@@ -11,6 +11,8 @@
 		922D72902036990500A345A1 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D728F2036990500A345A1 /* ShopViewController.swift */; };
 		922D72B2203BA8E200A345A1 /* QuantityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D72B1203BA8E200A345A1 /* QuantityViewController.swift */; };
 		9238EC5D202D09AA00AD1535 /* BlockchainUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */; };
+		9278B40A20461CE800D83B4D /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9278B40920461CE800D83B4D /* OrderTableViewCell.swift */; };
+		9278B40C204727AB00D83B4D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9278B40B204727AB00D83B4D /* Globals.swift */; };
 		92BF0680203D2E0500B388F9 /* ContractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BF067F203D2E0500B388F9 /* ContractViewController.swift */; };
 		92BF0682203E761900B388F9 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BF0681203E761900B388F9 /* OrdersViewController.swift */; };
 		92CE166B203F8BF8002B628C /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CE166A203F8BF8002B628C /* ProductTableViewCell.swift */; };
@@ -79,6 +81,8 @@
 		922D728F2036990500A345A1 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		922D72B1203BA8E200A345A1 /* QuantityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityViewController.swift; sourceTree = "<group>"; };
 		9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainUser.swift; sourceTree = "<group>"; };
+		9278B40920461CE800D83B4D /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
+		9278B40B204727AB00D83B4D /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		92BF067F203D2E0500B388F9 /* ContractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractViewController.swift; sourceTree = "<group>"; };
 		92BF0681203E761900B388F9 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		92CE166A203F8BF8002B628C /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
@@ -256,12 +260,14 @@
 				A2908D731FE2BEE200A0E9BE /* MapViewController.swift */,
 				A2908D751FE2BEE200A0E9BE /* DataViewController.swift */,
 				A2908D771FE2BEE200A0E9BE /* Main.storyboard */,
+				9278B40920461CE800D83B4D /* OrderTableViewCell.swift */,
 				92CE166A203F8BF8002B628C /* ProductTableViewCell.swift */,
 				92BF0681203E761900B388F9 /* OrdersViewController.swift */,
 				92BF067F203D2E0500B388F9 /* ContractViewController.swift */,
 				922D72B1203BA8E200A345A1 /* QuantityViewController.swift */,
 				922D728F2036990500A345A1 /* ShopViewController.swift */,
 				9238EC5C202D09AA00AD1535 /* BlockchainUser.swift */,
+				9278B40B204727AB00D83B4D /* Globals.swift */,
 				A2908D7A1FE2BEE200A0E9BE /* Assets.xcassets */,
 				A2908D7C1FE2BEE200A0E9BE /* LaunchScreen.storyboard */,
 				A2908D7F1FE2BEE200A0E9BE /* Info.plist */,
@@ -527,11 +533,13 @@
 				A2E815A31FE876A000EC6F2A /* BookletController.swift in Sources */,
 				A23754DF2006DA4D00409B20 /* FloorplanOverlayRenderer.swift in Sources */,
 				A23754DD2006DA2B00409B20 /* HideBackgorundOverlay.swift in Sources */,
+				9278B40C204727AB00D83B4D /* Globals.swift in Sources */,
 				A2908D741FE2BEE200A0E9BE /* MapViewController.swift in Sources */,
 				922D72B2203BA8E200A345A1 /* QuantityViewController.swift in Sources */,
 				9238EC5D202D09AA00AD1535 /* BlockchainUser.swift in Sources */,
 				A2321A7B20377E0C00E34DA7 /* Ship.swift in Sources */,
 				92BF0682203E761900B388F9 /* OrdersViewController.swift in Sources */,
+				9278B40A20461CE800D83B4D /* OrderTableViewCell.swift in Sources */,
 				92BF0680203D2E0500B388F9 /* ContractViewController.swift in Sources */,
 				A23754DB2006D85000409B20 /* Utilities.swift in Sources */,
 				A28E57CC201659A200CE4C58 /* HealthKitManager.swift in Sources */,

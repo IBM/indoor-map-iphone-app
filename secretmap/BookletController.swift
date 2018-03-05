@@ -19,21 +19,6 @@ struct Article: Codable {
     let description: String
 }
 
-struct BackendResult: Codable {
-    let status: String
-    let result: String?
-}
-
-struct ResultOfEnroll: Codable {
-    let message: String
-    let result: EnrollFinalResult
-}
-
-struct EnrollFinalResult: Codable {
-    let user: String
-    let txId: String
-}
-
 class BookletController: UIViewController, UIPageViewControllerDataSource {
     
     private var pageViewController: UIPageViewController?
@@ -43,50 +28,16 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     private var pageCount = 0
     
     var blockchainUser: BlockchainUser?
-    
-    // Put this in viewDidLoad
-    override func viewDidAppear(_ animated: Bool) {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         if let existingUserId = loadUser() {
             blockchainUser = existingUserId
         }
         else {
-            guard let url = URL(string: "https://www.ibm-fitchain.com/api/execute") else { return }
-            let parameters: [String:Any]
-            let request = NSMutableURLRequest(url: url)
-            
-            let session = URLSession.shared
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            parameters = ["type":"enroll", "queue":"user_queue", "params":[]]
-            request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
-            
-            let enrollUser = session.dataTask(with: request as URLRequest) { (data, response, error) in
-                
-                if let data = data {
-                    do {
-                        // Convert the data to JSON
-                        let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-                        
-                        if let json = jsonSerialized, let status = json["status"], let resultId = json["resultId"] {
-                            NSLog(status as! String)
-                            NSLog(resultId as! String) // Use this one to get blockchain payload - should contain userId
-                            
-                            // Start pinging backend with resultId
-                            self.requestResults(resultId: resultId as! String, attemptNumber: 0)
-                        }
-                    }  catch let error as NSError {
-                        print(error.localizedDescription)
-                    }
-                } else if let error = error {
-                    print(error.localizedDescription)
-                }
-            }
-            enrollUser.resume()
+            self.enrollUser()
         }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
         let urlString = "https://www.ibm-fitchain.com/pages"
         guard let url = URL(string: urlString) else {
@@ -236,9 +187,44 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     
     // request results of enrollment to blockchain
     
+    private func enrollUser() {
+        guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
+        let parameters: [String:Any]
+        let request = NSMutableURLRequest(url: url)
+        
+        let session = URLSession.shared
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        parameters = ["type":"enroll", "queue":"user_queue", "params":[]]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
+        
+        let enrollUser = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            if let data = data {
+                do {
+                    // Convert the data to JSON
+                    let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
+                    
+                    if let json = jsonSerialized, let status = json["status"], let resultId = json["resultId"] {
+                        NSLog(status as! String)
+                        NSLog(resultId as! String) // Use this one to get blockchain payload - should contain userId
+                        
+                        // Start pinging backend with resultId
+                        self.requestResults(resultId: resultId as! String, attemptNumber: 0)
+                    }
+                }  catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        enrollUser.resume()
+    }
+    
     private func requestResults(resultId: String, attemptNumber: Int) {
         if attemptNumber < 60 {
-            guard let url = URL(string: "https://www.ibm-fitchain.com/api/results/" + resultId) else { return }
+            guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let enrollUser = session.dataTask(with: url) { (data, response, error) in
@@ -253,12 +239,12 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
                         if backendResult.status == "done" {
                             
                             let resultOfEnroll = try JSONDecoder().decode(ResultOfEnroll.self, from: backendResult.result!.data(using: .utf8)!)
-                            print(resultOfEnroll.result.user)
+                            print(resultOfEnroll.result!.user)
                             
-                            self.blockchainUser = BlockchainUser(userId: resultOfEnroll.result.user)
+                            self.blockchainUser = BlockchainUser(userId: resultOfEnroll.result!.user)
                             self.saveUser()
                             
-                            let alert = UIAlertController(title: "Enrollment successful!", message: "You have been enrolled to the blockchain network. Your User ID is:\n\n\(resultOfEnroll.result.user)", preferredStyle: UIAlertControllerStyle.alert)
+                            let alert = UIAlertController(title: "Enrollment successful!", message: "You have been enrolled to the blockchain network. Your User ID is:\n\n\(resultOfEnroll.result!.user)", preferredStyle: UIAlertControllerStyle.alert)
                             alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: nil))
                             self.present(alert, animated: true, completion: nil)
                         }
