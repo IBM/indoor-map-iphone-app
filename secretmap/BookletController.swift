@@ -48,6 +48,10 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error != nil {
                 print(error!.localizedDescription)
+                print("No internet")
+                
+                // use booklet.json if no internet
+                self.useDefaultPages()
             }
             
             guard let data = data else { return }
@@ -64,27 +68,30 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
                     self.setupPageControl()
                 }
             } catch let jsonError {
-                
-                if let path = Bundle.main.url(forResource: "booklet", withExtension: "json") {
-                                do {
-                                    _ = try Data(contentsOf: path, options: .mappedIfSafe)
-                                    let jsonData = try Data(contentsOf: path, options: .mappedIfSafe)
-                                    if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? [String: AnyObject] {
-                    
-                                        if let p = jsonDict["pages"] as? [Article] {
-                                            self.pages = p
-                                            self.pageCount = p.count
-                                            self.createPageViewController()
-                                            self.setupPageControl()
-                                        }
-                                    }
-                                } catch {
-                                    print("couldn't parse JSON data")
-                                }
-                            }
                 print(jsonError)
+                
+                // use booklet.json if jsonError
+                self.useDefaultPages()
             }
         }.resume()
+    }
+    
+    private func useDefaultPages() {
+        if let path = Bundle.main.url(forResource: "booklet", withExtension: "json") {
+            do {
+                let jsonData = try Data(contentsOf: path, options: .mappedIfSafe)
+                let pages = try JSONDecoder().decode([Article].self, from: jsonData)
+                print(pages)
+                DispatchQueue.main.async {
+                    self.pages = pages
+                    self.pageCount = pages.count
+                    self.createPageViewController()
+                    self.setupPageControl()
+                }
+            } catch {
+                print("couldn't parse JSON Data")
+            }
+        }
     }
     
     private func createPageViewController() {
