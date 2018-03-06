@@ -157,8 +157,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // let pdfUrl = Bundle.main.url(forResource: "Building_1959_Floor_08", withExtension: "pdf", subdirectory:"Floorplans")!
         
         // pdf for think-dev-area-crop.pdf
-         let pdfUrl = Bundle.main.url(forResource: "think-dev-area-crop", withExtension: "pdf", subdirectory:"Floorplans")!
-        
+//         let pdfUrl = Bundle.main.url(forResource: "think-dev-area-crop", withExtension: "pdf", subdirectory:"Floorplans")!
+        let pdfUrl = URL(string: "http://www.ibm-fitchain.com/svg/think-dev-area.pdf")!
         
         floorplan = FloorplanOverlay(floorplanUrl: pdfUrl, withPDFBox: CGPDFBox.trimBox, andAnchors: anchorPair, forFloorLevel: 0)
         
@@ -181,6 +181,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 //
 //        // Draw the floorplan!
         mapView.add(floorplan)
+        visibleMapRegionDelegate.mapViewResetCameraToFloorplan(mapView)
         
         // add the annotations - DEBUGGING
 //        mapView.addAnnotations(debuggingAnnotations)
