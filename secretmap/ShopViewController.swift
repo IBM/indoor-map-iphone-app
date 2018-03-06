@@ -8,30 +8,6 @@
 
 import UIKit
 
-struct Product: Codable {
-    let sellerid: String
-    let productid: String
-    let name: String
-    let count: Int
-    let price: Int
-}
-
-struct ResultOfBlockchain: Codable {
-    let message: String
-    let result: String
-}
-
-struct Contract: Codable {
-    let id: String
-    let sellerId: String
-    let userId: String
-    let productId: String
-    let productName: String
-    let quantity: Int
-    let cost: Int
-    let state: String
-}
-
 class ShopViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
 //    @IBOutlet weak var scrollView: UIScrollView!
@@ -48,13 +24,6 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var pendingCharges: Int?
     var fitcoins: Int?
-    
-    // These strings will be the data for the table view cells
-    let animals: [String] = ["Horse", "Cow", "Camel", "Sheep", "Goat"]
-    
-    // These are the colors of the square views in our table view cells.
-    // In a real project you might use UIImages.
-    let colors = [UIColor.blue, UIColor.yellow, UIColor.magenta, UIColor.red, UIColor.brown]
     
     // Don't forget to enter this in IB also
     let cellReuseIdentifier = "cell"
@@ -86,13 +55,15 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.productsInStock = []
         
         self.tableView.reloadData()
-        
         self.tableView.tableFooterView = UIView()
         
+        currentUser = BookletController().loadUser()
         // Get the state of user, user contracts, and products for sale
-        self.getStateOfUser(currentUser!.userId)
-        self.getAllUserContracts(currentUser!.userId)
-        self.getProductsForSale(currentUser!.userId)
+        if currentUser != nil {
+            self.getStateOfUser(currentUser!.userId)
+            self.getAllUserContracts(currentUser!.userId)
+            self.getProductsForSale(currentUser!.userId)
+        }
     }
     
     override func viewDidLoad() {
@@ -102,8 +73,6 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
         statusBar.backgroundColor = themeColor
         statusBar.tintColor = themeColor
         view.addSubview(statusBar)
-        
-        currentUser = BookletController().loadUser()
         
         
         // Do any additional setup after loading the view.
@@ -149,6 +118,21 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         else {
             print("please wait")
+            // in cases where getting pending charges fails
+            // do we allow them to order and assume PENDING CHARGES is 0???
+            
+            // in cases where getting fitcoins balance fails
+            // user trying to create a contract will fail if their fitcoins balance in blockchain is less (not accounting pending charges from pending contracts)
+            // message from blockchain would be not enough balance
+            // {"status":"done","result":"{\"message\":\"failed\",\"error\":\"Proposal rejected by some (all) of the peers: Error: 2 UNKNOWN: chaincode error (status: 500, message: Insufficient funds)\"}"}
+            // status: String
+            // result: String
+            
+            // message: String
+            // error: String
+            
+            // in cases where both balance and charges fails
+            // same case as above
         }
     }
 
@@ -160,8 +144,8 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // Get producs for sale
     // This will queue the result
     // requestProductsForSaleResults will then be called
-    private func getProductsForSale(_ userId: String) {
-        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+    private func getProductsForSale(_ userId: String, failedAttempts: Int? = 0) {
+        guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         let session = URLSession.shared
@@ -184,7 +168,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                         NSLog(resultId as! String) // Use this one to get blockchain payload - should contain userId
                         
                         // Start pinging backend with resultId
-                        self.requestProductsForSaleResults(resultId: resultId as! String, attemptNumber: 0)
+                        self.requestProductsForSaleResults(resultId: resultId as! String, attemptNumber: 0, failedAttempts: failedAttempts!)
                     }
                 }  catch let error as NSError {
                     print(error.localizedDescription)
@@ -199,10 +183,10 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This pings the backend for the actual result from the blockchain network
     // It should update the view with the products
     // NOTE: will update to use a table view instead
-    private func requestProductsForSaleResults(resultId: String, attemptNumber: Int) {
+    private func requestProductsForSaleResults(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
+            guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in
@@ -217,25 +201,33 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                             
                             let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
                             
-                            let productList = try JSONDecoder().decode([Product].self, from: resultOfBlockchain.result.data(using: .utf8)!)
-                            self.receivedProductList = productList
-                            DispatchQueue.main.async {
-                                for product in productList {
-                                    // check if in stock
-                                    if product.count != 0 {
-                                        self.productsInStock?.append(product)
-                                    }
+                            if resultOfBlockchain.message == "failed" || resultOfBlockchain.error != nil {
+                                if failedAttempts! < 10 {
+                                    print("getting products failed, trying agian")
+                                    self.getProductsForSale(self.currentUser!.userId)
+                                } else {
+                                     print("10 failed attempts reached -- getProductsForSale")
                                 }
-                                self.tableView.delegate = self
-                                self.tableView.dataSource = self
-                                self.tableView.alpha = 0
-                                self.tableView.reloadData()
-                                UIView.animate(withDuration: 0.5, animations: {self.tableView.alpha = 1.0})
-                                print(self.productsInStock!)
+                            } else {
+                                let productList = try JSONDecoder().decode([Product].self, from: resultOfBlockchain.result!.data(using: .utf8)!)
+                                self.receivedProductList = productList
+                                DispatchQueue.main.async {
+                                    for product in productList {
+                                        // check if in stock
+                                        if product.count != 0 {
+                                            self.productsInStock?.append(product)
+                                        }
+                                    }
+                                    self.tableView.delegate = self
+                                    self.tableView.dataSource = self
+                                    self.tableView.alpha = 0
+                                    self.tableView.reloadData()
+                                    UIView.animate(withDuration: 0.5, animations: {self.tableView.alpha = 1.0})
+                                }
                             }
                         }
                         else {
-                            let when = DispatchTime.now() + 1
+                            let when = DispatchTime.now() + 1 // 2 seconds from now
                             DispatchQueue.main.asyncAfter(deadline: when) {
                                 self.requestProductsForSaleResults(resultId: resultId, attemptNumber: attemptNumber+1)
                             }
@@ -257,8 +249,8 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This should get user profile from userId
     // The request is queued
     // requestUserState will be called
-    private func getStateOfUser(_ userId: String) {
-        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+    private func getStateOfUser(_ userId: String, failedAttempts: Int? = 0) {
+        guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -281,7 +273,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                         NSLog(resultId as! String) // Use this one to get blockchain payload
                         
                         // Start checking if our queued request is finished.
-                        self.requestUserState(resultId: resultId as! String, attemptNumber: 0)
+                        self.requestUserState(resultId: resultId as! String, attemptNumber: 0, failedAttempts: failedAttempts!)
                     }
                 }  catch let error as NSError {
                     print(error.localizedDescription)
@@ -295,10 +287,10 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // This should start pinging the backend for the actual result from the blockchain
     // It should update the current number of fitcoins of the user
-    private func requestUserState(resultId: String, attemptNumber: Int) {
+    private func requestUserState(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
+            guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in
@@ -311,16 +303,26 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                         if backendResult.status == "done" {
                             print(backendResult.result!)
                             let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
-                            let finalResultOfGetState = try JSONDecoder().decode(GetStateFinalResult.self, from: resultOfBlockchain.result.data(using: .utf8)!)
-                            self.userState = finalResultOfGetState
                             
-                            DispatchQueue.main.async {
-                                self.fitcoins = finalResultOfGetState.fitcoinsBalance
-                                self.fitcoinsBalance.text = String(describing: finalResultOfGetState.fitcoinsBalance)
+                            if resultOfBlockchain.message == "failed" || resultOfBlockchain.error != nil {
+                                if failedAttempts! < 10 {
+                                    print("getting user state failed, trying again")
+                                    self.getStateOfUser(self.currentUser!.userId, failedAttempts: failedAttempts!+1)
+                                } else {
+                                    print("10 failed attempts reached -- getStateOfUser")
+                                }
+                            } else {
+                                let finalResultOfGetState = try JSONDecoder().decode(GetStateFinalResult.self, from: resultOfBlockchain.result!.data(using: .utf8)!)
+                                self.userState = finalResultOfGetState
+                                
+                                DispatchQueue.main.async {
+                                    self.fitcoins = finalResultOfGetState.fitcoinsBalance
+                                    self.fitcoinsBalance.text = String(describing: finalResultOfGetState.fitcoinsBalance)
+                                }
                             }
                         }
                         else {
-                            let when = DispatchTime.now() + 0.5 // 3 seconds from now
+                            let when = DispatchTime.now() + 0.5 // 0.5 seconds from now
                             DispatchQueue.main.asyncAfter(deadline: when) {
                                 self.requestUserState(resultId: resultId, attemptNumber: attemptNumber+1)
                             }
@@ -342,8 +344,8 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This should start getting the user contracts
     // This is queued
     // requestUserContracts is then called
-    private func getAllUserContracts(_ userId: String) {
-        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+    private func getAllUserContracts(_ userId: String, failedAttempts: Int? = 0) {
+        guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -366,7 +368,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                         NSLog(resultId as! String) // Use this one to get blockchain payload
                         
                         // Start checking if our queued request is finished.
-                        self.requestUserContracts(resultId: resultId as! String, attemptNumber: 0)
+                        self.requestUserContracts(resultId: resultId as! String, attemptNumber: 0, failedAttempts: failedAttempts!)
                     }
                 }  catch let error as NSError {
                     print(error.localizedDescription)
@@ -381,10 +383,10 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This pings the backend for the actual result of the blockchain network
     // It should get the contracts list and compute for the pending charges
     // pending charges is just a sum of the total price of each pending contract
-    private func requestUserContracts(resultId: String, attemptNumber: Int) {
+    private func requestUserContracts(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
+            guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in
@@ -395,7 +397,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                         // Convert the data to JSON
                         let backendResult = try JSONDecoder().decode(BackendResult.self, from: data)
                         if backendResult.status == "done" {
-                            
+                            print(backendResult.result!)
                             var pendingCharges: Int
                             pendingCharges = 0
                             
@@ -403,37 +405,48 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
                             pendingContracts = []
                             
                             let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
-                            if resultOfBlockchain.result == "null" {
-                                DispatchQueue.main.async {
-                                    self.ordersButton.isEnabled = true
-                                    self.receivedContracts = []
-                                    self.pendingCharges = 0
-                                    self.pendingChargesBalance.text = "0"
+                            
+                            if resultOfBlockchain.message == "failed" || resultOfBlockchain.error != nil {
+                                if failedAttempts! < 10 {
+                                    print("getting user contracts failed, trying agian")
+                                    self.getAllUserContracts(self.currentUser!.userId)
                                 }
-                            }
-                            else {
-                                let finalResultOfUserContracts = try JSONDecoder().decode([Contract].self, from: resultOfBlockchain.result.data(using: .utf8)!)
-                                
-                                
-                                
-                                // Get pending contracts
-                                for contract in finalResultOfUserContracts {
-                                    if contract.state == "pending" {
-                                        pendingContracts.append(contract)
+                                else {
+                                    print("10 failed attempts reached -- getAllUserContracts")
+                                }
+                            } else {
+                                if resultOfBlockchain.result == "null" {
+                                    DispatchQueue.main.async {
+                                        self.ordersButton.isEnabled = true
+                                        self.receivedContracts = []
+                                        self.pendingCharges = 0
+                                        self.pendingChargesBalance.text = "0"
                                     }
                                 }
-                                print(pendingContracts.count)
-                                
-                                // Sum of pending charges
-                                for newContract in pendingContracts {
-                                    pendingCharges = pendingCharges + newContract.cost
-                                }
-                                
-                                DispatchQueue.main.async {
-                                    self.ordersButton.isEnabled = true
-                                    self.receivedContracts = finalResultOfUserContracts
-                                    self.pendingCharges = pendingCharges
-                                    self.pendingChargesBalance.text = String(describing: pendingCharges)
+                                else {
+                                    let finalResultOfUserContracts = try JSONDecoder().decode([Contract].self, from: resultOfBlockchain.result!.data(using: .utf8)!)
+                                    
+                                    
+                                    
+                                    // Get pending contracts
+                                    for contract in finalResultOfUserContracts {
+                                        if contract.state == "pending" {
+                                            pendingContracts.append(contract)
+                                        }
+                                    }
+                                    print(pendingContracts.count)
+                                    
+                                    // Sum of pending charges
+                                    for newContract in pendingContracts {
+                                        pendingCharges = pendingCharges + newContract.cost
+                                    }
+                                    
+                                    DispatchQueue.main.async {
+                                        self.ordersButton.isEnabled = true
+                                        self.receivedContracts = finalResultOfUserContracts
+                                        self.pendingCharges = pendingCharges
+                                        self.pendingChargesBalance.text = String(describing: pendingCharges)
+                                    }
                                 }
                             }
                         }

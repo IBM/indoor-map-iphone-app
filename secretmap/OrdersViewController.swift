@@ -15,7 +15,7 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.dismiss(animated: true, completion: nil)
     }
     
-    let cellReuseIdentifier = "cell"
+    let cellReuseIdentifier = "contractCell"
     
     var userContracts: [Contract]?
     
@@ -27,9 +27,16 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         statusBar.tintColor = themeColor
         view.addSubview(statusBar)
         
+//        bottomLabel.text? = ""
+//
+//        if userContracts == nil || userContracts?.count == 0 {
+//            bottomLabel.text? = "You have not claimed any items yet."
+//        } else {
+//            bottomLabel.text? = "Swipe left to cancel a contract.\nClick on one to view its details."
+//        }
+        
         // This view controller itself will provide the delegate methods and row data for the table view.
         self.tableView.tableFooterView = UIView()
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellReuseIdentifier)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         // Do any additional setup after loading the view.
@@ -45,24 +52,56 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return self.userContracts!.count
     }
     
+    // set row height
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    
     // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         // create a new cell if needed or reuse an old one
-        let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
+        let cell:OrderTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! OrderTableViewCell
         
         // set the text from the data model
-        cell.textLabel?.text = self.userContracts!.reversed()[indexPath.row].id + " - " + self.userContracts!.reversed()[indexPath.row].state
-        cell.textLabel?.textColor = UIColor.init(red: 215.00/255.00, green: 44.00/255.00, blue: 101.00/255.00, alpha: 1)
-        cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 17)
-        cell.textLabel?.textAlignment = NSTextAlignment.center
+        cell.contractId.text? = self.userContracts!.reversed()[indexPath.row].id
+        cell.quickDetails.text? = "\(userContracts!.reversed()[indexPath.row].quantity) x \(userContracts!.reversed()[indexPath.row].productName)"
+        cell.state.text? = self.userContracts!.reversed()[indexPath.row].state
         
         return cell
     }
     
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.setSelected(false, animated: false)
         self.transitionToContractView(payload: self.userContracts![self.userContracts!.count - 1 - indexPath.row])
+    }
+    
+    // Cancel button
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Decline"
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if userContracts!.reversed()[indexPath.row].state == "pending" {
+            return UITableViewCellEditingStyle.delete
+        } else {
+            return UITableViewCellEditingStyle.none
+        }
+    }
+    
+    // this method handles row deletion
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            let alert = UIAlertController(title: "Decline this Contract?", message: "You have requested to decline contract\n\n \(userContracts!.reversed()[indexPath.row].id)\n\(userContracts!.reversed()[indexPath.row].quantity) of \(userContracts!.reversed()[indexPath.row].productName)\n\nThis can't be undone.", preferredStyle: UIAlertControllerStyle.actionSheet)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes, remove this contract", style: UIAlertActionStyle.destructive, handler: {
+                (action: UIAlertAction) in self.declineContract(userId: self.userContracts!.reversed()[indexPath.row].userId, contractId: self.userContracts!.reversed()[indexPath.row].id)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     private func transitionToContractView(payload: Contract) {
@@ -71,6 +110,47 @@ class OrdersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print(payload)
         contractViewController?.receivedFromQuantityView = false
         self.present(contractViewController!, animated: true, completion: nil)
+    }
+    
+    // This should start the decline contract process
+    // This is queued
+    // no callback
+    private func declineContract(userId: String, contractId: String) {
+        guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
+        let parameters: [String:Any]
+        let request = NSMutableURLRequest(url: url)
+        
+        let session = URLSession.shared
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let args: [String] = [userId, contractId, "declined"]
+        parameters = ["type":"invoke", "queue":"user_queue", "params":["userId": userId,"fcn": "transactPurchase", "args":args]]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
+        
+        let declineContract = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            if let data = data {
+                do {
+                    // Convert the data to JSON
+                    let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
+                    
+                    if let json = jsonSerialized, let status = json["status"], let resultId = json["resultId"] {
+                        NSLog(status as! String)
+                        NSLog(resultId as! String)
+                        let alert = UIAlertController(title: "Request Sent!", message: "Your request to decline the contract has been sent to the blockchain network. The contract's state should update at a later time.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: {
+                            (action: UIAlertAction) in self.dismiss(animated: true, completion: nil)
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }  catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        declineContract.resume()
     }
 
     /*

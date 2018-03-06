@@ -10,15 +10,6 @@ import UIKit
 import HealthKit
 import CoreMotion
 
-struct GetStateFinalResult: Codable {
-    let contractIds: [String]?
-    let fitcoinsBalance: Int
-    let id: String
-    let memberType: String
-    let stepsUsedForConversion: Int
-    let totalSteps: Int
-}
-
 class DataViewController: UIViewController {
     
     let appDelegate = UIApplication.shared.delegate
@@ -27,6 +18,7 @@ class DataViewController: UIViewController {
     
     public var startDate: Date = Date()
     
+    @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var stepsCountLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var userIdLabel: UILabel!
@@ -40,8 +32,35 @@ class DataViewController: UIViewController {
     var fitcoinsBalanceFromBlockchain: Int?
     
     var sendingInProgress: Bool = false
+    
+    var enableRefreshWork: DispatchWorkItem?
 
+    @IBAction func refreshFitcoins(_ sender: UIButton) {
+        enableRefreshWork?.cancel()
+        self.viewDidLoad()
+        self.viewDidAppear(true)
+    }
+    
+    func enableRefreshButton() {
+        self.refreshButton.isEnabled = true
+        self.refreshButton.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        enableRefreshWork?.cancel()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
+        refreshButton.isEnabled = false
+        refreshButton.isHidden = true
+        
+        enableRefreshWork = DispatchWorkItem {
+            self.enableRefreshButton()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: enableRefreshWork!)
+        
+        fitcoinsLabel.text = "-"
         currentUser = BookletController().loadUser()
         if currentUser != nil {
             let userId: String = currentUser!.userId
@@ -50,7 +69,7 @@ class DataViewController: UIViewController {
             self.getStateOfUser(userId)
         }
         else {
-            userIdLabel?.text = "Enrolling in progress. Refresh the page at a later time"
+            userIdLabel?.text = "Enrolling in progress. Go back to this page at a later time"
         }
     }
     
@@ -122,7 +141,7 @@ class DataViewController: UIViewController {
                         let userId: String? = self.currentUser!.userId
                         
                         // Send to fitchain network
-                        self.sendStepsToFitchain(userId: userId, pedometerData: pedometerData)
+                        self.sendStepsToFitchain(userId: userId, numberOfStepsToSend: pedometerData.numberOfSteps.intValue)
                     }
                 }
             } else {
@@ -131,15 +150,15 @@ class DataViewController: UIViewController {
         })
     }
     
-    private func sendStepsToFitchain(userId: String?, pedometerData: CMPedometerData) {
-        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+    private func sendStepsToFitchain(userId: String?, numberOfStepsToSend: Int) {
+        guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
         let session = URLSession.shared
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let args: [String] = [userId!, pedometerData.numberOfSteps.stringValue]
+        let args: [String] = [userId!, String(describing: numberOfStepsToSend)]
         parameters = ["type":"invoke", "queue":"user_queue","params":["userId": userId!,"fcn": "generateFitcoins", "args":args]]
         request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
         
@@ -159,11 +178,17 @@ class DataViewController: UIViewController {
                             self.sendingInProgress = false
                             
                             // Update steps that were used for conversion
-                            let stepsUsedForConversion = pedometerData.numberOfSteps as! Int - ((pedometerData.numberOfSteps as! Int) % 100)
+                            let stepsUsedForConversion = numberOfStepsToSend - (numberOfStepsToSend % 100)
                             self.totalStepsConvertedToFitcoin = stepsUsedForConversion
                             
+                            DispatchQueue.main.async {
+                                self.refreshButton.isEnabled = true
+                            }
+                            
                             // Get state of user - should update fitcoins balance
-                            self.getStateOfUser(userId!)
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+                                self.getStateOfUser(userId!)
+                            }
                         }
                     }
                 }  catch let error as NSError {
@@ -180,8 +205,8 @@ class DataViewController: UIViewController {
     
     // This should get user profile from userId
     // The request is queued
-    private func getStateOfUser(_ userId: String) {
-        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+    private func getStateOfUser(_ userId: String, failedAttempts: Int? = 0) {
+        guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -204,7 +229,7 @@ class DataViewController: UIViewController {
                         NSLog(resultId as! String) // Use this one to get blockchain payload
                         
                         // Start checking if our queued request is finished.
-                        self.requestUserResults(resultId: resultId as! String, attemptNumber: 0)
+                        self.requestUserResults(resultId: resultId as! String, attemptNumber: 0, failedAttempts: failedAttempts!)
                     }
                 }  catch let error as NSError {
                     print(error.localizedDescription)
@@ -216,10 +241,10 @@ class DataViewController: UIViewController {
         getStateOfUser.resume()
     }
     
-    private func requestUserResults(resultId: String, attemptNumber: Int) {
+    private func requestUserResults(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
         // recursive function limited to 60 attempts
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
+            guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in
@@ -231,18 +256,28 @@ class DataViewController: UIViewController {
                         let backendResult = try JSONDecoder().decode(BackendResult.self, from: data)
                         if backendResult.status == "done" {
                             print(backendResult.result!)
+                            
                             let resultOfBlockchain = try JSONDecoder().decode(ResultOfBlockchain.self, from: backendResult.result!.data(using: .utf8)!)
-                            print(resultOfBlockchain)
-                            let finalResultOfGetState = try JSONDecoder().decode(GetStateFinalResult.self, from: resultOfBlockchain.result.data(using: .utf8)!)
-                            print(finalResultOfGetState)
-                            self.fitcoinsBalanceFromBlockchain = finalResultOfGetState.fitcoinsBalance
-                            self.totalStepsConvertedToFitcoin = finalResultOfGetState.stepsUsedForConversion
-                            DispatchQueue.main.async {
-                                self.fitcoinsLabel.text = String(describing: self.fitcoinsBalanceFromBlockchain!)
+                            
+                            if resultOfBlockchain.message == "failed" || resultOfBlockchain.error != nil {
+                                if failedAttempts! < 10 {
+                                    print("getting user state failed, trying again")
+                                    self.getStateOfUser(self.currentUser!.userId, failedAttempts: failedAttempts!+1)
+                                } else {
+                                    print("10 failed attempts reached -- getStateOfUser")
+                                }
+                            } else {
+                                let finalResultOfGetState = try JSONDecoder().decode(GetStateFinalResult.self, from: resultOfBlockchain.result!.data(using: .utf8)!)
+                                print(finalResultOfGetState)
+                                self.fitcoinsBalanceFromBlockchain = finalResultOfGetState.fitcoinsBalance
+                                self.totalStepsConvertedToFitcoin = finalResultOfGetState.stepsUsedForConversion
+                                DispatchQueue.main.async {
+                                    self.fitcoinsLabel.text = String(describing: self.fitcoinsBalanceFromBlockchain!)
+                                }
                             }
                         }
                         else {
-                            let when = DispatchTime.now() + 0.5 // 3 seconds from now
+                            let when = DispatchTime.now() + 0.5 // 0.5 seconds from now
                             DispatchQueue.main.asyncAfter(deadline: when) {
                                 self.requestUserResults(resultId: resultId, attemptNumber: attemptNumber+1)
                             }

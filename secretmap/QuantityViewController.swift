@@ -8,22 +8,6 @@
 
 import UIKit
 
-struct ResultOfMakePurchase: Codable {
-    let message: String
-    let result: TransactionResult
-}
-
-struct TransactionResult: Codable {
-    let txId: String
-    let results: ResultOfTransactionResult
-}
-
-struct ResultOfTransactionResult: Codable {
-    let status: Int
-    let message: String
-    let payload: String
-}
-
 class QuantityViewController: UIViewController {
     
     var payload: Product?
@@ -120,7 +104,7 @@ class QuantityViewController: UIViewController {
     // This starts to make a contract of the purchase
     // This is queued
     private func purchaseItem() {
-        guard let url = URL(string: "http://148.100.98.53:3000/api/execute") else { return }
+        guard let url = URL(string: BlockchainGlobals.URL + "api/execute") else { return }
         let parameters: [String:Any]
         let request = NSMutableURLRequest(url: url)
         
@@ -160,7 +144,7 @@ class QuantityViewController: UIViewController {
     // After getting the user,
     private func requestTransactionResult(resultId: String, attemptNumber: Int) {
         if attemptNumber < 60 {
-            guard let url = URL(string: "http://148.100.98.53:3000/api/results/" + resultId) else { return }
+            guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
             let resultsFromBlockchain = session.dataTask(with: url) { (data, response, error) in
@@ -172,7 +156,7 @@ class QuantityViewController: UIViewController {
                         
                         if backendResult.status == "done" {
                             let resultOfMakePurchase = try JSONDecoder().decode(ResultOfMakePurchase.self, from: backendResult.result!.data(using: .utf8)!)
-                            let makePurchaseFinalResult = try JSONDecoder().decode(Contract.self, from: resultOfMakePurchase.result.results.payload.data(using: .utf8)!)
+                            let makePurchaseFinalResult = try JSONDecoder().decode(Contract.self, from: resultOfMakePurchase.result!.results.payload.data(using: .utf8)!)
                             DispatchQueue.main.async {
                                 self.transitionToContractView(payload: makePurchaseFinalResult)
                             }
