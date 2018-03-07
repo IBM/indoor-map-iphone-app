@@ -217,37 +217,22 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
         let yaxis:Int = 1455
-        var width:Int = 0
         var y1:Int = 0
         var y2:Int = 0
         var x1:Int = 0
         var x2:Int = 0
         
-        var zoneName: String = ""
-        
         let pdfRegionToHighlight = [ CGPoint(x: 0, y: 1055), CGPoint(x: 0, y: 1455), CGPoint(x: 400, y: 1455), CGPoint(x: 400, y: 1055) ]
-        
-        if let dict = notification.object as! NSDictionary? {
-            if let x_anchor = dict["x"] as? Int{
-                x1 = x_anchor
-            }
+
+        if let beacon = notification.object as! iBeacon? {
             
-            if let y_anchor = dict["y"] as? Int{
-                y1 = yaxis - y_anchor
-            }
-            
-            if let w = dict["width"] as? Int{
-                width = w
-                y2 = y1 - width
-                x2 = x1 + width
-            }
-            
-            if let name = dict["name"] as? String{
-                zoneName = name
-            }
+            x1 = beacon.x
+            y1 = yaxis - beacon.y
+            x2 = beacon.x + beacon.width
+            y2 = y1 - beacon.width
             
             let highlightZone = [CGPoint(x: x1, y: y1), CGPoint(x: x1, y: y2), CGPoint(x: x2, y: y2), CGPoint(x: x2, y: y1)]
-            
+
             self.highlightedArea = floorplan.polygonFromCustomPDFPath(highlightZone)
             self.highlightedArea.title = "beacon"
             self.highlightedArea.subtitle = "This custom region will be highlighted in Yellow!"

@@ -112,14 +112,10 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
     }
     
     private func setupPageControl() {
-//        let appearance = UIPageControl.appearance()
-//        appearance.pageIndicatorTintColor = UIColor(red:0.92, green:0.59, blue:0.53, alpha:1.0)
-//        appearance.currentPageIndicatorTintColor = UIColor(red:0.47, green:0.22, blue:0.22, alpha:1.0)
-//        appearance.backgroundColor = UIColor.white
         let pageControl = pageViewController?.view.subviews.filter{ $0 is UIPageControl }.first! as! UIPageControl
         pageControl.backgroundColor = UIColor.white
-        pageControl.pageIndicatorTintColor = UIColor(red:0.92, green:0.59, blue:0.53, alpha:1.0)
-        pageControl.currentPageIndicatorTintColor = UIColor(red:0.47, green:0.22, blue:0.22, alpha:1.0)
+        pageControl.pageIndicatorTintColor = UIColor(red:0.97, green:0.84, blue:0.88, alpha:1.0)
+        pageControl.currentPageIndicatorTintColor = UIColor(red:0.87, green:0.21, blue:0.44, alpha:1.0)
         self.view.addSubview(pageControl)
     }
     

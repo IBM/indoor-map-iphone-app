@@ -18,6 +18,19 @@ extension Notification.Name {
         rawValue: "zoneEntered")
 }
 
+struct iBeacon: Codable {
+    let zone: Int
+    let key: String
+    let value: String
+    let x: Int
+    let y: Int
+    let width: Int
+}
+
+struct iBeacons: Codable {
+    let beacons:[iBeacon]
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -96,55 +109,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func initializeBeacons(){
         
-        // https://raw.githubusercontent.com/IBM/indoor-map-iphone-app/master/secretmap/beacons.json
+        let urlString = "https://raw.githubusercontent.com/IBM/indoor-map-iphone-app/master/secretmap/beacons.json"
+        
+//        let urlString = "https://www.ibm-fitchain.com/beacons"
+        
+        guard let url = URL(string: urlString) else {
+            print("url error")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                print("No internet")
+                
+                // use booklet.json if no internet
+                self.useDefaultBeacons()
+            }
+            
+            guard let data = data else { return }
+            
+            print(data)
+            
+            do {
+                let beacons = try JSONDecoder().decode(iBeacons.self, from: data)
+                self.addBeacons(beacons: beacons)
+            } catch let jsonError {
+                print(jsonError)
+                self.useDefaultBeacons()
+            }
+        
+        }.resume()
+        
+    }
+    
+    private func useDefaultBeacons(){
         
         if let path = Bundle.main.url(forResource: "beacons", withExtension: "json") {
             
             do {
-                _ = try Data(contentsOf: path, options: .mappedIfSafe)
                 let jsonData = try Data(contentsOf: path, options: .mappedIfSafe)
-                if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? [String: AnyObject] {
-                    
-                    var count = 0
-                    
-                    if let beacons = jsonDict["beacons"] as? [[String: AnyObject]] {
-                        
-                        for beacon in beacons{
-                            
-                            print(beacon["key"] as! String)
-                            
-                            let key = beacon["key"] as! String
-                            let value = beacon["value"] as! String
-                            let zone = EPXProximityZone(range: .far, attachmentKey: key, attachmentValue: value)
-                            
-                            zone.onEnterAction = { attachment in
-                                print("entering " + key + " " + value)
-                                
-                                let id = beacon["zone"] as! Int
-                                
-                                self.sendZoneData(id: id)
-
-                                NotificationCenter.default.post( name: Notification.Name.zoneEntered, object: beacon)
-                            }
-                            
-                            zone.onExitAction = { attachment in
-                                print("exiting " + key + " " + value)
-                            }
-                            
-                            self.zones.append(zone)
-                            
-                            count = count + 1
-                        }
-                    }
-                }
+                let beacons = try JSONDecoder().decode(iBeacons.self, from: jsonData)
+            
+                self.addBeacons(beacons: beacons)
             } catch {
                 print("couldn't parse JSON data")
             }
         }
-        
-        self.proximityObserver.startObserving(self.zones)
     }
-
+    
     private func sendZoneData(id:Int) {
         guard let url = URL(string: "http://169.48.110.218/triggers/add") else { return }
         let parameters: [String:Any]
@@ -165,18 +178,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
         
         let sendEvent = session.dataTask(with: request as URLRequest) { (data, response, error) in
-            
-            if let data = data {
-                do {
-                    
-                }  catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
+//            print(error)
         }
         sendEvent.resume()
+    }
+    
+    private func addBeacon( beacon:iBeacon ){
+        
+        let zone = EPXProximityZone(range: .far, attachmentKey: beacon.key, attachmentValue: beacon.value)
+        
+        zone.onEnterAction = { attachment in
+            print("entering " + beacon.key + " " + beacon.value)
+            self.sendZoneData(id: beacon.zone)
+            NotificationCenter.default.post( name: Notification.Name.zoneEntered, object: beacon)
+        }
+        
+        zone.onExitAction = { attachment in
+            print("exiting " + beacon.key + " " + beacon.value)
+        }
+        
+        self.zones.append(zone)
+    }
+
+    private func addBeacons(beacons:iBeacons){
+        for beacon in beacons.beacons{
+            self.addBeacon(beacon: beacon)
+        }
+        
+        self.proximityObserver.startObserving(self.zones)
     }
     
     func getStartDate() -> Date{
