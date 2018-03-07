@@ -98,6 +98,9 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
         imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         imageView.contentMode = .scaleToFill
         
+        for subview in cell.myView.subviews {
+            subview.removeFromSuperview()
+        }
         cell.myView.addSubview(imageView)
         cell.myCellLabel.text = self.productsInStock![indexPath.row].name
         cell.priceLabel.text = "\(self.productsInStock![indexPath.row].price) fitcoins each"
