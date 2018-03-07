@@ -26,6 +26,7 @@ class AugmentedViewController: UIViewController {
     
     var pirate = Pirate()
     var ship = Ship()
+    var treasure = Treasure()
     var zone:Int = 0
     
     override func viewDidLoad() {
@@ -46,8 +47,8 @@ class AugmentedViewController: UIViewController {
             addPirate()
         }
         
-        if self.zone == 9{
-            addShip()
+        if self.zone == 3{
+            addTreasure()
         }
     }
     
@@ -59,16 +60,18 @@ class AugmentedViewController: UIViewController {
         pirate.loadModel()
         pirate.position = pirateStartingPosition
         pirate.scale = pirateScale
-        
-        //  pirate.rotation = SCNVector4Zero
-        //  pirate.boundingBox = scale
-        //  let box = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
-        //  let boxNode = SCNNode(geometry: box)
-        //  boxNode.position = SCNVector3(0,0,-0.5)
-        //  scene.rootNode.addChildNode(boxNode)
-        
-        //        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
+    
         sceneView.scene.rootNode.addChildNode(pirate)
+    }
+    
+    func addTreasure() {
+        
+        let pirateStartingPosition = SCNVector3(0, -2, -2)
+        
+        treasure.loadModel()
+        treasure.position = pirateStartingPosition
+        
+        sceneView.scene.rootNode.addChildNode(treasure)
     }
     
     func addShip() {

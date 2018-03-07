@@ -240,13 +240,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             self.zoned = true
             self.currentZone = beacon.zone
             
-            if( beacon.zone == 7 ){
+            if( beacon.zone == 7 || beacon.zone == 3){
  
-                /* segue to AR pirate */
+                /* segue to AR pirate or treasure */
                 
                 performSegue(withIdentifier: "augmentedSegue", sender: self)
-
-//                [self, performSegue:@"augmentedSegue" sender:self] as [Any];
             }
         }
     }
