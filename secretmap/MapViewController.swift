@@ -142,22 +142,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
          We setup a pair of anchors that will define how the floorplan image
          maps to geographic co-ordinates.
          */
-      
+        
         // anchors for thin-dev-area.pdf
         let anchor1 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.086811, -115.177325), pdfPoint: CGPoint(x: 0, y: 1454))
         let anchor2 = GeoAnchor(latitudeLongitudeCoordinate: CLLocationCoordinate2DMake(36.086811, -115.178535), pdfPoint: CGPoint(x: 2213, y: 1454))
         
         let anchorPair = GeoAnchorPair(fromAnchor: anchor1, toAnchor: anchor2)
         
-    
-        // pdf for sample backend pdf
-//        let pdfUrl = URL(string: "http://169.60.16.83:31874/svg/think.pdf")!
-        
-        // pdf for 505 Howard Building
-        // let pdfUrl = Bundle.main.url(forResource: "Building_1959_Floor_08", withExtension: "pdf", subdirectory:"Floorplans")!
-        
-        // pdf for think-dev-area-crop.pdf
-//         let pdfUrl = Bundle.main.url(forResource: "think-dev-area-crop", withExtension: "pdf", subdirectory:"Floorplans")!
+        //      let pdfUrl = Bundle.main.url(forResource: "think-dev-area-crop", withExtension: "pdf", subdirectory:"Floorplans")!
         let pdfUrl = URL(string: "http://www.ibm-fitchain.com/svg/think-dev-area.pdf")!
         
         floorplan = FloorplanOverlay(floorplanUrl: pdfUrl, withPDFBox: CGPDFBox.trimBox, andAnchors: anchorPair, forFloorLevel: 0)
@@ -169,23 +161,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // === Initialize our view
         hideBackgroundOverlayAlpha = 1.0
         
-//        // Disable tileset.
-//        mapView.add(HideBackgroundOverlay.hideBackgroundOverlay(), level: .aboveRoads)
-//
-//        /*
-//         The following are provided for debugging.
-//         In production, you'll want to comment this out.
-//         */
-        debuggingOverlays = MapViewController.createDebuggingOverlaysForMapView(mapView!, aboutFloorplan: floorplan)
-        debuggingAnnotations = MapViewController.createDebuggingAnnotationsForMapView(mapView!, aboutFloorplan: floorplan)
-//
-//        // Draw the floorplan!
+        //        // Disable tileset.
+        //        mapView.add(HideBackgroundOverlay.hideBackgroundOverlay(), level: .aboveRoads)
+        //
+        //        /*
+        //         The following are provided for debugging.
+        //         In production, you'll want to comment this out.
+        //         */
+        //        debuggingOverlays = MapViewController.createDebuggingOverlaysForMapView(mapView!, aboutFloorplan: floorplan)
+        //        debuggingAnnotations = MapViewController.createDebuggingAnnotationsForMapView(mapView!, aboutFloorplan: floorplan)
+        //
+        //        // Draw the floorplan!
         mapView.add(floorplan)
         visibleMapRegionDelegate.mapViewResetCameraToFloorplan(mapView)
-        
-        // add the annotations - DEBUGGING
-//        mapView.addAnnotations(debuggingAnnotations)
-
         
         /*
          By default, we listen to the scroll & zoom events to make sure that
@@ -206,7 +194,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
          than non-satellite view so you probably do not want to leave it this
          way in production.
          */
-//        mapView.mapType = MKMapTypeStandard
+        //        mapView.mapType = MKMapTypeStandard
     }
     
     /// Respond to CoreLocation updates
@@ -228,7 +216,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             mapView!.remove(self.highlightedArea)
         }
         
-        var yaxis:Int = 1455
+        let yaxis:Int = 1455
         var width:Int = 0
         var y1:Int = 0
         var y2:Int = 0
@@ -243,26 +231,26 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             if let x_anchor = dict["x"] as? Int{
                 x1 = x_anchor
             }
-
+            
             if let y_anchor = dict["y"] as? Int{
-                y1 = y_anchor
+                y1 = yaxis - y_anchor
             }
-
+            
             if let w = dict["width"] as? Int{
                 width = w
-                y2 = yaxis - y1 - width
+                y2 = y1 - width
                 x2 = x1 + width
             }
             
             if let name = dict["name"] as? String{
                 zoneName = name
             }
-
+            
             let highlightZone = [CGPoint(x: x1, y: y1), CGPoint(x: x1, y: y2), CGPoint(x: x2, y: y2), CGPoint(x: x2, y: y1)]
             
             self.highlightedArea = floorplan.polygonFromCustomPDFPath(highlightZone)
-            self.highlightedArea.title = zoneName
-//            self.highlightedArea.subtitle = "This custom region will be highlighted in Yellow!"
+            self.highlightedArea.title = "beacon"
+            self.highlightedArea.subtitle = "This custom region will be highlighted in Yellow!"
             mapView!.add(self.highlightedArea)
             self.zoned = true
         }
@@ -360,11 +348,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
              
              See "Creating Overlay Renderers from Your Delegate Object"
              */
-            if (polygon.title == "Hello World") {
+            if (polygon.title == "beacon") {
                 let renderer = MKPolygonRenderer(polygon: polygon)
-                renderer.fillColor = UIColor.orange.withAlphaComponent(0.5)
-                renderer.strokeColor = UIColor.orange.withAlphaComponent(0.0)
-                renderer.lineWidth = 0.0
+                
+                /* CF5F78 */
+                
+                renderer.fillColor =  UIColor(red:0.81, green:0.37, blue:0.47, alpha:0.4)
+                renderer.strokeColor = UIColor(red:0.81, green:0.37, blue:0.47, alpha:1)
+                renderer.lineWidth = 0.2
                 return renderer
             }
             
@@ -377,7 +368,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
         }
         
-        NSException(name:NSExceptionName(rawValue: "InvalidMKOverlay"), reason:"Did you add an overlay but forget to provide a matching renderer here? The class was type \(type(of: overlay))", userInfo:["wasClass": type(of: overlay)]).raise()
+        //        NSException(name:NSExceptionName(rawValue: "InvalidMKOverlay"), reason:"Did you add an overlay but forget to provide a matching renderer here? The class was type \(type(of: overlay))", userInfo:["wasClass": type(of: overlay)]).raise()
         return MKOverlayRenderer()
     }
     
