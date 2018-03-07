@@ -914,7 +914,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWE-b9-FuQ">
                                         <rect key="frame" x="0.0" y="350" width="300" height="100"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="An IBM Code Experiment" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="i3G-b5-np5">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="An IBM Code Experiment" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3G-b5-np5">
                                                 <rect key="frame" x="50" y="0.0" width="200" height="100"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>

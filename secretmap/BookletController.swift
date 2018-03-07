@@ -98,7 +98,6 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
         
         let pageController = self.storyboard!.instantiateViewController(withIdentifier: "booklet") as! UIPageViewController
         pageController.dataSource = self
-        
         if self.pageCount > 0 {
             let firstController = getItemController(itemIndex: 0)!
             let startingViewControllers = [firstController]
@@ -106,16 +105,22 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
         }
         
         pageViewController = pageController
+        pageViewController?.view.frame = CGRect(x: 0,y: 0,width: self.view.frame.width,height: self.view.frame.size.height)
         addChildViewController(pageViewController!)
         self.view.addSubview(pageViewController!.view)
         pageViewController!.didMove(toParentViewController: self)
     }
     
     private func setupPageControl() {
-        let appearance = UIPageControl.appearance()
-        appearance.pageIndicatorTintColor = UIColor(red:0.92, green:0.59, blue:0.53, alpha:1.0)
-        appearance.currentPageIndicatorTintColor = UIColor(red:0.47, green:0.22, blue:0.22, alpha:1.0)
-        appearance.backgroundColor = UIColor.white
+//        let appearance = UIPageControl.appearance()
+//        appearance.pageIndicatorTintColor = UIColor(red:0.92, green:0.59, blue:0.53, alpha:1.0)
+//        appearance.currentPageIndicatorTintColor = UIColor(red:0.47, green:0.22, blue:0.22, alpha:1.0)
+//        appearance.backgroundColor = UIColor.white
+        let pageControl = pageViewController?.view.subviews.filter{ $0 is UIPageControl }.first! as! UIPageControl
+        pageControl.backgroundColor = UIColor.white
+        pageControl.pageIndicatorTintColor = UIColor(red:0.92, green:0.59, blue:0.53, alpha:1.0)
+        pageControl.currentPageIndicatorTintColor = UIColor(red:0.47, green:0.22, blue:0.22, alpha:1.0)
+        self.view.addSubview(pageControl)
     }
     
     // MARK: - UIPageViewControllerDataSource
