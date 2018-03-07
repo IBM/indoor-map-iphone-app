@@ -96,6 +96,7 @@ class VisibleMapRegionDelegate: NSObject {
         newCamera.centerCoordinate = center
         // ...and rotate so the floorplan is upright.
         newCamera.heading = heading
+        newCamera.altitude = 150
         
         mapView.setCamera(newCamera, animated: true)
     }
