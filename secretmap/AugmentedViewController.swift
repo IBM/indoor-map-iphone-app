@@ -20,18 +20,35 @@ class AugmentedViewController: UIViewController {
     
     @IBOutlet weak var sceneView: ARSCNView!
     
+    @IBAction func back(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     var pirate = Pirate()
     var ship = Ship()
+    var zone:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let themeColor = UIColor.init(red: 0.16078431372549018, green:0.66666666666666663, blue: 0.76078431372549016, alpha:1 )
+        let statusBar = UIView(frame: CGRect(x:0, y:0, width:view.frame.width, height:UIApplication.shared.statusBarFrame.height))
+        statusBar.backgroundColor = themeColor
+        statusBar.tintColor = themeColor
+        view.addSubview(statusBar)
         setupScene()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupConfiguration()
-        addPirate()
+        
+        if self.zone == 7{
+            addPirate()
+        }
+        
+        if self.zone == 9{
+            addShip()
+        }
     }
     
     func addPirate() {

@@ -64,6 +64,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     var zoned: Bool = false
     
+    var currentZone:Int = 0
+    
     /**
      Set to false if you want to turn off auto-scroll & auto-zoom that snaps
      to the floorplan in case you scroll or zoom too far away.
@@ -222,8 +224,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         var x1:Int = 0
         var x2:Int = 0
         
-        let pdfRegionToHighlight = [ CGPoint(x: 0, y: 1055), CGPoint(x: 0, y: 1455), CGPoint(x: 400, y: 1455), CGPoint(x: 400, y: 1055) ]
-
         if let beacon = notification.object as! iBeacon? {
             
             x1 = beacon.x
@@ -235,9 +235,28 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
             self.highlightedArea = floorplan.polygonFromCustomPDFPath(highlightZone)
             self.highlightedArea.title = "beacon"
-            self.highlightedArea.subtitle = "This custom region will be highlighted in Yellow!"
+            self.highlightedArea.subtitle = "This custom region will be highlighted in pink!"
             mapView!.add(self.highlightedArea)
             self.zoned = true
+            self.currentZone = beacon.zone
+            
+            if( beacon.zone == 7 ){
+ 
+                /* segue to AR pirate */
+                
+                performSegue(withIdentifier: "augmentedSegue", sender: self)
+
+//                [self, performSegue:@"augmentedSegue" sender:self] as [Any];
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "augmentedSegue"
+        {
+            if let augmented = segue.destination as? AugmentedViewController {
+                augmented.zone = self.currentZone
+            }
         }
     }
     
