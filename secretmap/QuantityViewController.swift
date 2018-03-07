@@ -74,7 +74,7 @@ class QuantityViewController: UIViewController {
         statusBar.tintColor = themeColor
         view.addSubview(statusBar)
         
-        if payload?.productid == "shirt-1234" {
+        if payload?.productid == "think-shirt" || payload?.productid == "think-bandana" {
             stepper.maximumValue = 2
         }
         else if payload?.productid == "eye-sticker" || payload?.productid == "em-sticker" || payload?.productid == "bee-sticker" {
