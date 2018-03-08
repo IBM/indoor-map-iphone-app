@@ -17,7 +17,7 @@ struct Article: Codable {
     let imageEncoded:String
     let subtext:String
     let description: String
-    let link: String
+//    let link: String
 }
 
 class BookletController: UIViewController, UIPageViewControllerDataSource {
@@ -40,7 +40,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
             self.enrollUser()
         }
         
-        let urlString = "https://www.test.com/pages"
+        let urlString = "https://www.ibm-fitchain.com/pages"
         guard let url = URL(string: urlString) else {
             print("url error")
             return
@@ -154,7 +154,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
             pageItemController.image = self.base64ToImage(base64: self.pages![itemIndex].imageEncoded)
             pageItemController.subtextString = self.pages![itemIndex].subtext
             pageItemController.statementString = self.pages![itemIndex].description
-            pageItemController.link = self.pages![itemIndex].link
+//            pageItemController.link = self.pages![itemIndex].link
             
             return pageItemController
         }

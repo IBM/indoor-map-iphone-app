@@ -82,6 +82,6 @@ class BookletItemController: UIViewController {
         subtitleView!.text = subTitleString
         subtextView!.text = subtextString
         statement?.text = statementString
-        link = linkString
+//        link = linkString
     }
 }
