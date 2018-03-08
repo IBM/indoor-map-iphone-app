@@ -206,7 +206,7 @@ class DataViewController: UIViewController {
     }
     
     private func sendStepsToMongo(userId: String?, numberOfStepsToSend: Int) {
-        guard let url = URL(string: BlockchainGlobals.URL + "registerees/update/" + userId! + "/step/" + String(describing: numberOfStepsToSend)) else { return }
+        guard let url = URL(string: BlockchainGlobals.URL + "registerees/update/" + userId! + "/steps/" + String(describing: numberOfStepsToSend)) else { return }
         let request = NSMutableURLRequest(url: url)
         
         let session = URLSession.shared
