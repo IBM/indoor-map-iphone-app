@@ -15,9 +15,18 @@ class BookletItemController: UIViewController {
     @IBOutlet var subtitleView: UILabel?
     @IBOutlet var statement: UITextView?
     @IBOutlet var subtextView: UILabel?
+
+    @IBAction func openLink(_ sender: UIButton) {
+        
+         performSegue(withIdentifier: "webkitSegue", sender: self)
+        
+        // yourWebView.loadRequest(URLRequest(url: URL(string: self.link)!))
+    }
     
     // MARK: - Variables
     var itemIndex: Int = 0
+    
+    var link:String = ""
     
     var image: UIImage = UIImage() {
         didSet {
@@ -59,6 +68,12 @@ class BookletItemController: UIViewController {
         }
     }
     
+    var linkString: String = "" {
+        didSet {
+            link = linkString
+        }
+    }
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,5 +82,6 @@ class BookletItemController: UIViewController {
         subtitleView!.text = subTitleString
         subtextView!.text = subtextString
         statement?.text = statementString
+        link = linkString
     }
 }

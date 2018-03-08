@@ -75,6 +75,13 @@ class DataViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let themeColor = UIColor.init(red: 0.16078431372549018, green:0.66666666666666663, blue: 0.76078431372549016, alpha:1 )
+        let statusBar = UIView(frame: CGRect(x:0, y:0, width:view.frame.width, height:UIApplication.shared.statusBarFrame.height))
+        statusBar.backgroundColor = themeColor
+        statusBar.tintColor = themeColor
+        view.addSubview(statusBar)
+        
         self.getStepData()
         self.liveUpdateStepData()
     }
