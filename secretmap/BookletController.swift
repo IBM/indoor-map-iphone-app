@@ -17,7 +17,7 @@ struct Article: Codable {
     let imageEncoded:String
     let subtext:String
     let description: String
-//    let link: String
+    let link: String
 }
 
 class BookletController: UIViewController, UIPageViewControllerDataSource {
@@ -189,7 +189,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
             pageItemController.image = self.base64ToImage(base64: self.pages![itemIndex].imageEncoded)
             pageItemController.subtextString = self.pages![itemIndex].subtext
             pageItemController.statementString = self.pages![itemIndex].description
-//            pageItemController.link = self.pages![itemIndex].link
+            pageItemController.linkString = self.pages![itemIndex].link
             
             return pageItemController
         }

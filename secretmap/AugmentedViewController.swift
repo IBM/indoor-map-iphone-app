@@ -66,10 +66,11 @@ class AugmentedViewController: UIViewController {
     
     func addTreasure() {
         
-        let pirateStartingPosition = SCNVector3(0, -2, -2)
-        
+        let treasureStartingPosition = SCNVector3(0, -2, -2)
+        let treasureScale = SCNVector3(2,2,2)
         treasure.loadModel()
-        treasure.position = pirateStartingPosition
+        treasure.position = treasureStartingPosition
+        treasure.scale = treasureScale
         
         sceneView.scene.rootNode.addChildNode(treasure)
     }

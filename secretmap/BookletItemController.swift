@@ -17,10 +17,18 @@ class BookletItemController: UIViewController {
     @IBOutlet var subtextView: UILabel?
 
     @IBAction func openLink(_ sender: UIButton) {
-        
          performSegue(withIdentifier: "webkitSegue", sender: self)
-        
-        // yourWebView.loadRequest(URLRequest(url: URL(string: self.link)!))
+    }
+    
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "webkitSegue"
+        {
+            if let navController = segue.destination as? UINavigationController {
+                let webview = navController.topViewController as! WebViewController
+                webview.link = self.link
+            }
+        }
     }
     
     // MARK: - Variables
@@ -82,6 +90,6 @@ class BookletItemController: UIViewController {
         subtitleView!.text = subTitleString
         subtextView!.text = subtextString
         statement?.text = statementString
-//        link = linkString
+        link = linkString
     }
 }

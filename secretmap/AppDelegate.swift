@@ -58,6 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().barTintColor = UIColor(red:0.90, green:0.96, blue:0.98, alpha:1.0)
         UITabBar.appearance().tintColor = UIColor(red:0.12, green:0.38, blue:0.67, alpha:1.0)
         
+        
+        UINavigationBar.appearance().barTintColor = UIColor.init(red: 0.16078431372549018, green:0.66666666666666663, blue: 0.76078431372549016, alpha:1 )
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        
         self.initializeData()
         self.intializeBeaconCloud()
         

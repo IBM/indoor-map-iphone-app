@@ -980,10 +980,10 @@
                                         <rect key="frame" x="0.0" y="400" width="300" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MaJ-lu-rHr">
-                                                <rect key="frame" x="70" y="11.5" width="160" height="27"/>
+                                                <rect key="frame" x="85" y="11.5" width="130" height="27"/>
                                                 <color key="backgroundColor" red="0.85098039215686272" green="0.17254901960784313" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="160" id="ABZ-h3-Fw1"/>
+                                                    <constraint firstAttribute="width" constant="130" id="ABZ-h3-Fw1"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                                                 <state key="normal" title="Learn more ...">
@@ -1021,31 +1021,23 @@
                         <outlet property="subtextView" destination="0da-IG-raE" id="aUf-qW-MXN"/>
                         <outlet property="subtitleView" destination="w9t-Xm-Xnh" id="mej-Z7-E94"/>
                         <outlet property="view" destination="FtQ-AS-qUF" id="9A9-0a-0nY"/>
-                        <segue destination="PSp-hq-Un9" kind="show" identifier="webkitSegue" id="qF9-XA-rNb"/>
+                        <segue destination="Nb8-fs-NRy" kind="show" identifier="webkitSegue" id="bqw-xH-vM8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ae-rb-llf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1461.5999999999999" y="962.96851574212906"/>
         </scene>
-        <!--View Controller-->
+        <!--IBM Code Resources-->
         <scene sceneID="Exc-aO-SCa">
             <objects>
-                <viewController id="PSp-hq-Un9" sceneMemberID="viewController">
+                <viewController id="PSp-hq-Un9" customClass="WebViewController" customModule="secretmap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jXd-bX-thE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgQ-zI-hO0">
-                                <rect key="frame" x="0.0" y="-1" width="375" height="668"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
                             <navigationBar contentMode="scaleToFill" ambiguous="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0H-YI-Xrj">
-                                <rect key="frame" x="0.0" y="-45" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="-205" width="375" height="44"/>
                                 <color key="backgroundColor" red="0.90980392160000001" green="0.5450980392" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="barTintColor" red="0.16078431369999999" green="0.66666666669999997" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
@@ -1062,22 +1054,58 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <wkWebView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kgQ-zI-hO0">
+                                <rect key="frame" x="0.0" y="44" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="kgQ-zI-hO0" firstAttribute="leading" secondItem="c3A-5a-ftY" secondAttribute="leading" id="Muh-Aa-tu6"/>
+                            <constraint firstItem="kgQ-zI-hO0" firstAttribute="trailing" secondItem="c3A-5a-ftY" secondAttribute="trailing" id="Wfz-W4-uzi"/>
                             <constraint firstItem="kgQ-zI-hO0" firstAttribute="centerY" secondItem="jXd-bX-thE" secondAttribute="centerY" id="aql-wM-xBk"/>
+                            <constraint firstItem="kgQ-zI-hO0" firstAttribute="top" secondItem="T0H-YI-Xrj" secondAttribute="bottom" constant="161" id="cij-Hy-RTh"/>
                             <constraint firstItem="kgQ-zI-hO0" firstAttribute="centerX" secondItem="jXd-bX-thE" secondAttribute="centerX" id="owa-hS-c6L"/>
-                            <constraint firstItem="c3A-5a-ftY" firstAttribute="trailing" secondItem="kgQ-zI-hO0" secondAttribute="trailing" id="t5o-T0-GBT"/>
-                            <constraint firstItem="c3A-5a-ftY" firstAttribute="bottom" secondItem="kgQ-zI-hO0" secondAttribute="bottom" id="wcr-hn-cyU"/>
-                            <constraint firstItem="kgQ-zI-hO0" firstAttribute="top" secondItem="T0H-YI-Xrj" secondAttribute="bottom" id="ygt-R9-zzm"/>
+                            <constraint firstAttribute="bottom" secondItem="kgQ-zI-hO0" secondAttribute="bottom" id="vZt-mT-hdM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="c3A-5a-ftY"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="IBM Code Resources" id="Coq-TF-F6G">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="umX-0P-mIr">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="back:" destination="PSp-hq-Un9" id="qdF-4J-Ll8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="webView" destination="kgQ-zI-hO0" id="wu9-6Y-IKb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wcu-BR-uBg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2385" y="1729"/>
+            <point key="canvasLocation" x="2759" y="1757"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dLH-t3-VBW">
+            <objects>
+                <navigationController id="Nb8-fs-NRy" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xXt-dK-I51">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="PSp-hq-Un9" kind="relationship" relationship="rootViewController" id="GBZ-2Q-lPD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BXP-FR-Gu3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2014" y="1757"/>
         </scene>
         <!--Orders View Controller-->
         <scene sceneID="kF3-OE-Nba">
