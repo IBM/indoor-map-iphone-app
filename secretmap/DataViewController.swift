@@ -69,7 +69,7 @@ class DataViewController: UIViewController {
             self.getStateOfUser(userId)
         }
         else {
-            userIdLabel?.text = "Enrolling in progress. Go back to this page at a later time"
+            userIdLabel?.text = "You are not enrolled in the Blockchain network."
         }
     }
     
@@ -142,6 +142,8 @@ class DataViewController: UIViewController {
                         
                         // Send to fitchain network
                         self.sendStepsToFitchain(userId: userId, numberOfStepsToSend: pedometerData.numberOfSteps.intValue)
+                        // Send to Mongo for the dashboard
+                        self.sendStepsToMongo(userId: userId, numberOfStepsToSend: pedometerData.numberOfSteps.intValue)
                     }
                 }
             } else {
@@ -201,6 +203,28 @@ class DataViewController: UIViewController {
             }
         }
         sendStepsToBlockchain.resume()
+    }
+    
+    private func sendStepsToMongo(userId: String?, numberOfStepsToSend: Int) {
+        guard let url = URL(string: BlockchainGlobals.URL + "registerees/update/" + userId! + "/step/" + String(describing: numberOfStepsToSend)) else { return }
+        let request = NSMutableURLRequest(url: url)
+        
+        let session = URLSession.shared
+        request.httpMethod = "POST"
+        
+        let sendToMongo = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            if let data = data {
+                do {
+                    
+                }  catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        sendToMongo.resume()
     }
     
     // This should get user profile from userId

@@ -22,6 +22,10 @@ struct GetStateFinalResult: Codable {
     let totalSteps: Int
 }
 
+struct NumberOfUsers: Codable {
+    let count: Int?
+}
+
 struct ResultOfMakePurchase: Codable {
     let message: String
     let result: TransactionResult?
