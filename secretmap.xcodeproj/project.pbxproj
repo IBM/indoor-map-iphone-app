@@ -55,6 +55,10 @@
 		A2908D941FE2BEE200A0E9BE /* secretmapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D931FE2BEE200A0E9BE /* secretmapUITests.swift */; };
 		A29553EB204C3963000AD5D5 /* beacons.json in Resources */ = {isa = PBXBuildFile; fileRef = A29553EA204C3963000AD5D5 /* beacons.json */; };
 		A2E815A31FE876A000EC6F2A /* BookletController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E815A21FE876A000EC6F2A /* BookletController.swift */; };
+		A2F904F42051E242008E1FFA /* Treasure.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F904F02051E242008E1FFA /* Treasure.swift */; };
+		A2F904F52051E242008E1FFA /* Treasure.scn in Resources */ = {isa = PBXBuildFile; fileRef = A2F904F12051E242008E1FFA /* Treasure.scn */; };
+		A2F904F62051E242008E1FFA /* Treasure.mtl in Resources */ = {isa = PBXBuildFile; fileRef = A2F904F22051E242008E1FFA /* Treasure.mtl */; };
+		A2F904F72051E242008E1FFA /* Treasure.obj in Resources */ = {isa = PBXBuildFile; fileRef = A2F904F32051E242008E1FFA /* Treasure.obj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +145,10 @@
 		A2908D951FE2BEE200A0E9BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A29553EA204C3963000AD5D5 /* beacons.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = beacons.json; sourceTree = "<group>"; };
 		A2E815A21FE876A000EC6F2A /* BookletController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookletController.swift; sourceTree = "<group>"; };
+		A2F904F02051E242008E1FFA /* Treasure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Treasure.swift; sourceTree = "<group>"; };
+		A2F904F12051E242008E1FFA /* Treasure.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Treasure.scn; sourceTree = "<group>"; };
+		A2F904F22051E242008E1FFA /* Treasure.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Treasure.mtl; sourceTree = "<group>"; };
+		A2F904F32051E242008E1FFA /* Treasure.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Treasure.obj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +213,10 @@
 		A2337ACB203616A300C0ECFF /* objects */ = {
 			isa = PBXGroup;
 			children = (
+				A2F904F22051E242008E1FFA /* Treasure.mtl */,
+				A2F904F32051E242008E1FFA /* Treasure.obj */,
+				A2F904F12051E242008E1FFA /* Treasure.scn */,
+				A2F904F02051E242008E1FFA /* Treasure.swift */,
 				A2337AD2203616D900C0ECFF /* Pirate.mtl */,
 				A2337AD0203616D200C0ECFF /* Pirate.obj */,
 				A2337ACE203616CD00C0ECFF /* Pirate.scn */,
@@ -425,16 +437,19 @@
 				A2337AD1203616D200C0ECFF /* Pirate.obj in Resources */,
 				A23754E82006E3E200409B20 /* Floorplans in Resources */,
 				A2908D7E1FE2BEE200A0E9BE /* LaunchScreen.storyboard in Resources */,
+				A2F904F72051E242008E1FFA /* Treasure.obj in Resources */,
 				A26F96272028B6EE004247D5 /* footprint@2x.png in Resources */,
 				A2337ACF203616CD00C0ECFF /* Pirate.scn in Resources */,
 				A2234E231FF899AC002B8244 /* glasses.png in Resources */,
 				A26F96292028B6F5004247D5 /* distance@2x.png in Resources */,
 				A2321A7820377DD900E34DA7 /* Ship.mtl in Resources */,
+				A2F904F52051E242008E1FFA /* Treasure.scn in Resources */,
 				A2337AD3203616D900C0ECFF /* Pirate.mtl in Resources */,
 				A29553EB204C3963000AD5D5 /* beacons.json in Resources */,
 				A23754D32006A35C00409B20 /* compass.png in Resources */,
 				A2321A7920377DD900E34DA7 /* Ship.obj in Resources */,
 				A23754D52006A36C00409B20 /* anctor-tab.png in Resources */,
+				A2F904F62051E242008E1FFA /* Treasure.mtl in Resources */,
 				A2908D7B1FE2BEE200A0E9BE /* Assets.xcassets in Resources */,
 				A2234E251FF99B84002B8244 /* footprint-tab.png in Resources */,
 				A2234E191FF5B108002B8244 /* booklet.json in Resources */,
@@ -520,6 +535,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2F904F42051E242008E1FFA /* Treasure.swift in Sources */,
 				A2908D761FE2BEE200A0E9BE /* DataViewController.swift in Sources */,
 				A21B5EF7202374890087ADB6 /* secretmap.xcdatamodeld in Sources */,
 				A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */,
