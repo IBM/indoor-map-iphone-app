@@ -37,7 +37,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
             blockchainUser = existingUserId
         }
         else {
-            self.enrollUser()
+            self.getNumberOfRegisteredUsers(limit: 1000)
         }
         
         let urlString = "https://www.ibm-fitchain.com/pages"
@@ -93,6 +93,41 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
                 print("couldn't parse JSON Data")
             }
         }
+    }
+    
+    private func getNumberOfRegisteredUsers(limit: Int) {
+        
+        let urlString = BlockchainGlobals.URL + "registerees/totalUsers"
+        guard let url = URL(string: urlString) else {
+            print("url error")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                print("No internet")
+            }
+            
+            guard let data = data else { return }
+            
+            do {
+                let numberOfUsers = try JSONDecoder().decode(NumberOfUsers.self, from: data)
+                
+                print(numberOfUsers)
+                
+                if numberOfUsers.count! < limit {
+                    print("number of users not yet reached")
+                    self.enrollUser()
+                }
+                else {
+                    print("number of users reached")
+                }
+                
+            } catch let jsonError {
+                print(jsonError)
+            }
+        }.resume()
     }
     
     private func createPageViewController() {
@@ -257,6 +292,7 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
                             let alert = UIAlertController(title: "Enrollment successful!", message: "You have been enrolled to the blockchain network. Your User ID is:\n\n\(resultOfEnroll.result!.user)", preferredStyle: UIAlertControllerStyle.alert)
                             alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: nil))
                             self.present(alert, animated: true, completion: nil)
+                            self.sendToMongo(resultOfEnroll.result!.user)
                         }
                         else {
                             let when = DispatchTime.now() + 3 // 3 seconds from now
@@ -289,6 +325,32 @@ class BookletController: UIViewController, UIPageViewControllerDataSource {
         } else {
             print("Failed to save user...")
         }
+    }
+    
+    // Save User to cloud
+    
+    private func sendToMongo(_ userId: String) {
+        guard let url = URL(string: BlockchainGlobals.URL + "registerees/add") else { return }
+        let parameters: [String:Any]
+        let request = NSMutableURLRequest(url: url)
+        
+        let session = URLSession.shared
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        parameters = ["registereeId": userId, "steps":0, "calories":0]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
+        
+        let saveAsRegisteree = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            if let _ = data {
+                do {
+                    
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        saveAsRegisteree.resume()
     }
     
     // Load User
