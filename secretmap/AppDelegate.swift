@@ -190,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func addBeacon( beacon:iBeacon ){
         
-        let zone = EPXProximityZone(range: .far, attachmentKey: beacon.key, attachmentValue: beacon.value)
+        let zone = EPXProximityZone(range: EPXProximityRange(desiredMeanTriggerDistance: 10.0)!, attachmentKey: beacon.key, attachmentValue: beacon.value)
         
         zone.onEnterAction = { attachment in
             print("entering " + beacon.key + " " + beacon.value)
