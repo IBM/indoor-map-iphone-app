@@ -417,9 +417,8 @@
                                     <action selector="refreshFitcoins:" destination="zKh-1a-vyv" eventType="primaryActionTriggered" id="AH3-yz-70W"/>
                                 </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxe-t0-6sn">
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxe-t0-6sn">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.90980392160000001" green="0.5450980392" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="barTintColor" red="0.16078431369999999" green="0.66666666669999997" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
@@ -434,9 +433,12 @@
                         <constraints>
                             <constraint firstItem="iDZ-I1-Efj" firstAttribute="centerX" secondItem="8ZS-go-TKr" secondAttribute="centerX" id="0nG-In-1RZ"/>
                             <constraint firstItem="8pp-yo-Rxi" firstAttribute="centerY" secondItem="yy8-Uj-HUQ" secondAttribute="centerY" id="6YN-p7-WCJ"/>
+                            <constraint firstItem="vxe-t0-6sn" firstAttribute="top" secondItem="8ZS-go-TKr" secondAttribute="top" id="H1s-Ye-lod"/>
                             <constraint firstItem="8ZS-go-TKr" firstAttribute="bottom" secondItem="iDZ-I1-Efj" secondAttribute="bottom" constant="23" id="dOZ-uH-yFG"/>
+                            <constraint firstItem="vxe-t0-6sn" firstAttribute="width" secondItem="yy8-Uj-HUQ" secondAttribute="width" id="hBI-22-xVN"/>
                             <constraint firstItem="iDZ-I1-Efj" firstAttribute="top" secondItem="jO7-rh-K24" secondAttribute="bottom" constant="8" id="tnb-tg-LCG"/>
                             <constraint firstItem="8pp-yo-Rxi" firstAttribute="centerX" secondItem="yy8-Uj-HUQ" secondAttribute="centerX" id="twB-Yy-pLJ"/>
+                            <constraint firstItem="vxe-t0-6sn" firstAttribute="centerX" secondItem="8ZS-go-TKr" secondAttribute="centerX" id="v5k-u0-Fw3"/>
                             <constraint firstItem="jO7-rh-K24" firstAttribute="centerX" secondItem="8ZS-go-TKr" secondAttribute="centerX" id="yHu-Df-YfB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8ZS-go-TKr"/>
