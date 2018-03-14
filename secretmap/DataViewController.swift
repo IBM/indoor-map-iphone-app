@@ -116,7 +116,7 @@ class DataViewController: UIViewController {
                         DispatchQueue.main.async {
                             self?.stepsCountLabel.text = String(describing: pedometerData.numberOfSteps)
                             let distanceInKilometers: Double = (pedometerData.distance?.doubleValue)! / 1000.00
-                            self?.distanceLabel.text = String(describing: distanceInKilometers)
+                            self?.distanceLabel.text = String(format: "%.2f", distanceInKilometers)
                         }
                     }
                 }
@@ -130,7 +130,7 @@ class DataViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.stepsCountLabel.text = String(describing: pedometerData.numberOfSteps)
                     let distanceInKilometers: Double = (pedometerData.distance?.doubleValue)! / 1000.00
-                    self.distanceLabel.text = String(describing: distanceInKilometers)
+                    self.distanceLabel.text = String(format: "%.2f", distanceInKilometers)
                 }
                 
                 // If nothing is sending yet
