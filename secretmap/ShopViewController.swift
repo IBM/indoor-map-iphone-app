@@ -187,8 +187,8 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // It should update the view with the products
     // NOTE: will update to use a table view instead
     private func requestProductsForSaleResults(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
-        // recursive function limited to 60 attempts
-        if attemptNumber < 60 {
+        // recursive function limited to 90 attempts - total of 90 seconds
+        if attemptNumber < 90 {
             guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
@@ -291,8 +291,8 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This should start pinging the backend for the actual result from the blockchain
     // It should update the current number of fitcoins of the user
     private func requestUserState(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
-        // recursive function limited to 60 attempts
-        if attemptNumber < 60 {
+        // recursive function limited to 180 attempts - total of 90 seconds
+        if attemptNumber < 180 {
             guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
@@ -388,7 +388,7 @@ class ShopViewController: UIViewController, UITableViewDelegate, UITableViewData
     // pending charges is just a sum of the total price of each pending contract
     private func requestUserContracts(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
         // recursive function limited to 60 attempts
-        if attemptNumber < 60 {
+        if attemptNumber < 180 {
             guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
