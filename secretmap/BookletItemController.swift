@@ -25,7 +25,7 @@ class BookletItemController: UIViewController {
         if segue.identifier == "webkitSegue"
         {
             if let navController = segue.destination as? UINavigationController {
-                let webview = navController.topViewController as! WebViewController
+                let webview = navController.topViewController as! AssetViewController
                 webview.link = self.link
             }
         }

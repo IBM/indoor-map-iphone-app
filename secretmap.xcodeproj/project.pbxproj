@@ -55,11 +55,11 @@
 		A2908D941FE2BEE200A0E9BE /* secretmapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2908D931FE2BEE200A0E9BE /* secretmapUITests.swift */; };
 		A29553EB204C3963000AD5D5 /* beacons.json in Resources */ = {isa = PBXBuildFile; fileRef = A29553EA204C3963000AD5D5 /* beacons.json */; };
 		A2E815A31FE876A000EC6F2A /* BookletController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E815A21FE876A000EC6F2A /* BookletController.swift */; };
+		A2F099EE2059C9CD006AAABE /* AssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F099ED2059C9CD006AAABE /* AssetViewController.swift */; };
 		A2F904F42051E242008E1FFA /* Treasure.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F904F02051E242008E1FFA /* Treasure.swift */; };
 		A2F904FE2051E2D5008E1FFA /* Treasure.obj in Resources */ = {isa = PBXBuildFile; fileRef = A2F904FC2051E2D5008E1FFA /* Treasure.obj */; };
 		A2F904FF2051E2D5008E1FFA /* Treasure.mtl in Resources */ = {isa = PBXBuildFile; fileRef = A2F904FD2051E2D5008E1FFA /* Treasure.mtl */; };
 		A2F905012051E2F8008E1FFA /* Treasure.scn in Resources */ = {isa = PBXBuildFile; fileRef = A2F905002051E2F8008E1FFA /* Treasure.scn */; };
-		A2F905032051E422008E1FFA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F905022051E422008E1FFA /* WebViewController.swift */; };
 		A2F905052051E64E008E1FFA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2F905042051E64E008E1FFA /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -147,11 +147,11 @@
 		A2908D951FE2BEE200A0E9BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A29553EA204C3963000AD5D5 /* beacons.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = beacons.json; sourceTree = "<group>"; };
 		A2E815A21FE876A000EC6F2A /* BookletController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookletController.swift; sourceTree = "<group>"; };
+		A2F099ED2059C9CD006AAABE /* AssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewController.swift; sourceTree = "<group>"; };
 		A2F904F02051E242008E1FFA /* Treasure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Treasure.swift; sourceTree = "<group>"; };
 		A2F904FC2051E2D5008E1FFA /* Treasure.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Treasure.obj; sourceTree = "<group>"; };
 		A2F904FD2051E2D5008E1FFA /* Treasure.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Treasure.mtl; sourceTree = "<group>"; };
 		A2F905002051E2F8008E1FFA /* Treasure.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Treasure.scn; sourceTree = "<group>"; };
-		A2F905022051E422008E1FFA /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebViewController.swift; path = "../../indoor-map-iphone-app-old/secretmap/WebViewController.swift"; sourceTree = "<group>"; };
 		A2F905042051E64E008E1FFA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -277,7 +277,6 @@
 				A21B5EF5202374890087ADB6 /* secretmap.xcdatamodeld */,
 				A2908D731FE2BEE200A0E9BE /* MapViewController.swift */,
 				A2908D751FE2BEE200A0E9BE /* DataViewController.swift */,
-				A2F905022051E422008E1FFA /* WebViewController.swift */,
 				A2908D771FE2BEE200A0E9BE /* Main.storyboard */,
 				9278B40920461CE800D83B4D /* OrderTableViewCell.swift */,
 				92CE166A203F8BF8002B628C /* ProductTableViewCell.swift */,
@@ -303,6 +302,7 @@
 				A28E57CB201659A200CE4C58 /* HealthKitManager.swift */,
 				A26F962420275B5F004247D5 /* AugmentedViewController.swift */,
 				A29553EA204C3963000AD5D5 /* beacons.json */,
+				A2F099ED2059C9CD006AAABE /* AssetViewController.swift */,
 			);
 			path = secretmap;
 			sourceTree = "<group>";
@@ -546,13 +546,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2F904F42051E242008E1FFA /* Treasure.swift in Sources */,
-				A2F905032051E422008E1FFA /* WebViewController.swift in Sources */,
 				A2908D761FE2BEE200A0E9BE /* DataViewController.swift in Sources */,
 				A21B5EF7202374890087ADB6 /* secretmap.xcdatamodeld in Sources */,
 				A2908D721FE2BEE200A0E9BE /* AppDelegate.swift in Sources */,
 				A23754D72006D80B00409B20 /* MKMapRectRotated.swift in Sources */,
 				922D72902036990500A345A1 /* ShopViewController.swift in Sources */,
 				A26F962520275B5F004247D5 /* AugmentedViewController.swift in Sources */,
+				A2F099EE2059C9CD006AAABE /* AssetViewController.swift in Sources */,
 				A23754E12006DA6E00409B20 /* FloorplanOverlay.swift in Sources */,
 				A23754E32006DA8E00409B20 /* CoordinateConverter.swift in Sources */,
 				A2234E0D1FF4220B002B8244 /* BookletItemController.swift in Sources */,

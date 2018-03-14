@@ -1033,7 +1033,7 @@
         <!--IBM Code Resources-->
         <scene sceneID="Exc-aO-SCa">
             <objects>
-                <viewController id="PSp-hq-Un9" customClass="WebViewController" customModule="secretmap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="PSp-hq-Un9" customClass="AssetViewController" customModule="secretmap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jXd-bX-thE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1086,6 +1086,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="view" destination="kgQ-zI-hO0" id="lcP-lP-7ct"/>
                         <outlet property="webView" destination="kgQ-zI-hO0" id="wu9-6Y-IKb"/>
                     </connections>
                 </viewController>
