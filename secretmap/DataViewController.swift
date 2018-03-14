@@ -273,8 +273,8 @@ class DataViewController: UIViewController {
     }
     
     private func requestUserResults(resultId: String, attemptNumber: Int, failedAttempts: Int? = 0) {
-        // recursive function limited to 60 attempts
-        if attemptNumber < 60 {
+        // recursive function limited to 180 attempts - total of 90 seconds
+        if attemptNumber < 180 {
             guard let url = URL(string: BlockchainGlobals.URL + "api/results/" + resultId) else { return }
             
             let session = URLSession.shared
